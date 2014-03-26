@@ -1,4 +1,0 @@
-sparql
-======
-
-Sparql Interpreter
