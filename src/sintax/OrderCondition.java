@@ -1,12 +1,6 @@
 package sintax; 
-import lexic.Alex;
 
-public class OrderCondition extends Analizer{
-	
-	public OrderCondition(Alex alex){
-		this.alex = alex;
-	}
-
+public class OrderCondition extends Production{
 	public boolean analize(){
 		return true;
 	}

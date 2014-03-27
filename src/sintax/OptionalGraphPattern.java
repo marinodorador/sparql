@@ -1,11 +1,7 @@
 package sintax; 
-import lexic.Alex;
 
-public class OptionalGraphPattern extends Analizer{
+public class OptionalGraphPattern extends Production{
 	
-	public OptionalGraphPattern(Alex alex){
-		this.alex = alex;
-	}
 
 	public boolean analize(){
 		return true;

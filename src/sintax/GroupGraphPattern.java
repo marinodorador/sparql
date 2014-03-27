@@ -1,12 +1,6 @@
 package sintax; 
-import lexic.Alex;
 
-public class GroupGraphPattern extends Analizer{
-	
-	public GroupGraphPattern(Alex alex){
-		this.alex = alex;
-	}
-
+public class GroupGraphPattern extends Production{
 	public boolean analize(){
 		return true;
 	}

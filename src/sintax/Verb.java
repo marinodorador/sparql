@@ -1,11 +1,6 @@
 package sintax; 
-import lexic.Alex;
 
-public class Verb extends Analizer{
-	
-	public Verb(Alex alex){
-		this.alex = alex;
-	}
+public class Verb extends Production{
 
 	public boolean analize(){
 		return true;

@@ -1,11 +1,6 @@
 package sintax; 
-import lexic.Alex;
 
-public class UnaryExpression extends Analizer{
-	
-	public UnaryExpression(Alex alex){
-		this.alex = alex;
-	}
+public class UnaryExpression extends Production{
 
 	public boolean analize(){
 		return true;

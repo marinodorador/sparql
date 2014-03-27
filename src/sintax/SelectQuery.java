@@ -1,12 +1,6 @@
 package sintax; 
-import lexic.Alex;
 
-public class SelectQuery extends Analizer{
-	
-	public SelectQuery(Alex alex){
-		this.alex = alex;
-	}
-
+public class SelectQuery extends Production{
 	public boolean analize(){
 		return true;
 	}

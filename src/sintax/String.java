@@ -1,12 +1,6 @@
 package sintax; 
-import lexic.Alex;
 
-public class String extends Analizer{
-	
-	public String(Alex alex){
-		this.alex = alex;
-	}
-
+public class String extends Production{
 	public boolean analize(){
 		return true;
 	}

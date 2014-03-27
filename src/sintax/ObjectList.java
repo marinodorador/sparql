@@ -1,12 +1,7 @@
 package sintax; 
-import lexic.Alex;
 
-public class ObjectList extends Analizer{
+public class ObjectList extends Production{
 	
-	public ObjectList(Alex alex){
-		this.alex = alex;
-	}
-
 	public boolean analize(){
 		return true;
 	}

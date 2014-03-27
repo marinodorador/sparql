@@ -43,7 +43,7 @@ WHITE 					= [ \t\r\n]+
 TYPE  					= "^^"
 
 %{
-	public StringBuffer lexeme = new StringBuffer();;
+	public StringBuffer lexeme = new StringBuffer();
 %}
 
 %states  TYPE_SYM, IRI_STATE
@@ -151,7 +151,7 @@ TYPE  					= "^^"
 	 }
 	
 	
-	
+	 <<EOF>> {return new Symbol(END);}
      {WHITE} {}
 
 	 . {return new Symbol(Token.ERROR, yytext());}

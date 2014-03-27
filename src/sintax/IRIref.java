@@ -1,12 +1,6 @@
 package sintax; 
-import lexic.Alex;
 
-public class IRIref extends Analizer{
-	
-	public IRIref(Alex alex){
-		this.alex = alex;
-	}
-
+public class IRIref extends Production{
 	public boolean analize(){
 		return true;
 	}

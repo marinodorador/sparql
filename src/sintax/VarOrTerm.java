@@ -1,11 +1,6 @@
 package sintax; 
-import lexic.Alex;
 
-public class VarOrTerm extends Analizer{
-	
-	public VarOrTerm(Alex alex){
-		this.alex = alex;
-	}
+public class VarOrTerm extends Production{
 
 	public boolean analize(){
 		return true;

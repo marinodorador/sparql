@@ -1,12 +1,6 @@
 package sintax; 
-import lexic.Alex;
 
-public class PropertyListNotEmpty extends Analizer{
-	
-	public PropertyListNotEmpty(Alex alex){
-		this.alex = alex;
-	}
-
+public class PropertyListNotEmpty extends Production{
 	public boolean analize(){
 		return true;
 	}

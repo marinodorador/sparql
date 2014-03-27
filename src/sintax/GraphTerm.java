@@ -1,12 +1,6 @@
 package sintax; 
-import lexic.Alex;
 
-public class GraphTerm extends Analizer{
-	
-	public GraphTerm(Alex alex){
-		this.alex = alex;
-	}
-
+public class GraphTerm extends Production{
 	public boolean analize(){
 		return true;
 	}

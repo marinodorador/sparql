@@ -1,11 +1,6 @@
 package sintax; 
-import lexic.Alex;
 
-public class SolutionModifier extends Analizer{
-	
-	public SolutionModifier(Alex alex){
-		this.alex = alex;
-	}
+public class SolutionModifier extends Production{
 
 	public boolean analize(){
 		return true;

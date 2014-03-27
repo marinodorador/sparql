@@ -1,12 +1,6 @@
 package sintax; 
-import lexic.Alex;
 
-public class RDFLiteral extends Analizer{
-	
-	public RDFLiteral(Alex alex){
-		this.alex = alex;
-	}
-
+public class RDFLiteral extends Production{
 	public boolean analize(){
 		return true;
 	}

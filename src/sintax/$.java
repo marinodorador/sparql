@@ -1,16 +1,37 @@
 package sintax;
+
+import java.io.IOException;
+
+import lexic.Alex;
+import lexic.Symbol;
+
 public class ${
-	public static boolean analize(java.lang.String name, Analizer subject){
-		Analizer analizer = null;
+	public static Alex alex;
+	public static Symbol current;
+	
+	public static boolean analize(java.lang.String name) throws IOException{
+		Production p = null;
 		
 		try {
-			analizer = (Analizer) Class.forName(name).newInstance();
-			analizer.init(subject.alex, subject.attrs, subject.current);
+			p = (Production) Class.forName("sintax."+name).newInstance();
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 			
-		return analizer.analize();
+		return p.analize();
+	}
+	
+	public static Production get(java.lang.String name) throws IOException{
+			Production p = null;
+		
+		try {
+			p = (Production) Class.forName("sintax."+name).newInstance();
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+		return p;
 	}
 }

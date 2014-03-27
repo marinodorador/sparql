@@ -1,12 +1,6 @@
 package sintax; 
-import lexic.Alex;
 
-public class GraphPatternNotTriples extends Analizer{
-	
-	public GraphPatternNotTriples(Alex alex){
-		this.alex = alex;
-	}
-
+public class GraphPatternNotTriples extends Production{
 	public boolean analize(){
 		return true;
 	}

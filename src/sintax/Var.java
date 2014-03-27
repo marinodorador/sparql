@@ -1,12 +1,7 @@
 package sintax; 
-import lexic.Alex;
 
-public class Var extends Analizer{
+public class Var extends Production{
 	
-	public Var (Alex alex){
-		this.alex = alex;
-	}
-
 	public boolean analize(){
 		return true;
 	}

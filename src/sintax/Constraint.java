@@ -1,12 +1,6 @@
 package sintax; 
-import lexic.Alex;
 
-public class Constraint extends Analizer{
-	
-	public Constraint(Alex alex){
-		this.alex = alex;
-	}
-
+public class Constraint extends Production{
 	public boolean analize(){
 		return true;
 	}
