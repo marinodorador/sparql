@@ -34,4 +34,8 @@ public class ${
 			
 		return p;
 	}
+	
+	public static void next() throws IOException{
+		$.current = $.alex.yylex();
+	}
 }

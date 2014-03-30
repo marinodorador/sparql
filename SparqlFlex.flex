@@ -63,8 +63,8 @@ TYPE  					= "^^"
 	 "!="			{return new Symbol(Token.NOT_EQUAL);}
 	 "<"				{return new Symbol(Token.LESS);}
 	 ">"				{return new Symbol(Token.GREATER);}
-	 "<="			{return new Symbol(Token.LT);}
-	 ">="			{return new Symbol(Token.GT);}
+	 "<="			{return new Symbol(Token.LET);}
+	 ">="			{return new Symbol(Token.GET);}
 	 "+"				{return new Symbol(Token.PLUS);}
 	 "-"				{return new Symbol(Token.SUB);}
 	 "*"				{return new Symbol(Token.MULT);}
@@ -95,6 +95,7 @@ TYPE  					= "^^"
 	"DISTINCT"      {return new Symbol(Token.DISTINCT);}
 	"sameTERM"	    {return new Symbol(Token.SAMETERM);}
 	"REDUCED"       {return new Symbol(Token.REDUCED);}
+	"isBLANK"		{return new Symbol(Token.ISBLANK);}
 	"OFFSET"        {return new Symbol(Token.OFFSET);}
 	"PREFIX"        {return new Symbol(Token.PREFIX);}
 	"SELECT"        {return new Symbol(Token.SELECT);}
@@ -111,8 +112,10 @@ TYPE  					= "^^"
 	"LANG"			{return new Symbol(Token.LANG);}
 	"BASE" 		    {return new Symbol(Token.BASE);}
 	"FROM" 		    {return new Symbol(Token.FROM);}
+	"DESC"			{return new Symbol(Token.ASC);}
 	"true"		    {return new Symbol(Token.TRUE);}
 	"STR"		    {return new Symbol(Token.STR);}
+	"ASC"			{return new Symbol(Token.ASC);}
 	"ASK" 		    {return new Symbol(Token.ASK);}
 	"a"				{return new Symbol(Token.A);}
 	
@@ -151,7 +154,7 @@ TYPE  					= "^^"
 	 }
 	
 	
-	 <<EOF>> {return new Symbol(END);}
+	 <<EOF>> {return new Symbol(Token.END);}
      {WHITE} {}
 
 	 . {return new Symbol(Token.ERROR, yytext());}
