@@ -1,8 +1,16 @@
 package sintax; 
 
-public class VarOrTerm extends Production{
+import java.io.IOException;
 
-	public boolean analize(){
-		return true;
+public class VarOrTerm extends Production{
+	/**
+	 * @author Romina
+	 *
+	 * VarOrTerm = { Var | GraphTerm }
+	 * 
+	 * @throws IOException
+	 */
+	public boolean analize() throws IOException{
+		return ( $.analize("Var") || $.analize("GraphTerm") );
 	}
 }

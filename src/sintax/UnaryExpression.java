@@ -1,8 +1,24 @@
 package sintax; 
 
-public class UnaryExpression extends Production{
+import java.io.IOException;
 
-	public boolean analize(){
-		return true;
+import lexic.Token;
+
+public class UnaryExpression extends Production{
+	/**
+	 * @author Romina
+	 *
+	 * UnaryExpression = ('!' | '+' | '-')? PrimaryExpression
+										
+	 * FIRSTS: { '!' | '+' | '-' | PrimaryExpression }
+	 * 
+	 * @throws IOException
+	 */
+	public boolean analize() throws IOException{
+		
+		if ( $.current.token == Token.NOT || $.current.token == Token.PLUS ||$.current.token == Token.SUB )
+			$.next();
+		
+		return $.analize("PrimaryExpression");
 	}
 }

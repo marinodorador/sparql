@@ -1,7 +1,18 @@
 package sintax; 
 
+import java.io.IOException;
+
 public class NumericExpression extends Production{
-	public boolean analize(){
-		return true;
+	/**
+	 * @author Romina
+	 *
+	 * NumericExpression = AdditiveExpression
+	 * FIRSTS: AdditiveExpression.FIRSTS
+	 * 
+	 * @throws IOException
+	 */
+	
+	public boolean analize() throws IOException{
+		return $.analize("AdditiveExpression");
 	}
 }
