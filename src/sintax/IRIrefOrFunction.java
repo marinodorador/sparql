@@ -16,9 +16,7 @@ public class IRIrefOrFunction extends Production{
 		if($.current.token == Token.IRI_REF || $.current.token == Token.PNAME_LN || $.current.token == Token.PNAME_NS){
 			if(!$.analize("IRIref")) return false;
 			$.next();
-			if(){
-				
-			}
+		
 		}else{
 			return false;
 		}

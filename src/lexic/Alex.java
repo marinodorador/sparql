@@ -1371,11 +1371,11 @@ public class Alex {
           }
         case 101: break;
         case 25: 
-          { return new Symbol(Token.LT);
+          { return new Symbol(Token.LET);
           }
         case 102: break;
         case 26: 
-          { return new Symbol(Token.GT);
+          { return new Symbol(Token.GET);
           }
         case 103: break;
         case 27: 
