@@ -84,6 +84,7 @@ TYPE  					= "^^"
  	/**
 	 * Reserve words
 	 */
+	"NAMED"   		{return new Symbol(Token.NAMED);}
 	"LANGMATCHES"   {return new Symbol(Token.LANGMATCHES);}
 	"FROM NAMED"    {return new Symbol(Token.FROM_NAMED); }
 	"CONSTRUCT"     {return new Symbol(Token.CONSTRUCT);}
