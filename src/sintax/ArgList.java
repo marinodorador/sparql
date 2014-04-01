@@ -5,9 +5,9 @@ import java.io.IOException;
 import lexic.Token;
 
 /**
- * 
  * @author esteban
- *	ArgList	 ::=  	( NIL | '(' Expression ( ',' Expression )* ')' )
+ *	
+ * ArgList	 ::=  	( NIL | '(' Expression ( ',' Expression )* ')' )
  */
 public class ArgList  extends Production {
 	

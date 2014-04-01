@@ -3,6 +3,9 @@ import static lexic.Token.*;
 
 import java.io.IOException;
 /***
+ * 
+ *  ConditionalOrExpression	::= ConditionalAndExpression ( '||' ConditionalAndExpression )*
+ *  
  *	FIRST(ConditionalOrExpression)  = { '-', '!', '+',INTEGER_POSITIVE,DECIMAL_POSITIVE,DOUBLE_POSITIVE,
  *										INTEGER_NEGATIVE, DECIMAL_NEGATIVE, DOUBLE_NEGATIVE, '(', 'STR',
  *										'LANG','LANGMATCHES', 'DATATYPE', 'BOUND', 'sameTerm', 'isIRI',

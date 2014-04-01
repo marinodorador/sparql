@@ -5,6 +5,7 @@ import java.io.IOException;
 import lexic.Token;
 
 /*
+ *  Constraint ::= BrackettedExpression
 *	FIRST(Constraint) = {'('}
 */
 public class Constraint extends Production{

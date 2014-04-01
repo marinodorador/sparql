@@ -7,16 +7,19 @@ import lexic.Token;
 /**
  * 
  * @author esteban
- *
- *FIRST(MultiplicativeExpression) = {'!', '+', '-', '(', STR, LANG, LANGMATCHES , DATATYPE, BOUND, sameTerm, 
+ * 
+ * MultiplicativeExpression	::=  UnaryExpression ( '*' UnaryExpression | '/' UnaryExpression )* 
+ * 
+ * FIRST(MultiplicativeExpression) = {'!', '+', '-', '(', STR, LANG, LANGMATCHES , DATATYPE, BOUND, sameTerm, 
  * 										isIRI, isURI, isBLANK, isLITERAL, REGEX, STRING_LITERAL1, STRING_LITERAL2,  
  * 										STRING_LITERAL_LONG1,	STRING_LITERAL_LONG2,INTEGER,DECIMAL,DOUBLE,
  * 										INTEGER_POSITIVE,DECIMAL_POSITIVE,DOUBLE_POSITIVE,INTEGER_NEGATIVE,
  * 										,DECIMAL_NEGATIVE,DOUBLE_NEGATIVE,TRUE,FALSE,VAR1, VAR2}
+ * 
  * FOLLOW( ( '*' UnaryExpression | '/' UnaryExpression )* ) = {
  * 					'+','-', '=', '!=', '<', '>', '<=',  '>=', &&, INTEGER_POSITIVE, DECIMAL_POSITIVE,DOUBLE_POSITIVE,
  * 					INTEGER_NEGATIVE, DECIMAL_NEGATIVE, DOUBLE_NEGATIVE, ||, '(', ','  
- * 			  }
+ * 		 }
  */
 
 public class MultiplicativeExpression extends Production{

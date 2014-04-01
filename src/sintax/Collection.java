@@ -3,7 +3,11 @@ package sintax;
 import java.io.IOException;
 
 import lexic.Token;
-
+/**
+ * 
+ * Collection ::= '(' GraphNode+ ')'
+ *
+ */
 public class Collection extends Production{
 
 	@Override

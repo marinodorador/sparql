@@ -14,8 +14,8 @@ public class Symbol {
 		this.token = token;
 		this.lexeme = lexeme;
 	}
+	
 	public String toString(){
-		return "("+token+","+lexeme+")";
-		
+		return "("+lexeme+", "+token+")";
 	}
 }

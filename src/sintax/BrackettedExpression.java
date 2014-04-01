@@ -7,7 +7,7 @@ import lexic.Token;
 /**
  * 
  * @author esteban
- *
+ *	BrackettedExpression ::= '(' Expression ')'
  *	FIRST(BrackettedExpression) = {} 
  */
 public class BrackettedExpression extends Production{

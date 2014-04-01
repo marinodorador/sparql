@@ -2,9 +2,10 @@ package lexic;
 import static lexic.Token.*;
 %%
 /*End of usercode*/
+
 %class Alex
 %type Symbol
-%ignorecase
+%unicode
 
 
 /*Macros*/
@@ -33,7 +34,7 @@ ECHAR   			    = (\\[tbnrf\"\'])
 NIL	     				= \({WS}*\)
 WS			  			= (\u0020|\u0009|\u000D|\u000A)
 ANON	  				= \[{WS}*\]
-PN_CHARS_BASE 			= ([A-Z]|[a-z]|[\u00C0-\u00D6]|[\u00D8-\u00F6]|[\u00F8-\u02FF]|[\u0370-\u037D]|[\u037F-\u1FFF]|[\u200C-\u200D]|[\u2070-\u218F]|[\u2C00-\u2FEF]|[\u3001-\uD7FF]|[\uF900-\uFDCF]|[\uFDF0-\uFFFD]|[\u10000-\uEFFFF])
+PN_CHARS_BASE 			= ([A-Z]|[a-z]|[\u00C0-\u00D6]|[\u00D8-\u00F6]|[\u00F8-\u02FF]|[\u0370-\u037D]|[\u037F-\u1FFF]|[\u200C-\u200D]|[\u2070-\u218F]|[\u2C00-\u2FEF]|[\u3001-\uD7FF]|[\uF900-\uFDCF]|[\uFDF0-\uFFFD])*
 PN_CHARS_U	 			= {PN_CHARS_BASE}|\_
 VARNAME		  			= ({PN_CHARS_U}|[0-9])({PN_CHARS_U}|[0-9]|\u00B7|[\u0300-\u036F]|[\u203F-\u2040])*
 PN_CHARS	  			= {PN_CHARS_U}|\-|[0-9]|\u00B7|[\u0300-\u036F]|[\u203F-\u2040]
@@ -46,7 +47,7 @@ TYPE  					= "^^"
 	public StringBuffer lexeme = new StringBuffer();
 %}
 
-%states  TYPE_SYM, IRI_STATE
+%states  TYPE_SYM, PNAME_SYM, IRI_STATE
 
 %%
 
@@ -99,7 +100,7 @@ TYPE  					= "^^"
 	"REDUCED"       {return new Symbol(Token.REDUCED);}
 	"isBLANK"		{return new Symbol(Token.ISBLANK);}
 	"OFFSET"        {return new Symbol(Token.OFFSET);}
-	"PREFIX"        {return new Symbol(Token.PREFIX);}
+	"PREFIX"        {yybegin(PNAME_SYM);return new Symbol(Token.PREFIX);}
 	"SELECT"        {return new Symbol(Token.SELECT);}
 	"FILTER"	    {return new Symbol(Token.FILTER);}
 	"WHERE"         {return new Symbol(Token.WHERE);}
@@ -128,7 +129,11 @@ TYPE  					= "^^"
      	 .      {yybegin(YYINITIAL);}
      }
 
-	 <IRI_STATE,YYINITIAL> {IRI_REF}  {yybegin(YYINITIAL);return new Symbol(Token.IRI_REF, yytext());}
+	 <PNAME_SYM>{
+	 	{PNAME_NS} {yybegin(IRI_STATE);return new Symbol(Token.PNAME_NS, yytext());}
+	 	{WHITE} {}
+	 	. {yybegin(YYINITIAL);}
+	 }
 	 
 	 <YYINITIAL>{
 	 	 {INTEGER_POSITIVE} {yybegin(TYPE_SYM);return new Symbol(Token.INTEGER_POSITIVE, yytext());}
@@ -144,9 +149,6 @@ TYPE  					= "^^"
 		 {STRING_LITERAL2} {yybegin(TYPE_SYM);return new Symbol(Token.STRING_LITERAL2, yytext());}
 		 {STRING_LITERAL_LONG1} {yybegin(TYPE_SYM);return new Symbol(Token.STRING_LITERAL_LONG1, yytext());}
 		 {STRING_LITERAL_LONG2} {yybegin(TYPE_SYM);return new Symbol(Token.STRING_LITERAL_LONG2, yytext());}
-		 
-		 
-		 {PNAME_NS} {return new Symbol(Token.PNAME_NS, yytext());}
 		 {PNAME_LN} {return new Symbol(Token.PNAME_LN, yytext());}
 		 {VAR1} {return new Symbol(Token.VAR1, yytext());}
 		 {VAR2} {return new Symbol(Token.VAR2, yytext());}
@@ -155,6 +157,9 @@ TYPE  					= "^^"
 		 {ANON} {return new Symbol(Token.ANON, yytext());}	 
 	 }
 	
+	
+	 
+	<IRI_STATE,YYINITIAL> {IRI_REF}  {yybegin(YYINITIAL);return new Symbol(Token.IRI_REF, yytext());}
 	
 	 <<EOF>> {return new Symbol(Token.END);}
      {WHITE} {}

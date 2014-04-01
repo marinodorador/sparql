@@ -3,7 +3,9 @@ package sintax;
 import java.io.IOException;
 
 import lexic.Token;
-
+/*
+ * LimitClause ::= 'LIMIT' INTEGER
+ **/
 public class LimitClause extends Production{
 
 	@Override
@@ -11,7 +13,7 @@ public class LimitClause extends Production{
 		
 		if($.current.token == Token.LIMIT){
 			$.next();
-			if($.analize("INTEGER"))return true;
+			if($.current.token == Token.INTEGER) $.next();return true;
 		}
 		return false;
 	}

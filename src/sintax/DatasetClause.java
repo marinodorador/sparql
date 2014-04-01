@@ -4,7 +4,9 @@ import java.io.IOException;
 
 
 import lexic.Token;
-
+/*
+ * ArgList ::= ( NIL | '(' Expression ( ',' Expression )* ')' )
+ */
 public class DatasetClause extends Production{
 	public boolean analize() throws IOException{
 		if($.current.token == Token.FROM){

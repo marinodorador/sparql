@@ -3,6 +3,13 @@ import static lexic.Token.*;
 
 import java.io.IOException;
 /*
+ * RelationalExpression	         ::=  	NumericExpression ( '=' NumericExpression 
+ *										|   '!=' NumericExpression 
+ *										|   '<' NumericExpression 
+ *										|   '>' NumericExpression 
+ *										|   '<=' NumericExpression 
+ *										|   '>=' NumericExpression )?
+ * 
  * FIRST(RelationalExpression) = {'-', '!',  '+', '(', 'STR', 'LANG', 'LANGMATCHES',    
  * 								  'DATATYPE', 'BOUND', 'sameTerm', 'isIRI', 'isURI', 
  * 								   'isBLANK', 'isLITERAL', 'REGEX', IRIref, STRING_LITERAL1,
@@ -11,6 +18,7 @@ import java.io.IOException;
  * 									DOUBLE_POSITIVE, INTEGER_NEGATIVE, DECIMAL_NEGATIVE, DOUBLE_NEGATIVE, 
  * 									TRUE, FALSE, VAR1, VAR2
  * 								  }
+ * 
  * FOLLOW( ( '=' NumericExpression 
  *										|   '!=' NumericExpression 
  *										|   '<' NumericExpression 
@@ -18,7 +26,7 @@ import java.io.IOException;
  *										|   '<=' NumericExpression 
  *										|   '>=' NumericExpression )? ) = { OR, AND, COMMA, ')' }
  * 
- * */
+ **/
 public class RelationalExpression extends Production{
 
 	public boolean analize() throws IOException{

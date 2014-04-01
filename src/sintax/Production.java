@@ -1,6 +1,12 @@
 package sintax;
 import java.io.IOException;
 import java.util.HashMap;
+/**
+ * 
+ * @author esteban
+ *
+ * Abstract class to productions.
+ */
 public abstract class Production{
 
 	public HashMap<String,Object> attrs = new HashMap<String,Object>();

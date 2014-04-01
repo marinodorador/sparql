@@ -6,8 +6,8 @@ import java.io.IOException;
  * 
  * @author esteban
  *
- *	PrefixedName	  				::=		PNAME_LN 
-										| 	PNAME_NS
+ *	PrefixedName ::=  PNAME_LN 
+ *					| PNAME_NS
  */
 public class PrefixedName extends Production{
 

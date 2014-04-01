@@ -1,7 +1,10 @@
 package sintax; 
 
 import java.io.IOException;
-
+/*
+ *  VarOrIRIref ::=  Var 
+ *				|   IRIref
+ **/
 public class VarOrIRIref extends Production{
 
 	@Override

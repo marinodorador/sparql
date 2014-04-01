@@ -3,7 +3,9 @@ package sintax;
 import java.io.IOException;
 
 import lexic.Token;
-
+/*
+ * TriplesBlock	 ::=  	TriplesSameSubject ( '.' TriplesBlock? )?
+ **/
 public class TriplesBlock extends Production{
 
 	@Override

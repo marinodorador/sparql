@@ -3,7 +3,9 @@ package sintax;
 import java.io.IOException;
 
 import lexic.Token;
-
+/*
+ * PrefixDecl ::=  'PREFIX' PNAME_NS IRI_REF
+ **/
 public class PrefixDecl extends Production{
 	public boolean analize() throws IOException{
 		if($.current.token != Token.PREFIX ) return false;

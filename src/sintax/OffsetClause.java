@@ -3,7 +3,9 @@ package sintax;
 import java.io.IOException;
 
 import lexic.Token;
-
+/*
+ * OffsetClause	::= 'OFFSET' INTEGER
+ */
 public class OffsetClause extends Production{
 
 	public boolean analize() throws IOException{

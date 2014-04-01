@@ -6,8 +6,8 @@ import java.io.IOException;
  * 
  * @author esteban
  *
- *BooleanLiteral	::=  	'true' 				
- *						|	'false'
+ * BooleanLiteral	::= 'true' 				
+ *					  | 'false'
  */
 public class BooleanLiteral extends Production{
 	

@@ -3,7 +3,13 @@ package sintax;
 import java.io.IOException;
 
 import lexic.Token;
-
+/**
+ * AdditiveExpression ::=  MultiplicativeExpression ( '+' MultiplicativeExpression 
+ *					  |    '-' MultiplicativeExpression 
+ *					  |    NumericLiteralPositive 
+ *					  |    NumericLiteralNegative )*
+ * 
+ */
 public class AdditiveExpression extends Production{
 
 	@Override

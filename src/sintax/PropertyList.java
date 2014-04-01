@@ -5,7 +5,10 @@ import java.io.IOException;
 import lexic.Token;
 
 /*
+ * PropertyList	  				::=  	PropertyListNotEmpty?
+ * 
  * FIRST(PropertyList) = {VAR1, VAR2, IRIRef}
+ * 
  * Follow(PropertyListNotEmpty?) = {'}',OPTIONAL, FILTER, '.'}
  * */
 public class PropertyList extends Production{

@@ -5,18 +5,19 @@ import java.io.IOException;
 import lexic.Token;
 
 public class BuiltInCall extends Production{
+	
 	/**
 	 * @author Romina
 	 *
-	 BuiltInCall =  ( 'STR' | 'LANG' |  'DATATYPE' | 'isIRI' | 'isURI' | 'isBLANK' | 'isLITERAL' ) '(' Expression ')' 
-				|	( 'LANGMATCHES' | 'sameTerm' ) '(' Expression ',' Expression ')'
-				|	'BOUND' '(' Var ')'
-				|	RegexExpression
-				
-	FIRSTS : { 'STR' | 'LANG' | 'LANGMATCHES' | 'DATATYPE' | 'BOUND' | 'sameTerm' | 'isIRI' |	'isURI'
-			 | 'isBLANK' |	'isLITERAL' | RegexExpression }
-			 
-			 
+	 *	 BuiltInCall =  ( 'STR' | 'LANG' |  'DATATYPE' | 'isIRI' | 'isURI' | 'isBLANK' | 'isLITERAL' ) '(' Expression ')' 
+	 *				|	( 'LANGMATCHES' | 'sameTerm' ) '(' Expression ',' Expression ')'
+	 *				|	'BOUND' '(' Var ')'
+	 *				|	RegexExpression
+	 *			
+	 *	FIRSTS : { 'STR' | 'LANG' | 'LANGMATCHES' | 'DATATYPE' | 'BOUND' | 'sameTerm' | 'isIRI' |	'isURI'
+	 *			 | 'isBLANK' |	'isLITERAL' | RegexExpression }
+	 *		 
+	 *		 
 	 * @throws IOException 
 	 *  
 	 */

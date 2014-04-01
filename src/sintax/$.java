@@ -10,6 +10,7 @@ public class ${
 	public static Symbol current;
 	
 	public static boolean analize(java.lang.String name) throws IOException{
+		System.out.println(name);
 		Production p = null;
 		
 		try {
@@ -37,5 +38,6 @@ public class ${
 	
 	public static void next() throws IOException{
 		$.current = $.alex.yylex();
+		System.out.println($.current);
 	}
 }

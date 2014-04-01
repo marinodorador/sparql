@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import lexic.Token;
 /*
+ * OrderClause	::=   'ORDER' 'BY' OrderCondition+
+ * 
  * FIRST(OrderClause) = {'ORDER BY', }
  * FIRST(OrderCondition+) = {'ASC', 'DESC', '(' , VAR1, VAR2}
  * FOLLOW(OrderClause) = {LIMIT, OFFSET, $}

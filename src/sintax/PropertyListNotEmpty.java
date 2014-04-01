@@ -3,7 +3,9 @@ package sintax;
 import java.io.IOException;
 
 import lexic.Token;
-
+/*
+ * PropertyListNotEmpty	::=  Verb ObjectList ( ';' ( Verb ObjectList )? )*
+ */
 public class PropertyListNotEmpty extends Production{
 
 	@Override

@@ -1,7 +1,9 @@
 package sintax; 
 
 import java.io.IOException;
-
+/*
+ * LimitOffsetClauses ::= ( LimitClause OffsetClause? | OffsetClause LimitClause? )
+ **/
 public class LimitOffsetClauses extends Production{
 
 	@Override

@@ -8,9 +8,9 @@ import lexic.Token;
  * 
  * @author esteban
  *  IRIrefOrFunction ::=  IRIref ArgList?
- * FIRST(IRIrefOrFunction) = {IRI_REF, PNAME_LN, PNAME_NS}
- * FIRST(ArgList?) = {NIL, '(' }
- * FOLLOW(ArgList?) = {*, /,+,-INTEGER_POSITIVE,DECIMAL_POSITIVE,DOUBLE_POSITIVE,INTEGER_NEGATIVE
+ * 	FIRST(IRIrefOrFunction) = {IRI_REF, PNAME_LN, PNAME_NS}
+ * 	FIRST(ArgList?) = {NIL, '(' }
+ * 	FOLLOW(ArgList?) = {*, /,+,-INTEGER_POSITIVE,DECIMAL_POSITIVE,DOUBLE_POSITIVE,INTEGER_NEGATIVE
 						,DECIMAL_NEGATIVE, DOUBLE_NEGATIVE, =, !=, <, > , <=, >=,
 						&&, ||, COMMA,')'}
  */

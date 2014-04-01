@@ -1,7 +1,9 @@
 package sintax; 
 
 import java.io.IOException;
-
+/*
+ * ValueLogical	::= RelationalExpression
+ */
 public class ValueLogical extends Production{
 
 	@Override

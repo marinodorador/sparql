@@ -3,7 +3,9 @@ package sintax;
 import java.io.IOException;
 
 import lexic.Token;
-
+/*
+ * RegexExpression	::= 'REGEX' '(' Expression ',' Expression ( ',' Expression )? ')'
+ **/
 public class RegexExpression extends Production{
 
 	@Override

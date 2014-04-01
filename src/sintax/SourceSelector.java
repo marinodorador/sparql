@@ -1,7 +1,9 @@
 package sintax; 
 
 import java.io.IOException;
-
+/*
+ * SourceSelector ::=   IRIref
+ **/
 public class SourceSelector extends Production{
 
 	@Override

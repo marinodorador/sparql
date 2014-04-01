@@ -3,7 +3,10 @@ package sintax;
 import java.io.IOException;
 
 import lexic.Token;
-
+/*
+ * Var ::= VAR1 
+		|  VAR2
+ **/
 public class Var extends Production{
 	
 	public boolean analize() throws IOException{
