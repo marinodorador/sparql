@@ -1,8 +1,12 @@
 package sintax; 
 
+import java.io.IOException;
+
 public class VarOrIRIref extends Production{
 
-	public boolean analize(){
-		return true;
+	@Override
+	public boolean analize() throws IOException {
+		return $.analize("Var") || $.analize("IRIref");
 	}
+
 }

@@ -1,7 +1,29 @@
 package sintax; 
 
+import java.io.IOException;
+
+import lexic.Token;
+
 public class PropertyListNotEmpty extends Production{
-	public boolean analize(){
-		return true;
+
+	@Override
+	public boolean analize() throws IOException {
+		
+		if($.analize("Verb")){
+			if($.analize("ObjectList")){
+				while($.current.token == Token.SEMI){
+					$.next();
+					if($.analize("Verb")){
+						if($.analize("ObjectList")){
+						}else{
+							return false;
+						}
+					}
+				}
+				return true;
+			}
+		}
+		return false;
 	}
+
 }

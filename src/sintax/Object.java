@@ -1,7 +1,12 @@
 package sintax; 
 
+import java.io.IOException;
+
 public class Object extends Production{
-	public boolean analize(){
-		return true;
+
+	@Override
+	public boolean analize() throws IOException {
+		return $.analize("GraphNode");
 	}
+
 }

@@ -1,8 +1,13 @@
 package sintax; 
 
+import java.io.IOException;
+
 public class ValueLogical extends Production{
 
-	public boolean analize(){
-		return true;
+	@Override
+	public boolean analize() throws IOException {
+		// TODO Auto-generated method stub
+		return $.analize("RelationalExpression");
 	}
+
 }

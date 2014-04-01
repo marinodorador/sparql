@@ -1,7 +1,18 @@
 package sintax; 
 
+import java.io.IOException;
+
+import lexic.Token;
+
 public class Filter extends Production{
-	public boolean analize(){
-		return true;
+
+	@Override
+	public boolean analize() throws IOException {
+		if($.current.token == Token.FILTER) {
+			$.next();
+			return $.analize("Constraint");
+		}
+		return false;
 	}
+
 }

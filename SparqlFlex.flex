@@ -80,6 +80,7 @@ TYPE  					= "^^"
 	 ")" {return new Symbol(Token.RIGTH_PARENTH); }
 	 "[" {return new Symbol(Token.LEFT_CLASP); }
 	 "]" {return new Symbol(Token.RIGHT_CLASP); }
+	 ";" {return new Symbol(Token.SEMI);}
 	 
  	/**
 	 * Reserve words
