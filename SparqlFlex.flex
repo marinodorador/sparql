@@ -88,7 +88,6 @@ TYPE  					= "^^"
 	 */
 	"NAMED"   		{return new Symbol(Token.NAMED);}
 	"LANGMATCHES"   {return new Symbol(Token.LANGMATCHES);}
-	"FROM NAMED"    {return new Symbol(Token.FROM_NAMED); }
 	"CONSTRUCT"     {return new Symbol(Token.CONSTRUCT);}
 	"isLITERAL"     {return new Symbol(Token.ISLITERAL);}
 	"DATATYPE"	    {return new Symbol(Token.DATATYPE);}

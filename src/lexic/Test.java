@@ -16,5 +16,6 @@ public class Test {
 			System.out.println(t.toString());
 			t = alex.yylex();
 		}
+					
 	}
 }

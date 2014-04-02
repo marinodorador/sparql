@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
+import javax.swing.JOptionPane;
+
 import lexic.Alex;
 
 public class Main {
@@ -18,9 +20,9 @@ public class Main {
 		Query analizer = new Query();
 			
 		if(analizer.analize()){
-			System.out.println("La expresión es correcta.");
+			JOptionPane.showMessageDialog(null, "La expresion es correcta.");
 		}else{
-			System.out.println("La expresión es incorrecta.");
+			JOptionPane.showMessageDialog(null, "La expresion es incorrecta.");
 		}
 		
 	}

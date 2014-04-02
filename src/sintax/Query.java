@@ -13,7 +13,10 @@ public class Query extends Production{
 		if($.current.token == Token.BASE || $.current.token == Token.PREFIX || $.current.token == Token.SELECT){
 			if(!$.analize("Prologue")) return false;
 			if(!$.analize("SelectQuery")) return false;
+			
+			$.next();
 			if($.current.token != Token.END) return false;
+			
 		}else{
 			return false;
 		}
