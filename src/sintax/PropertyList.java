@@ -12,7 +12,7 @@ import lexic.Token;
  * Follow(PropertyListNotEmpty?) = {'}',OPTIONAL, FILTER, '.'}
  * */
 public class PropertyList extends Production{
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		
 		if($.current.token == Token.VAR1 || $.current.token == Token.VAR2 || $.current.token == Token.IRI_REF){
 			if(!$.analize("PropertyListNotEmpty")) return false;
@@ -24,5 +24,11 @@ public class PropertyList extends Production{
 				&& $.current.token != Token.PERIOD) return false;
 		
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

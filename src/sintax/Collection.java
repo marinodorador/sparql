@@ -11,7 +11,7 @@ import lexic.Token;
 public class Collection extends Production{
 
 	@Override
-	public boolean analize() throws IOException {
+	public boolean process() throws IOException {
 		if($.current.token == Token.LEFT_PARENTH){
 			$.next();
 			if($.analize("GraphNode")){
@@ -25,6 +25,12 @@ public class Collection extends Production{
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

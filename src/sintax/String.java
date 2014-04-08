@@ -2,6 +2,8 @@ package sintax;
 
 import java.io.IOException;
 
+import lexic.Token;
+
 public class String extends Production{
 	
 	/**
@@ -12,7 +14,7 @@ public class String extends Production{
 	 * @throws IOException
 	 */
 	
-	public boolean analize() throws IOException{	
+	public boolean process() throws IOException{	
 		
 		switch($.current.token){
 
@@ -25,5 +27,13 @@ public class String extends Production{
 		}
 		
 	return false;
-	}	 
+	}
+
+	@Override
+	public Token[] FOLLOWS() throws IOException {
+		return construct(new Token[][]{
+				new Token[]{ Token.LANGTAG, Token.TYPE },
+				get("RDFLiteral").FOLLOWS(),
+				});
+	}
 }

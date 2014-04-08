@@ -2,6 +2,8 @@ package sintax;
 
 import java.io.IOException;
 
+import lexic.Token;
+
 /*
  * GraphNode ::=  VarOrTerm | TriplesNode
  * FIRST(GraphNode) = {
@@ -11,7 +13,7 @@ import java.io.IOException;
  * 					 }
  **/
 public class GraphNode extends Production{
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		switch($.current.token){
 			case VAR1: case VAR2: case IRI_REF: case PNAME_NS: case PNAME_LN: case STRING_LITERAL1: case STRING_LITERAL2:
 			case STRING_LITERAL_LONG1: case STRING_LITERAL_LONG2:  case INTEGER: case DECIMAL:
@@ -28,5 +30,11 @@ public class GraphNode extends Production{
 				
 		}
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

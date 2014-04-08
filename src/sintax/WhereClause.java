@@ -9,11 +9,17 @@ import lexic.Token;
  **/
 public class WhereClause extends Production{
 
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		if($.current.token == Token.WHERE) $.next();		
 		
 		if(!$.analize("GroupGraphPattern")) return false;
 		
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

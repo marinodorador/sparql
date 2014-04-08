@@ -9,7 +9,7 @@ import lexic.Token;
 public class RegexExpression extends Production{
 
 	@Override
-	public boolean analize() throws IOException {
+	public boolean process() throws IOException {
 		if($.current.token != Token.REGEX) return false;
 	    $.next();
 	    if($.current.token != Token.LEFT_PARENTH) return false;
@@ -28,6 +28,12 @@ public class RegexExpression extends Production{
 		if($.current.token != Token.RIGTH_PARENTH)return false;
 		$.next();
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

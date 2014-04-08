@@ -2,6 +2,8 @@ package sintax;
 
 import java.io.IOException;
 
+import lexic.Token;
+
 /*
  * Verb	::= VarOrIRIref | 'a'
  * 
@@ -10,7 +12,7 @@ import java.io.IOException;
 
 public class Verb extends Production{
 
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		switch($.current.token){
 			case VAR1: case VAR2: case IRI_REF: case PNAME_LN: case PNAME_NS:
 				if(!$.analize("VarOrIRIref")) return false;
@@ -22,5 +24,11 @@ public class Verb extends Production{
 				return false;
 		}
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

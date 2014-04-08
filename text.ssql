@@ -1,6 +1,8 @@
-SELECT REDUCED *
-FROM <http://www.w3.org/2000/01/rdf-schema#>
+BASE
 
+SELECT REDUCED *
+
+FROM NAMED ?
 { 
 	<http://www.opentox.org/api/1.1#SMILES>
 	?relation

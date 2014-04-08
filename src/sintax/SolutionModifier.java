@@ -2,6 +2,8 @@ package sintax;
 
 import java.io.IOException;
 
+import lexic.Token;
+
 public class SolutionModifier extends Production{
 	/**
 	 * @author Romina
@@ -12,7 +14,7 @@ public class SolutionModifier extends Production{
 	 * 
 	 * @throws IOException 
 	 */
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		
 		switch($.current.token){
 
@@ -24,5 +26,10 @@ public class SolutionModifier extends Production{
 		}
 		
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		return new Token[]{};
 	}
 }

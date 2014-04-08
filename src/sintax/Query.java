@@ -9,7 +9,7 @@ import lexic.Token;
  */
 
 public class Query extends Production{
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		if($.current.token == Token.BASE || $.current.token == Token.PREFIX || $.current.token == Token.SELECT){
 			if(!$.analize("Prologue")) return false;
 			if(!$.analize("SelectQuery")) return false;
@@ -21,5 +21,11 @@ public class Query extends Production{
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

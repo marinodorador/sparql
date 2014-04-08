@@ -13,7 +13,7 @@ public class ObjectList extends Production{
 	 * 
 	 * @throws IOException
 	 */
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		
 		if ( $.analize("Object") )
 		{
@@ -27,5 +27,12 @@ public class ObjectList extends Production{
 		}
 		
 		return false;
+	}
+	@Override
+	public Token[] FOLLOWS() throws IOException {
+		return construct(new Token[][]{
+				get("PropertyListNotEmpty").FOLLOWS(),
+				new Token[]{Token.SEMI}
+				});
 	}
 }

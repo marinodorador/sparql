@@ -9,7 +9,7 @@ import lexic.Token;
  **/
 public class Var extends Production{
 	
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		switch($.current.token){
 			case VAR1:
 				$.next();
@@ -21,5 +21,11 @@ public class Var extends Production{
 				return false;
 		}
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

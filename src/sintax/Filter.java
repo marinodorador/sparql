@@ -10,12 +10,18 @@ import lexic.Token;
 public class Filter extends Production{
 
 	@Override
-	public boolean analize() throws IOException {
+	public boolean process() throws IOException {
 		if($.current.token == Token.FILTER) {
 			$.next();
 			return $.analize("Constraint");
 		}
 		return false;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

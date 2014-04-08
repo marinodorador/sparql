@@ -9,7 +9,7 @@ import lexic.Token;
 public class TriplesBlock extends Production{
 
 	@Override
-	public boolean analize() throws IOException {
+	public boolean process() throws IOException {
 		if($.analize("TriplesSameSubject")){
 			if($.current.token == Token.PERIOD){
 				$.next();
@@ -20,6 +20,12 @@ public class TriplesBlock extends Production{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -2,6 +2,8 @@ package sintax;
 
 import java.io.IOException;
 
+import lexic.Token;
+
 public class TriplesSameSubject extends Production{
 	/**
 	 * @author Romina
@@ -12,7 +14,7 @@ public class TriplesSameSubject extends Production{
 	 * 
 	 * @throws IOException
 	 */
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		
 		if ( $.analize("VarOrTerm" ) )
 		{
@@ -24,5 +26,13 @@ public class TriplesSameSubject extends Production{
 		}
 		
 		return false;
+	}
+
+	@Override
+	public Token[] FOLLOWS() throws IOException {
+		return construct(new Token[][]{
+				get("TriplesBlock").FOLLOWS(),
+				new Token[]{Token.PERIOD}
+				});
 	}
 }

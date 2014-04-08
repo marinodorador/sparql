@@ -12,7 +12,7 @@ import lexic.Token;
 public class ArgList  extends Production {
 	
 	@Override
-	public boolean analize() throws IOException {
+	public boolean process() throws IOException {
 		switch($.current.token){
 			case NIL: 
 				$.next();
@@ -31,6 +31,12 @@ public class ArgList  extends Production {
 				break;
 		}
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

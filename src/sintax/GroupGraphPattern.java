@@ -24,7 +24,7 @@ public class GroupGraphPattern extends Production{
 	 * 
 	 * @throws IOException 
 	 */
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		
 		// '{'
 		if ( $.current.token != Token.LEFT_BRACE )
@@ -126,8 +126,13 @@ public class GroupGraphPattern extends Production{
 			
 		}
 		
-		
-		
-		
+	}
+
+	@Override
+	public Token[] FOLLOWS() throws IOException {
+		return construct(new Token[][]{
+				get("WhereClause").FOLLOWS(),
+				get("OptionalGraphPattern").FOLLOWS()
+				});
 	}
 }

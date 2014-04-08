@@ -11,7 +11,7 @@ import lexic.Token;
  * FOLLOW(OrderClause) = {LIMIT, OFFSET, $}
  * */
 public class OrderClause extends Production{
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		if($.current.token != Token.ORDER_BY) return false;
 		$.next();
 		do{
@@ -35,5 +35,11 @@ public class OrderClause extends Production{
 			return false;
 	
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

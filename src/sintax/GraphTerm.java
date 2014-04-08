@@ -14,7 +14,7 @@ public class GraphTerm extends Production{
 	 * 
 	 * @throws IOException
 	 */
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		
 		if ( $.current.token == Token.NIL )
 			return true;
@@ -23,5 +23,11 @@ public class GraphTerm extends Production{
 				$.analize("RDFLiteral") || 
 				$.analize("NumericLiteral") || 
 				$.analize("BooleanLiteral")  );
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

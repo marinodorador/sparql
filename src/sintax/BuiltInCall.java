@@ -22,7 +22,7 @@ public class BuiltInCall extends Production{
 	 *  
 	 */
 	
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		
 		switch($.current.token){
 
@@ -88,5 +88,10 @@ public class BuiltInCall extends Production{
 		}
 		
 		return $.analize("RegexExpression");
+	}
+
+	@Override
+	public Token[] FOLLOWS() throws IOException {
+		return get("PrimaryExpression").FOLLOWS();
 	}
 }

@@ -2,6 +2,8 @@ package sintax;
 import static lexic.Token.*;
 
 import java.io.IOException;
+
+import lexic.Token;
 /*
  * RelationalExpression	         ::=  	NumericExpression ( '=' NumericExpression 
  *										|   '!=' NumericExpression 
@@ -29,7 +31,7 @@ import java.io.IOException;
  **/
 public class RelationalExpression extends Production{
 
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		if($.current.token  == SUB  || $.current.token  == NOT || $.current.token  == PLUS
 				|| $.current.token  == LEFT_PARENTH|| $.current.token  == STR|| $.current.token  == LANG
 				|| $.current.token  == LANGMATCHES|| $.current.token  == DATATYPE|| $.current.token  == BOUND
@@ -76,5 +78,11 @@ public class RelationalExpression extends Production{
 			
 		}
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

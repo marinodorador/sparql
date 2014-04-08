@@ -9,13 +9,19 @@ import lexic.Token;
 public class LimitClause extends Production{
 
 	@Override
-	public boolean analize() throws IOException {
+	public boolean process() throws IOException {
 		
 		if($.current.token == Token.LIMIT){
 			$.next();
 			if($.current.token == Token.INTEGER) $.next();return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

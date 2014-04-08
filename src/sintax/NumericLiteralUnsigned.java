@@ -13,7 +13,7 @@ import lexic.Token;
 										|	DOUBLE
  */
 public class NumericLiteralUnsigned extends Production{
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		switch($.current.token){
 			case INTEGER:
 				$.next();
@@ -27,5 +27,11 @@ public class NumericLiteralUnsigned extends Production{
 			default: return false;
 		}
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

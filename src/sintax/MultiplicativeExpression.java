@@ -23,7 +23,7 @@ import lexic.Token;
  */
 
 public class MultiplicativeExpression extends Production{
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		if($.current.token == NOT || $.current.token == PLUS || $.current.token == SUB || $.current.token == LEFT_PARENTH 
 				|| $.current.token == STR || $.current.token == LANG || $.current.token == LANGMATCHES 
 				|| $.current.token == DATATYPE || $.current.token == BOUND || $.current.token == SAMETERM 
@@ -57,5 +57,11 @@ public class MultiplicativeExpression extends Production{
 		}
 		
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -15,7 +15,7 @@ import lexic.Token;
 						&&, ||, COMMA,')'}
  */
 public class IRIrefOrFunction extends Production{
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		if($.current.token == Token.IRI_REF || $.current.token == Token.PNAME_LN || $.current.token == Token.PNAME_NS){
 			if(!$.analize("IRIref")) return false;
 			
@@ -35,5 +35,11 @@ public class IRIrefOrFunction extends Production{
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

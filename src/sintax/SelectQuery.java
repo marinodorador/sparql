@@ -17,7 +17,7 @@ public class SelectQuery extends Production{
 	 
 	 * @throws IOException 
 	 */
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		
 		// 'SELECT'
 		if ( $.current.token == Token.SELECT )
@@ -49,5 +49,10 @@ public class SelectQuery extends Production{
 			return false;
 		
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		return new Token[]{};
 	}
 }

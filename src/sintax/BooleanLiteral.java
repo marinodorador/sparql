@@ -2,6 +2,8 @@ package sintax;
 
 import java.io.IOException;
 
+import lexic.Token;
+
 /**
  * 
  * @author esteban
@@ -12,7 +14,7 @@ import java.io.IOException;
 public class BooleanLiteral extends Production{
 	
 	
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		switch($.current.token){
 			case TRUE:
 				$.next();
@@ -23,5 +25,11 @@ public class BooleanLiteral extends Production{
 			default: return false;
 		}
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

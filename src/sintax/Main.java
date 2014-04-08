@@ -18,11 +18,11 @@ public class Main {
 	    $.next(); 	
 	       
 		Query analizer = new Query();
-			
-		if(analizer.analize()){
+				
+		if(analizer.analize() && MistakeLog.mistakesLog.isEmpty()){
 			JOptionPane.showMessageDialog(null, "La expresion es correcta.");
 		}else{
-			JOptionPane.showMessageDialog(null, "La expresion es incorrecta.");
+			JOptionPane.showMessageDialog(null, MistakeLog.report() );
 		}
 		
 	}

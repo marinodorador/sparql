@@ -14,11 +14,19 @@ public class UnaryExpression extends Production{
 	 * 
 	 * @throws IOException
 	 */
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		
 		if ( $.current.token == Token.NOT || $.current.token == Token.PLUS ||$.current.token == Token.SUB )
 			$.next();
 		
 		return $.analize("PrimaryExpression");
+	}
+
+	@Override
+	public Token[] FOLLOWS() throws IOException {
+		return construct(new Token[][]{
+				new Token[]{ Token.MULT , Token.DIV },
+				get("MultiplicativeExpression").FOLLOWS(),
+				});
 	}
 }

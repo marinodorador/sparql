@@ -7,12 +7,18 @@ import lexic.Token;
  * DefaultGraphClause ::= SourceSelector
  */
 public class DefaultGraphClause extends Production{
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		if($.current.token == Token.IRI_REF){
 			if(!$.analize("SourceSelector")) return false;
 		} else {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

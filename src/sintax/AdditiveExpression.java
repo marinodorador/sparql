@@ -13,7 +13,7 @@ import lexic.Token;
 public class AdditiveExpression extends Production{
 
 	@Override
-	public boolean analize() throws IOException {
+	public boolean process() throws IOException {
 		if($.analize("MultiplicativeExpression")){
 			while(true){
 				if($.current.token == Token.PLUS){
@@ -33,6 +33,12 @@ public class AdditiveExpression extends Production{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

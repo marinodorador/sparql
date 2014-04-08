@@ -14,7 +14,7 @@ public class Prologue extends Production{
 	 * 
 	 * @throws IOException 
 	 */
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		
 		if ( $.current.token == Token.BASE )
 		{
@@ -29,5 +29,10 @@ public class Prologue extends Production{
 		}
 		
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		return new Token[]{ Token.SELECT };
 	}
 }

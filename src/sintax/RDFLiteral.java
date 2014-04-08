@@ -2,17 +2,19 @@ package sintax;
 
 import java.io.IOException;
 
+import lexic.Token;
+
 public class RDFLiteral extends Production{
 	/**
 	 * @author Romina
 	 *
 	 * RDFLiteral = String ( LANGTAG | ( '^^' IRIref ) )?
-	 * FIRSTS: STRING_LITERAL1 | STRING_LITERAL2 | STRING_LITERAL_LONG1 | STRING_LITERAL_LONG2
+	 * FIRSTS: String.FIRSTS
 	 *  
 	 * @throws IOException 
 	 */
 	
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		
 		if(!$.analize("String"))
 			return false;
@@ -31,5 +33,10 @@ public class RDFLiteral extends Production{
 		}
 		
 	return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() throws IOException {
+		return get("PrimaryExpression").FOLLOWS();
 	}
 }

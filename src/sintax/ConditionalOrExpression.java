@@ -2,6 +2,8 @@ package sintax;
 import static lexic.Token.*;
 
 import java.io.IOException;
+
+import lexic.Token;
 /***
  * 
  *  ConditionalOrExpression	::= ConditionalAndExpression ( '||' ConditionalAndExpression )*
@@ -19,7 +21,7 @@ import java.io.IOException;
  *
  **/
 public class ConditionalOrExpression extends Production{
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		if($.current.token == SUB || $.current.token == NOT || $.current.token == PLUS 
 		||	$.current.token == INTEGER_POSITIVE || $.current.token == DECIMAL_POSITIVE 
 		||  $.current.token == DOUBLE_POSITIVE || $.current.token == INTEGER_NEGATIVE
@@ -42,5 +44,11 @@ public class ConditionalOrExpression extends Production{
 			if($.current.token != RIGTH_PARENTH && $.current.token != COMMA) return false;
 		}else return false;
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

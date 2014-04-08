@@ -9,7 +9,7 @@ import lexic.Token;
 public class GroupOrUnionGraphPattern extends Production{
 
 	@Override
-	public boolean analize() throws IOException {
+	public boolean process() throws IOException {
 		// TODO Auto-generated method stub
 		if($.analize("GroupGraphPattern")){
 			
@@ -22,5 +22,11 @@ public class GroupOrUnionGraphPattern extends Production{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Token[] FOLLOWS() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

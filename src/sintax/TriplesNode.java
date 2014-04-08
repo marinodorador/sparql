@@ -2,6 +2,8 @@ package sintax;
 
 import java.io.IOException;
 
+import lexic.Token;
+
 public class TriplesNode extends Production{
 	/**
 	 * @author Romina
@@ -10,7 +12,12 @@ public class TriplesNode extends Production{
 	 * 
 	 * @throws IOException
 	 */
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		return ( $.analize("Collection") );
+	}
+
+	@Override
+	public Token[] FOLLOWS() throws IOException {
+		return get("Collection").FOLLOWS();
 	}
 }

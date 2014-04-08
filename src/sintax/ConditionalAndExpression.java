@@ -13,7 +13,7 @@ public class ConditionalAndExpression extends Production{
 	 * 
 	 * @throws IOException 
 	 */
-	public boolean analize() throws IOException{
+	public boolean process() throws IOException{
 		
 		if ( ! $.analize("ValueLogical") )
 			return false;
@@ -31,5 +31,13 @@ public class ConditionalAndExpression extends Production{
 		}
 		
 		return true;
+	}
+
+	@Override
+	public Token[] FOLLOWS() throws IOException {
+		return construct(new Token[][]{
+				new Token[]{Token.RIGHT_BRACE},
+				get("Expression").FOLLOWS(),
+				});
 	}
 }
