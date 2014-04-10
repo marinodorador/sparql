@@ -17,7 +17,6 @@ public class BaseDecl extends Production{
 
 	@Override
 	public Token[] FOLLOWS() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Token[]{ Token.PREFIX};
 	}
 }

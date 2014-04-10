@@ -15,8 +15,11 @@ public class SourceSelector extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() {
+	public Token[] FOLLOWS() throws IOException{
 		// TODO Auto-generated method stub
-		return null;
+		return construct(new Token[][]{
+				get("DefaultGraphClause").FOLLOWS(),
+				get("NamedGraphClause").FOLLOWS()
+				});
 	}
 }

@@ -15,9 +15,10 @@ public class VarOrIRIref extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() {
-		// TODO Auto-generated method stub
-		return null;
+	public Token[] FOLLOWS() throws IOException {
+		return construct(new Token[][]{
+				get("Verb").FOLLOWS()
+				});
 	}
 
 }

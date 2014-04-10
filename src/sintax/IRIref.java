@@ -24,9 +24,14 @@ public class IRIref extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() {
-		// TODO Auto-generated method stub
-		return null;
+	public Token[] FOLLOWS() throws IOException {
+		return construct(new Token[][]{
+				new Token[]{ Token.NIL, Token.LEFT_PARENTH },
+				get("NumericLiteral").FOLLOWS(),
+				get("GraphTerm").FOLLOWS(),
+				get("VarOrIRIref").FOLLOWS(),
+				get("SourceSelector").FOLLOWS()
+				});
 	}
 
 }

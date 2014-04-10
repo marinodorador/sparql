@@ -14,9 +14,11 @@ public class Object extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() {
-		// TODO Auto-generated method stub
-		return null;
+	public Token[] FOLLOWS() throws IOException {
+		return construct(new Token[][]{
+				new Token[]{ Token.COMMA},
+				get("ObjectList").FOLLOWS()
+				});
 	}
 
 }

@@ -24,6 +24,6 @@ public class DatasetClause extends Production{
 	@Override
 	public Token[] FOLLOWS() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Token[]{ Token.FROM, Token.WHERE, Token.LEFT_BRACE};
 	}
 }

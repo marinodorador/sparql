@@ -21,7 +21,7 @@ public class Filter extends Production{
 	@Override
 	public Token[] FOLLOWS() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Token[]{Token.PERIOD};
 	}
 
 }

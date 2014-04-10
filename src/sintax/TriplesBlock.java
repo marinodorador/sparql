@@ -23,9 +23,8 @@ public class TriplesBlock extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() {
-		// TODO Auto-generated method stub
-		return null;
+	public Token[] FOLLOWS(){
+		return new Token[]{ Token.OPTIONAL, Token.FILTER, Token.RIGHT_BRACE};
 	}
 
 }
