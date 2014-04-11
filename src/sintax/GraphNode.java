@@ -3,7 +3,7 @@ package sintax;
 import java.io.IOException;
 
 import lexic.Token;
-
+import static lexic.Token.*;
 /*
  * GraphNode ::=  VarOrTerm | TriplesNode
  * FIRST(GraphNode) = {
@@ -33,8 +33,13 @@ public class GraphNode extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() {
+	public Token[] FOLLOWS() throws IOException {
 		// TODO Auto-generated method stub
-		return null;
+		return construct(
+			new Token[][]{
+				new Token[]{Token.RIGTH_PARENTH},
+				$.get("Object").FOLLOWS()
+			}
+		);
 	}
 }

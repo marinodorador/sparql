@@ -3,6 +3,7 @@ package sintax;
 import java.io.IOException;
 
 import lexic.Token;
+import static lexic.Token.*;
 /*
  * @author Esteban
  * WhereClause ::=   'WHERE'? GroupGraphPattern
@@ -20,6 +21,6 @@ public class WhereClause extends Production{
 	@Override
 	public Token[] FOLLOWS() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Token[]{ORDER_BY};
 	}
 }

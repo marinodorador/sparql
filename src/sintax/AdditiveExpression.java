@@ -38,7 +38,7 @@ public class AdditiveExpression extends Production{
 	@Override
 	public Token[] FOLLOWS() throws IOException {
 		return construct(new Token[][]{
-				get("NumericExpression").FOLLOWS()
+				$.get("NumericExpression").FOLLOWS()
 				});
 	}
 

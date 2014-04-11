@@ -20,6 +20,9 @@ public class NumericExpression extends Production{
 
 	@Override
 	public Token[] FOLLOWS() throws IOException {
-		return get("AdditiveExpression").FOLLOWS();
+		return construct(new Token[][]{
+				$.get("RelationalExpression").FOLLOWS(), 
+				new Token[]{Token.EQUAL,Token.NOT_EQUAL, Token.GREATER, Token.LESS, Token.GET, Token.LET}
+				});
 	}
 }

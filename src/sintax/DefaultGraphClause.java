@@ -3,6 +3,7 @@ package sintax;
 import java.io.IOException;
 
 import lexic.Token;
+import static lexic.Token.*;
 /*
  * DefaultGraphClause ::= SourceSelector
  */
@@ -17,8 +18,9 @@ public class DefaultGraphClause extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() {
+	public Token[] FOLLOWS() throws IOException {
 		// TODO Auto-generated method stub
-		return null;
+		
+		return $.get("DatasetClause").FOLLOWS();
 	}
 }

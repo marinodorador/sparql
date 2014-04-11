@@ -1,5 +1,6 @@
 package sintax; 
 
+import static lexic.Token.*;
 import java.io.IOException;
 
 import lexic.Token;
@@ -24,8 +25,18 @@ public class Var extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() {
+	public Token[] FOLLOWS() throws IOException {
 		// TODO Auto-generated method stub
-		return null;
+		return construct(new Token[][]{
+				$.get("VarOrIRIref").FOLLOWS(),
+				$.get("VarOrTerm").FOLLOWS(),
+				$.get("OrderCondition").FOLLOWS(),
+				$.get("PrimaryExpression").FOLLOWS(),
+				new Token[]{FROM}
+		});
+		 
+		
+		 
+		
 	}
 }

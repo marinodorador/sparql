@@ -1,9 +1,10 @@
 package sintax; 
-import static lexic.Token.*;
 
+import lexic.Token;
 import java.io.IOException;
 
 import lexic.Token;
+import static lexic.Token.*;
 /**
  * 
  * @author esteban
@@ -60,8 +61,20 @@ public class MultiplicativeExpression extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() {
+	public Token[] FOLLOWS() throws IOException {
 		// TODO Auto-generated method stub
-		return null;
+		return construct(new Token[][]{
+			new Token[]{
+				PLUS,
+				SUB,
+				INTEGER_POSITIVE,
+				DECIMAL_POSITIVE,
+				DOUBLE_POSITIVE,
+				INTEGER_NEGATIVE,
+				DECIMAL_NEGATIVE,
+				DOUBLE_NEGATIVE
+			},
+			$.get("AdditiveExpression").FOLLOWS()
+		});
 	}
 }

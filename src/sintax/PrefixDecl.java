@@ -3,6 +3,8 @@ package sintax;
 import java.io.IOException;
 
 import lexic.Token;
+import static lexic.Token.*;
+
 /*
  * PrefixDecl ::=  'PREFIX' PNAME_NS IRI_REF
  **/
@@ -20,6 +22,6 @@ public class PrefixDecl extends Production{
 	@Override
 	public Token[] FOLLOWS() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Token[]{SELECT};
 	}
 }

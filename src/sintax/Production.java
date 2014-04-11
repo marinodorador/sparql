@@ -30,6 +30,7 @@ public abstract class Production{
 	public boolean analize()
 	{
 		boolean ans=false;
+		
 		int trace= MistakeLog.mistakesLog.size();
 		
 		try{

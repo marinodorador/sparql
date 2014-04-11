@@ -38,8 +38,8 @@ public class IRIrefOrFunction extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() {
+	public Token[] FOLLOWS() throws IOException {
 		// TODO Auto-generated method stub
-		return null;
+		return $.get("PrimaryExpression").FOLLOWS();
 	}
 }

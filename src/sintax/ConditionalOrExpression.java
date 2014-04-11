@@ -47,8 +47,8 @@ public class ConditionalOrExpression extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() {
-		// TODO Auto-generated method stub
-		return null;
+	public Token[] FOLLOWS() throws IOException {
+		// TODO Auto-generated method stub	
+		return $.get("Expression").FOLLOWS();
 	}
 }

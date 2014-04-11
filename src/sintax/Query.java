@@ -1,5 +1,6 @@
 package sintax; 
 import java.io.IOException;
+import static lexic.Token.*;
 import lexic.Token;
 
 /**
@@ -10,12 +11,12 @@ import lexic.Token;
 
 public class Query extends Production{
 	public boolean process() throws IOException{
-		if($.current.token == Token.BASE || $.current.token == Token.PREFIX || $.current.token == Token.SELECT){
+		if($.current.token == BASE || $.current.token == PREFIX || $.current.token == SELECT){
 			if(!$.analize("Prologue")) return false;
 			if(!$.analize("SelectQuery")) return false;
 			
 			$.next();
-			if($.current.token != Token.END) return false;
+			if($.current.token != END) return false;
 			
 		}else{
 			return false;
@@ -26,6 +27,6 @@ public class Query extends Production{
 	@Override
 	public Token[] FOLLOWS() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Token[]{END};
 	}
 }
