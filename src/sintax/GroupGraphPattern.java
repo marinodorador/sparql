@@ -69,13 +69,16 @@ public class GroupGraphPattern extends Production{
 				$.next();
 				return true;
 			}
+			else if ( $.current.token == Token.END )
+				return (MistakeLog.spected(" } "));
 
 			// ( GraphPatternNotTriples | Filter )
-			switch($.current.token){
+			switch($.current.token)
+			{
 			case LEFT_BRACE:
 			case OPTIONAL:
 				{
-					if (! $.analize("GraphPatternNotTriples"))
+					if (! $.analize("OptionalGraphPattern"))
 						return false;
 					break;
 				}
@@ -122,7 +125,6 @@ public class GroupGraphPattern extends Production{
 				if ( ! $.analize("TriplesBlock") )
 					return false;
 			}
-			
 			
 		}
 		

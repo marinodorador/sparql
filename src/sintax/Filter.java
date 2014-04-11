@@ -1,5 +1,8 @@
 package sintax; 
 
+import static lexic.Token.PERIOD;
+import static lexic.Token.RIGHT_BRACE;
+
 import java.io.IOException;
 
 import lexic.Token;
@@ -19,9 +22,13 @@ public class Filter extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() {
+	public Token[] FOLLOWS() throws IOException {
 		// TODO Auto-generated method stub
-		return new Token[]{Token.PERIOD};
+		
+		return construct(new Token[][]{
+				new Token[]{PERIOD, RIGHT_BRACE},
+				get("TriplesBlock").FOLLOWS()
+				});
 	}
 
 }

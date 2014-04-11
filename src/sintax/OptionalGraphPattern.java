@@ -19,7 +19,11 @@ public class OptionalGraphPattern extends Production{
 		if ( $.current.token == Token.OPTIONAL )
 		{
 			$.next();
-			return $.analize("GroupGraphPattern");
+			
+			if ( $.current.token == Token.LEFT_BRACE )
+				return $.analize("GroupGraphPattern");
+			else
+				return MistakeLog.spected(" { ");
 		}
 		
 		return false;

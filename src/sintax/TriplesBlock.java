@@ -22,9 +22,15 @@ public class TriplesBlock extends Production{
 		return false;
 	}
 
-	@Override
-	public Token[] FOLLOWS(){
-		return new Token[]{ Token.OPTIONAL, Token.FILTER, Token.RIGHT_BRACE};
+//	@Override
+//	public Token[] FOLLOWS(){
+//		return new Token[]{ Token.OPTIONAL, Token.FILTER, Token.RIGHT_BRACE};
+//	}
+	public Token[] FOLLOWS() throws IOException {
+		return new Token[]{ 
+				Token.OPTIONAL, 
+				Token.FILTER, 
+				Token.RIGHT_BRACE, 
+				Token.PERIOD};
 	}
-
 }

@@ -21,9 +21,13 @@ public class Main {
 		Query analizer = new Query();
 				
 		if(analizer.analize() && MistakeLog.mistakesLog.isEmpty()){
-			JOptionPane.showMessageDialog(null, "La expresion es correcta.");
+			{
+				JOptionPane.showMessageDialog(null, "La expresion es correcta.");
+			}
 		}else{
-			JOptionPane.showMessageDialog(null, MistakeLog.report() );
+			{
+				JOptionPane.showMessageDialog(null, "La expresion es incorrecta.\n\nLOG\n"+MistakeLog.report() );
+			}
 		}
 		
 	}

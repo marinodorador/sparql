@@ -53,6 +53,6 @@ public class SelectQuery extends Production{
 
 	@Override
 	public Token[] FOLLOWS() {
-		return new Token[]{};
+		return new Token[]{Token.END};
 	}
 }

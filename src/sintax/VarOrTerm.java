@@ -19,8 +19,8 @@ public class VarOrTerm extends Production{
 	@Override
 	public Token[] FOLLOWS() throws IOException {
 		return construct(new Token[][]{
-				get("Var").FOLLOWS(),
-				get("GraphTerm").FOLLOWS(),
+				new Token[]{Token.VAR1, Token.VAR2, Token.IRI_REF, Token.PNAME_LN, Token.PNAME_NS, Token.A}/*Verb.first*/,
+				get("GraphNode").FOLLOWS(),
 				});
 	}
 }

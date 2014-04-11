@@ -41,6 +41,6 @@ public class OrderClause extends Production{
 	@Override
 	public Token[] FOLLOWS() {
 		// TODO Auto-generated method stub
-		return new Token[]{LIMIT,OFFSET};
+		return new Token[]{LIMIT,OFFSET,END};
 	}
 }

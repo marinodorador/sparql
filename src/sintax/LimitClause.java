@@ -21,7 +21,7 @@ public class LimitClause extends Production{
 	@Override
 	public Token[] FOLLOWS() throws IOException {
 		return construct(new Token[][]{
-				get("LimitOffsetClauses").FOLLOWS(), new Token[]{ Token.OFFSET}
+				get("LimitOffsetClauses").FOLLOWS(), get("OffsetClause").FOLLOWS()
 				});
 	}
 

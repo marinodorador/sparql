@@ -3,7 +3,6 @@ package sintax;
 import lexic.Token;
 import java.io.IOException;
 
-import lexic.Token;
 import static lexic.Token.*;
 /**
  * 

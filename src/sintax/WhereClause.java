@@ -21,6 +21,6 @@ public class WhereClause extends Production{
 	@Override
 	public Token[] FOLLOWS() {
 		// TODO Auto-generated method stub
-		return new Token[]{ORDER_BY};
+		return new Token[]{ORDER_BY, LIMIT, OFFSET, END};
 	}
 }

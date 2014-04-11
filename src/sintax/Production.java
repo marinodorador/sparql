@@ -32,6 +32,7 @@ public abstract class Production{
 		boolean ans=false;
 		
 		int trace= MistakeLog.mistakesLog.size();
+		Token current= $.current.token;
 		
 		try{
 			
@@ -39,7 +40,10 @@ public abstract class Production{
 			
 			if ( ans == false )
 			{
-				Token[] FOLLOWS= this.FOLLOWS;
+				if( current == $.current.token )
+					return MistakeLog.spected(this.getClass().getSimpleName());
+					
+				
 				if( FOLLOWS == null )
 					FOLLOWS= FOLLOWS();
 				
@@ -58,7 +62,7 @@ public abstract class Production{
 	/*
 	 * FOLLOWS
 	 */
-	public Token[] FOLLOWS;
+	private Token[] FOLLOWS;
 	public abstract Token[] FOLLOWS() throws IOException;
 	
 	/*

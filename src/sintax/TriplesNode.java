@@ -18,6 +18,9 @@ public class TriplesNode extends Production{
 
 	@Override
 	public Token[] FOLLOWS() throws IOException {
-		return get("Collection").FOLLOWS();
+		return construct( new Token[][]{
+				get("GraphNode").FOLLOWS(),
+				new Token[]{ Token.VAR1, Token.VAR2, Token.IRI_REF, Token.PNAME_LN, Token.PNAME_NS, Token.A}
+		});
 	}
 }

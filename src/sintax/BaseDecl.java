@@ -17,6 +17,6 @@ public class BaseDecl extends Production{
 
 	@Override
 	public Token[] FOLLOWS() {
-		return new Token[]{ Token.PREFIX};
+		return new Token[]{ Token.PREFIX, Token.SELECT};
 	}
 }

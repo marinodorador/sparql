@@ -3,7 +3,6 @@ package sintax;
 import java.io.IOException;
 
 import lexic.Token;
-import static lexic.Token.*;
 
 /*
  * PropertyList	  				::=  	PropertyListNotEmpty?

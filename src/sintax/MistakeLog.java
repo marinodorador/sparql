@@ -7,37 +7,54 @@ import lexic.Token;
 
 public class MistakeLog {
 	
+	private static java.lang.String message="";
+	private static Token spected_position= null;
+	
 	public static ArrayList<java.lang.String> mistakesLog= new ArrayList<java.lang.String>();
 	
 	public static boolean driveTo ( Token[]follows ) throws IOException
 	{
 		java.lang.String msg="";
 		
-		while($.current.token != Token.END)
-		{			
+		if (spected_position != $.current.token )
+			message="";
+		
+		while(true)
+		{
 			for ( int i=0 ; i<follows.length ; i++ )
 				if(follows[i] == $.current.token )
 				{
-					mistakesLog.add( msg );
+					if(msg.isEmpty())
+						mistakesLog.add( "FOUND nothing" +message+"\n" );
+					else
+						mistakesLog.add( "FOUND\n\"" +msg + "\"" +message+"\n" );
 					return true;
 				}
 			
 			if ( $.current.lexeme==null )
-				msg += $.current.token.name() + " ";
+			{
+				if( msg.endsWith(" "))
+					msg += $.current.token.name() + " ";
+				else
+					msg += " " + $.current.token.name() + " ";
+			}
 			else
-				msg += $.current.lexeme + " ";
+				msg += $.current.lexeme;
 			
+			if($.current.token == Token.END)
+				break;
 			
 			$.next();
 		}
 		
+		msg="";
 		return false;
 	}
 	
 	public static void reportParent(java.lang.String parent)
 	{
 		java.lang.String s= mistakesLog.remove(mistakesLog.size()-1);
-		mistakesLog.add(s+" @ "+parent);
+		mistakesLog.add(s+" at "+parent);
 	}
 	
 	public static java.lang.String report()
@@ -50,9 +67,20 @@ public class MistakeLog {
 			s+=mistakesLog.size() +" mistakes were found: ";
 		
 		for ( java.lang.String line: mistakesLog )
-			s+="\n"+line;
+			s+="\n------------------------------\n"+line;
 		
 		return s;
+	}
+	
+	public static boolean spected( java.lang.String msg )
+	{
+		if ( spected_position==$.current.token )
+			message+= " / " + msg;
+		else
+			message= "\n\nSPECTED\n" + msg;
+		spected_position=$.current.token;
+		
+		return false;
 	}
 	
 }
