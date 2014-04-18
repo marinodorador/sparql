@@ -22,12 +22,12 @@ public class IRIref extends Production{
 		}
 		return false;
 	}
-
+	
 	@Override
 	public Token[] FOLLOWS() throws IOException {
 		return construct(new Token[][]{
 				new Token[]{ Token.NIL, Token.LEFT_PARENTH },
-				get("NumericLiteral").FOLLOWS(),
+				get("PrimaryExpression").FOLLOWS(),
 				get("GraphTerm").FOLLOWS(),
 				get("VarOrIRIref").FOLLOWS(),
 				get("SourceSelector").FOLLOWS()

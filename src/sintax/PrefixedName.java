@@ -29,6 +29,6 @@ public class PrefixedName extends Production{
 	@Override
 	public Token[] FOLLOWS() throws IOException {
 		// TODO Auto-generated method stub
-		return $.get("PrefixedName").FOLLOWS();
+		return $.get("IRIref").FOLLOWS();
 	}
 }
