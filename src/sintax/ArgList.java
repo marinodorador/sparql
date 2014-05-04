@@ -1,6 +1,7 @@
 package sintax;
 
 import java.io.IOException;
+import com.hp.hpl.jena.sparql.expr.ExprList;
 
 import lexic.Token;
 
@@ -10,20 +11,21 @@ import lexic.Token;
  * ArgList	 ::=  	( NIL | '(' Expression ( ',' Expression )* ')' )
  */
 public class ArgList  extends Production {
-	
+	public ExprList expr = new ExprList();
 	@Override
 	public boolean process() throws IOException {
 		switch($.current.token){
-			case NIL: 
-				$.next();
-				break;
+			case NIL: $.next();break;
 			case LEFT_PARENTH:
 				$.next();
-				if(!$.analize("Expression")) return false;
-				
+				Expression e = (Expression)$.get("Expression");
+				if(!e.analize()) return false;
+				expr.add(e.expr);
 				while($.current.token == Token.COMMA){
 					$.next();
-					if(!$.analize("Expression")) return false;
+					Expression e2 = (Expression)$.get("Expression");
+					if(!e2.analize()) return false;
+					expr.add(e2.expr);
 				}
 				
 				if($.current.token != Token.RIGTH_PARENTH) return false;

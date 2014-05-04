@@ -2,9 +2,12 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.sparql.syntax.ElementOptional;
+
 import lexic.Token;
 
 public class OptionalGraphPattern extends Production{
+	public ElementOptional element;
 	/**
 	 * @author Romina
 	 *
@@ -20,9 +23,12 @@ public class OptionalGraphPattern extends Production{
 		{
 			$.next();
 			
-			if ( $.current.token == Token.LEFT_BRACE )
-				return $.analize("GroupGraphPattern");
-			else
+			if ( $.current.token == Token.LEFT_BRACE ){
+				GroupGraphPattern ggp = (GroupGraphPattern) $.get("GroupGraphPattern");
+				boolean result = ggp.analize();
+				element = new ElementOptional(ggp.element);
+				return result;
+			}else
 				return MistakeLog.spected(" { ");
 		}
 		

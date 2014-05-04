@@ -11,31 +11,30 @@ import lexic.Token;
  */
 public abstract class Production{
 
-	public HashMap<String,Object> attrs = new HashMap<String,Object>();
+	public HashMap<_String,Object> attrs = new HashMap<_String,Object>();
 	
 	abstract boolean process() throws IOException;	
 
-	public Object getAttr(String key){
+	public Object getAttr(_String key){
 		return attrs.get(key);
 	}
 
-	public void setAttr(String key, Object o){
+	public void setAttr(_String key, Object o){
 		attrs.put(key, o);
 	}
 
-	public boolean attrExist(String key){
+	public boolean attrExist(_String key){
 		return attrs.containsKey(key);
 	}
 	
-	public boolean analize()
-	{
+	public boolean analize() throws IOException{
+		System.out.println(this.getClass().getSimpleName());
 		boolean ans=false;
 		
 		int trace= MistakeLog.mistakesLog.size();
 		Token current= $.current.token;
 		
-		try{
-			
+
 			ans= process();
 			
 			if ( ans == false )
@@ -54,7 +53,7 @@ public abstract class Production{
 			if ( MistakeLog.mistakesLog.size() != trace )
 				MistakeLog.reportParent(""+this.getClass().getSimpleName());
 			
-		}catch(Exception ex){}
+		
 		
 		return ans;
 	}
@@ -93,7 +92,7 @@ public abstract class Production{
 		int size=1;
 		
 		for ( int i=0 ; i<tokens.length; i++ )
-			size += tokens[i].length-1;
+			size += tokens[i].length;
 		
 		Token[] ans= new Token[size];
 		

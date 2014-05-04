@@ -2,22 +2,27 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.sparql.syntax.ElementUnion;
+
 import lexic.Token;
 /*
  * GroupOrUnionGraphPattern	  ::=  	GroupGraphPattern ( 'UNION' GroupGraphPattern )*
  * */
 public class GroupOrUnionGraphPattern extends Production{
-
+	ElementUnion element = new ElementUnion();
+	
 	@Override
 	public boolean process() throws IOException {
+		GroupGraphPattern ggp = (GroupGraphPattern)$.get("GroupGraphPattern");
 		// TODO Auto-generated method stub
-		if($.analize("GroupGraphPattern")){
-			
+		if(ggp.analize()){
+			element.addElement(ggp.element);
+			 
 			while($.current.token == Token.UNION){
 				$.next();
-				if(!$.analize("GroupGraphPattern")){
-					return false;
-				}
+				ggp = (GroupGraphPattern)$.get("GroupGraphPattern");
+				if(!ggp.analize()) return false;
+				element.addElement(ggp.element);
 			}
 			return true;
 		}

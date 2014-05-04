@@ -10,11 +10,47 @@ import lexic.Token;
  */
 
 public class Query extends Production{
+	
+	public static com.hp.hpl.jena.query.Query query = null;
+	
 	public boolean process() throws IOException{
 		if($.current.token == BASE || $.current.token == PREFIX || $.current.token == SELECT){
-			if(!$.analize("Prologue")) return false;
-			if(!$.analize("SelectQuery")) return false;
+			Prologue p =  (Prologue)$.get("Prologue");
+			SelectQuery sq =(SelectQuery)$.get("SelectQuery");
 			
+			if(!p.analize()) return false;
+				query = new com.hp.hpl.jena.query.Query(p.prologue);
+			
+			if(query == null){
+				query = new com.hp.hpl.jena.query.Query();
+			}
+	
+			if(!sq.analize()) return false;
+			
+			
+			
+			query.setQueryPattern(sq.queryPattern);
+			query.setDistinct(sq.distinct);
+		 	query.setReduced(sq.reduced);
+		 	query.setQueryResultStar(sq.queryResultStart);
+
+		 	
+		 	//Add vars
+		 	for(int i = 0;i<sq.resultVars.size();i++){
+		 		query.addResultVar(sq.resultVars.get(i));
+		 	}
+		
+		 	if(sq.isSelect)query.setQuerySelectType();
+		 	
+		 	
+		 	//Add graph uris
+		 	for(int i = 0 ; i< sq.graphUris.size(); i++) 
+		 		query.addGraphURI(sq.graphUris.get(i));
+		 	
+		 	//Add named graph uris
+		 	for(int i = 0 ; i< sq.namedGraphUris.size(); i++) 
+		 		query.addNamedGraphURI(sq.graphUris.get(i));
+		 	
 			$.next();
 			if($.current.token != END) return false;
 			

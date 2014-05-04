@@ -13,7 +13,13 @@ public class LimitClause extends Production{
 		
 		if($.current.token == Token.LIMIT){
 			$.next();
-			if($.current.token == Token.INTEGER) $.next();return true;
+			if($.current.token == Token.INTEGER) {
+				$.next();
+				Long limit = Long.parseLong($.current.lexeme);
+				Query.query.setLimit(limit);
+				return true;
+			}
+			
 		}
 		return false;
 	}

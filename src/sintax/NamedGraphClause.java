@@ -5,6 +5,8 @@ import java.io.IOException;
 import lexic.Token;
 
 public class NamedGraphClause extends Production{
+	public com.hp.hpl.jena.query.Query  query;
+	public String uri = null;
 	/**
 	 * @author Romina
 	 *
@@ -19,7 +21,10 @@ public class NamedGraphClause extends Production{
 		if ( $.current.token == Token.NAMED )
 		{
 			$.next();
-			return $.analize("SourceSelector");
+			SourceSelector ss =(SourceSelector) $.get("SourceSelector");
+			boolean result = ss.analize();
+			uri = ss.uri;
+			return result;
 		}
 		
 		return false;

@@ -2,9 +2,13 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.sparql.expr.E_LogicalAnd;
+import com.hp.hpl.jena.sparql.expr.Expr;
+
 import lexic.Token;
 
 public class ConditionalAndExpression extends Production{
+	Expr expr = null;
 	/**
 	 * @author Romina
 	 *
@@ -14,20 +18,18 @@ public class ConditionalAndExpression extends Production{
 	 * @throws IOException 
 	 */
 	public boolean process() throws IOException{
+		ValueLogical vl = (ValueLogical)$.get("ValueLogical");
 		
-		if ( ! $.analize("ValueLogical") )
-			return false;
+		if ( !  vl.analize()) return false;
+		expr = vl.expr;
 		
-		while(true)
-		{
-			if ( $.current.token == Token.AND )
-			{
+		while(true){
+			if ( $.current.token == Token.AND ){
 				$.next();
-				if ( ! $.analize("ValueLogical") )
-					return false;
-			}
-			else
-				break;
+				ValueLogical vl2 = (ValueLogical)$.get("ValueLogical");
+				if ( ! vl2.analize()) return false;
+				this.expr = new E_LogicalAnd(this.expr, vl2.expr);
+			}else break;
 		}
 		
 		return true;

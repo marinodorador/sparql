@@ -2,15 +2,20 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.graph.Node;
+
 import lexic.Token;
 /*
  * Object ::= GraphNode
  */
 public class Object extends Production{
-
+	public Node node = null;
 	@Override
 	public boolean process() throws IOException {
-		return $.analize("GraphNode");
+		GraphNode gn = (GraphNode)$.get("GraphNode");
+		boolean result = gn.analize();
+		node = gn.node;
+		return result;
 	}
 
 	@Override

@@ -2,6 +2,9 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.graph.Node;
+import com.hp.hpl.jena.graph.NodeFactory;
+
 import lexic.Token;
 
 /*
@@ -11,13 +14,21 @@ import lexic.Token;
  **/
 
 public class Verb extends Production{
-
+	public Node node = null;
+	
 	public boolean process() throws IOException{
 		switch($.current.token){
-			case VAR1: case VAR2: case IRI_REF: case PNAME_LN: case PNAME_NS:
-				if(!$.analize("VarOrIRIref")) return false;
+			case VAR1: 
+			case VAR2:
+			case IRI_REF: 
+			case PNAME_LN:
+			case PNAME_NS:
+				VarOrIRIref varOrIriRef = (VarOrIRIref)$.get("VarOrIRIref");
+				if(!varOrIriRef.analize()) return false;
+					node = varOrIriRef.node;
 				break;
 			case A:
+				node =  NodeFactory.createURI("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
 				$.next();
 				break;
 			default:

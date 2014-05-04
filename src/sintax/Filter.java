@@ -5,18 +5,23 @@ import static lexic.Token.RIGHT_BRACE;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.sparql.syntax.ElementFilter;
+
 import lexic.Token;
 
 /*
  * Filter ::= 'FILTER' Constraint
  */
 public class Filter extends Production{
-
+	ElementFilter node = null;
 	@Override
 	public boolean process() throws IOException {
-		if($.current.token == Token.FILTER) {
+		if($.current.token == Token.FILTER) { 
 			$.next();
-			return $.analize("Constraint");
+			Constraint c = (Constraint)$.get("Constraint");
+			boolean result = c.analize();
+			node = new ElementFilter(c.expr);
+			return result;
 		}
 		return false;
 	}

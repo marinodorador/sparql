@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import lexic.Token;
 
-public class String extends Production{
-	
+public class _String extends Production{
+	public String val = null;
 	/**
 	 * @author Romina
 	 *
@@ -17,13 +17,14 @@ public class String extends Production{
 	public boolean process() throws IOException{	
 		
 		switch($.current.token){
-
-		case STRING_LITERAL1:
-		case STRING_LITERAL2:
-		case STRING_LITERAL_LONG1:
-		case STRING_LITERAL_LONG2:
-			$.next();
-			return true;
+			case STRING_LITERAL1:
+			case STRING_LITERAL2:
+			case STRING_LITERAL_LONG1:
+			case STRING_LITERAL_LONG2:{
+				val = $.current.lexeme;
+				$.next();
+				return true;
+			}
 		}
 		
 	return false;

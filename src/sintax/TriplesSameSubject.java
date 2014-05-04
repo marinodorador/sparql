@@ -1,10 +1,14 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import com.hp.hpl.jena.graph.Triple;
 
 import lexic.Token;
 
 public class TriplesSameSubject extends Production{
+	public ArrayList<Triple> triples = new ArrayList<Triple>();
 	/**
 	 * @author Romina
 	 *
@@ -15,15 +19,25 @@ public class TriplesSameSubject extends Production{
 	 * @throws IOException
 	 */
 	public boolean process() throws IOException{
+		VarOrTerm varOrterm = (VarOrTerm)$.get("VarOrTerm" ) ;
+		TriplesNode triplesNode = (TriplesNode) $.get("TriplesNode" );
 		
-		if ( $.analize("VarOrTerm" ) )
-		{
-			return $.analize("PropertyListNotEmpty" );
+		if (varOrterm.analize()){
+			PropertyListNotEmpty plne = (PropertyListNotEmpty)$.get("PropertyListNotEmpty");
+			plne.subject  = varOrterm.node;
+			boolean result =  plne.analize();
+			
+			for(int i=0;i<plne.triples.size();i++)
+				triples.add(plne.triples.get(i));
+			
+			return result;
 		}
-		else if ( $.analize("TriplesNode" ) )
-		{
-			return $.analize("PropertyList" );
-		}
+		/*else if(triplesNode.analize()){ //Acción no soportada
+			PropertyList propList = (PropertyList) $.get("PropertyList");
+			
+			boolean result = propList.analize();
+			return result;
+		}*/
 		
 		return false;
 	}

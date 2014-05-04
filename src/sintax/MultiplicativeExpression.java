@@ -3,6 +3,10 @@ package sintax;
 import lexic.Token;
 import java.io.IOException;
 
+import com.hp.hpl.jena.sparql.expr.E_Divide;
+import com.hp.hpl.jena.sparql.expr.E_Multiply;
+import com.hp.hpl.jena.sparql.expr.Expr;
+
 import static lexic.Token.*;
 /**
  * 
@@ -23,28 +27,39 @@ import static lexic.Token.*;
  */
 
 public class MultiplicativeExpression extends Production{
+	public Expr expr = null;
+	private static final boolean firsts = $.current.token == NOT || $.current.token == PLUS || $.current.token == SUB || $.current.token == LEFT_PARENTH 
+			|| $.current.token == STR || $.current.token == LANG || $.current.token == LANGMATCHES 
+			|| $.current.token == DATATYPE || $.current.token == BOUND || $.current.token == SAMETERM 
+			|| $.current.token == ISIRI || $.current.token == ISURI || $.current.token == ISBLANK 
+			|| $.current.token == ISLITERAL || $.current.token == REGEX || $.current.token == STRING_LITERAL1 
+			|| $.current.token == STRING_LITERAL2 || $.current.token == STRING_LITERAL_LONG1
+			|| $.current.token == INTEGER || $.current.token == DECIMAL || $.current.token == DOUBLE
+			|| $.current.token == INTEGER_POSITIVE || $.current.token == DECIMAL_POSITIVE || $.current.token == DOUBLE_POSITIVE
+			|| $.current.token == INTEGER_NEGATIVE || $.current.token == DECIMAL_NEGATIVE || $.current.token == DOUBLE_NEGATIVE
+			|| $.current.token == TRUE || $.current.token == FALSE|| $.current.token == VAR1 || $.current.token == VAR2;
+	
 	public boolean process() throws IOException{
-		if($.current.token == NOT || $.current.token == PLUS || $.current.token == SUB || $.current.token == LEFT_PARENTH 
-				|| $.current.token == STR || $.current.token == LANG || $.current.token == LANGMATCHES 
-				|| $.current.token == DATATYPE || $.current.token == BOUND || $.current.token == SAMETERM 
-				|| $.current.token == ISIRI || $.current.token == ISURI || $.current.token == ISBLANK 
-				|| $.current.token == ISLITERAL || $.current.token == REGEX || $.current.token == STRING_LITERAL1 
-				|| $.current.token == STRING_LITERAL2 || $.current.token == STRING_LITERAL_LONG1
-				 || $.current.token == INTEGER || $.current.token == DECIMAL || $.current.token == DOUBLE
-				 || $.current.token == INTEGER_POSITIVE || $.current.token == DECIMAL_POSITIVE || $.current.token == DOUBLE_POSITIVE
-				 || $.current.token == INTEGER_NEGATIVE || $.current.token == DECIMAL_NEGATIVE || $.current.token == DOUBLE_NEGATIVE
-				 || $.current.token == TRUE || $.current.token == FALSE|| $.current.token == VAR1 || $.current.token == VAR2){
-			if(!$.analize("UnaryExpression")) return false;
+		if(firsts){
+			UnaryExpression ue = (UnaryExpression)$.get("UnaryExpression");
+			
+			if(!ue.analize()) return false;
+			this.expr = ue.expr;
 			while($.current.token  == MULT || $.current.token  == DIV){
 				switch($.current.token ){
-					case MULT:
+					case MULT:{
 						$.next();
-						if(!$.analize("UnaryExpression")) return false;
+						UnaryExpression ue2 = (UnaryExpression)$.get("UnaryExpression");
+						if(!ue2.analize()) return false;
+						this.expr = new E_Multiply(this.expr, ue2.expr);
 						break;
-					case DIV:
+					}case DIV:{
 						$.next();
-						if(!$.analize("UnaryExpression")) return false;
+						UnaryExpression ue2 = (UnaryExpression)$.get("UnaryExpression");
+						if(!ue2.analize()) return false;
+						this.expr = new E_Divide(this.expr, ue2.expr);
 						break;
+					}
 				}
 				
 			}

@@ -2,6 +2,9 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.sparql.expr.Expr;
+import com.hp.hpl.jena.sparql.expr.nodevalue.NodeValueBoolean;
+
 import lexic.Token;
 
 /**
@@ -13,13 +16,19 @@ import lexic.Token;
  */
 public class BooleanLiteral extends Production{
 	
-	
+	public String val = null;
+	public String type =  "http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#dt-boolean";
+	public Expr expr = null;
 	public boolean process() throws IOException{
 		switch($.current.token){
 			case TRUE:
-				$.next();
+				val = "true";
+				expr = new NodeValueBoolean(true);
+				$.next();			
 				break;
 			case FALSE:
+				val = "false";
+				expr = new NodeValueBoolean(false);
 				$.next();
 				break;
 			default: return false;

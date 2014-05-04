@@ -2,9 +2,12 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.sparql.syntax.ElementGroup;
+
 import lexic.Token;
 
 public class GroupGraphPattern extends Production{
+	public ElementGroup element = new ElementGroup();
 	/**
 	 * @author Romina
 	 *
@@ -55,8 +58,9 @@ public class GroupGraphPattern extends Production{
 				$.current.token == Token.FALSE || 
 				$.current.token == Token.NIL)
 		{
-			if ( ! $.analize("TriplesBlock") )
-				return false;
+			TriplesBlock tb = (TriplesBlock)$.get("TriplesBlock"); 
+			if (!tb.analize()) return false;
+			element.addElement(tb.element);
 		}
 		
 		// ( ( GraphPatternNotTriples | Filter ) '.'? TriplesBlock? )* '}'
@@ -64,30 +68,28 @@ public class GroupGraphPattern extends Production{
 		{
 			
 			// '}'
-			if ( $.current.token== Token.RIGHT_BRACE )
-			{
+			if ( $.current.token== Token.RIGHT_BRACE ){
 				$.next();
 				return true;
-			}
-			else if ( $.current.token == Token.END )
+			}else if ( $.current.token == Token.END )
 				return (MistakeLog.spected(" } "));
 
 			// ( GraphPatternNotTriples | Filter )
-			switch($.current.token)
-			{
-			case LEFT_BRACE:
-			case OPTIONAL:
-				{
-					if (! $.analize("OptionalGraphPattern"))
-						return false;
-					break;
+			switch($.current.token){
+				case LEFT_BRACE:
+				case OPTIONAL:{
+					GraphPatternNotTriples gpnt  =(GraphPatternNotTriples) $.get("GraphPatternNotTriples");
+						if (!gpnt.analize() ) return false;
+						element.addElement(gpnt.element);
+						break;
 				}
 				
 					
 				case FILTER:
 				{
-					if (! $.analize("Filter"))
-						return false;
+					Filter f = (Filter) $.get("Filter");
+					if (! f.analize()) return false;
+					element.addElement(f.node);
 					break;
 				}
 				default:
@@ -120,10 +122,10 @@ public class GroupGraphPattern extends Production{
 					$.current.token == Token.DOUBLE_NEGATIVE|| 
 					$.current.token == Token.TRUE|| 
 					$.current.token == Token.FALSE || 
-					$.current.token == Token.NIL)
-			{
-				if ( ! $.analize("TriplesBlock") )
-					return false;
+					$.current.token == Token.NIL){
+					TriplesBlock tb2 = (TriplesBlock) $.get("TriplesBlock");
+						if ( ! tb2.analize()) return false;
+						element.addElement(tb2.element);
 			}
 			
 		}

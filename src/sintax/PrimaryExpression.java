@@ -2,6 +2,8 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.sparql.expr.Expr;
+
 import lexic.Token;
 /*
  * PrimaryExpression	::=  	BrackettedExpression 
@@ -13,10 +15,36 @@ import lexic.Token;
  *							| 	Var
  */
 public class PrimaryExpression extends Production{
+	public Expr expr = null;
 	public boolean process() throws IOException{
-		return $.analize("BrackettedExpression") || $.analize("BuiltInCall") || $.analize("IRIrefOrFunction") 
-	 || $.analize("RDFLiteral") || $.analize("NumericLiteral") || $.analize("BooleanLiteral") || $.analize("Var");
+		BrackettedExpression bexpr = (BrackettedExpression) $.get("BrackettedExpression");
+		BuiltInCall bcall = (BuiltInCall)$.get("BuiltInCall");
+		IRIrefOrFunction iriRef = (IRIrefOrFunction)$.get("IRIrefOrFunction");
+		RDFLiteral rdfLit = (RDFLiteral)$.get("RDFLiteral");
+		NumericLiteral numLit = (NumericLiteral)$.get("NumericLiteral");
+		BooleanLiteral blit = (BooleanLiteral)$.get("BooleanLiteral");
+		Var var = (Var)$.get("Var");
 		
+		if(bexpr.analize()){
+			this.expr = bexpr.expr;
+		}else if(bcall.analize()){
+			this.expr = bcall.expr;
+		}else if(iriRef.analize()){
+			this.expr = iriRef.expr;
+		}else if(rdfLit.analize()){
+			this.expr = rdfLit.expr;
+		}else if(numLit.analize()){
+			this.expr = numLit.expr;
+		}else if(blit.analize()){
+			this.expr = blit.expr;
+		}else if(var.analize()){
+			this.expr = var.expr;
+		}else{
+			return false;
+		}
+		  
+
+		return true;
 	}
 
 	@Override

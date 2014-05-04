@@ -2,9 +2,13 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.shared.impl.PrefixMappingImpl;
+
 import lexic.Token;
 
 public class Prologue extends Production{
+	com.hp.hpl.jena.sparql.core.Prologue prologue = new com.hp.hpl.jena.sparql.core.Prologue() ;
+	
 	/**
 	 * @author Romina
 	 *
@@ -15,17 +19,20 @@ public class Prologue extends Production{
 	 * @throws IOException 
 	 */
 	public boolean process() throws IOException{
+		prologue.setPrefixMapping(new PrefixMappingImpl());
 		
-		if ( $.current.token == Token.BASE )
-		{
-			if ( ! $.analize("BaseDecl") )
-				return false;
+		if ( $.current.token == Token.BASE ){
+			BaseDecl base = (BaseDecl)$.get("BaseDecl");
+			if ( ! base.analize()) return false;
+			prologue.setBaseURI(base.baseUri);
 		}
 		
 		while ( $.current.token == Token.PREFIX )
 		{
-			if ( ! $.analize("PrefixDecl") )
-				return false;
+			PrefixDecl prefixDecl = (PrefixDecl) $.get("PrefixDecl");
+			if ( ! prefixDecl.analize() )return false;
+			PrefixMappingImpl pm = (PrefixMappingImpl)prologue.getPrefixMapping();
+			pm.setNsPrefix(prefixDecl.prefix, prefixDecl.uri);
 		}
 		
 		return true;

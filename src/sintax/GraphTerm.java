@@ -2,9 +2,14 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.datatypes.BaseDatatype;
+import com.hp.hpl.jena.graph.Node;
+import com.hp.hpl.jena.graph.NodeFactory;
+
 import lexic.Token;
 
 public class GraphTerm extends Production{
+	public Node node = null;
 	/**
 	 * @author Romina
 	 *
@@ -16,13 +21,30 @@ public class GraphTerm extends Production{
 	 */
 	public boolean process() throws IOException{
 		
-		if ( $.current.token == Token.NIL )
-			return true;
+
 		
-		return ( $.analize("IRIref") || 
-				$.analize("RDFLiteral") || 
-				$.analize("NumericLiteral") || 
-				$.analize("BooleanLiteral")  );
+		IRIref iriRef = (IRIref) $.get("IRIref");
+		RDFLiteral rdfLiteral = (RDFLiteral) $.get("RDFLiteral");
+		NumericLiteral numericLiteral = (NumericLiteral)$.get("NumericLiteral");
+		BooleanLiteral booleanLiteral = (BooleanLiteral) $.get("BooleanLiteral");
+		
+		if($.current.token == Token.NIL){
+			throw new SemanticException("NIL is unsopported: "+$.current.lexeme);
+		}else if(iriRef.analize()){  
+			this.node = NodeFactory.createURI(iriRef.val);
+			return true;
+		}else if(rdfLiteral.analize()){
+			this.node = rdfLiteral.node;
+			return true;
+		}else if(numericLiteral.analize()){
+			this.node = NodeFactory.createLiteral(numericLiteral.val,new BaseDatatype(numericLiteral.type));
+			return true;
+		}else if(booleanLiteral.analize()){
+			this.node = NodeFactory.createLiteral(booleanLiteral.val,new BaseDatatype(booleanLiteral.type));
+			return true;
+		}
+		
+		return false;
 	}
 
 	@Override

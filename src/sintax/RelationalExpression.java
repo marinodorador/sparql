@@ -3,6 +3,14 @@ import static lexic.Token.*;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.sparql.expr.E_Equals;
+import com.hp.hpl.jena.sparql.expr.E_GreaterThan;
+import com.hp.hpl.jena.sparql.expr.E_GreaterThanOrEqual;
+import com.hp.hpl.jena.sparql.expr.E_LessThan;
+import com.hp.hpl.jena.sparql.expr.E_LessThanOrEqual;
+import com.hp.hpl.jena.sparql.expr.E_NotEquals;
+import com.hp.hpl.jena.sparql.expr.Expr;
+
 import lexic.Token;
 /*
  * RelationalExpression	         ::=  	NumericExpression ( '=' NumericExpression 
@@ -30,7 +38,7 @@ import lexic.Token;
  * 
  **/
 public class RelationalExpression extends Production{
-
+	Expr expr = null;
 	public boolean process() throws IOException{
 		if($.current.token  == SUB  || $.current.token  == NOT || $.current.token  == PLUS
 				|| $.current.token  == LEFT_PARENTH|| $.current.token  == STR|| $.current.token  == LANG
@@ -43,32 +51,42 @@ public class RelationalExpression extends Production{
 				|| $.current.token  == DOUBLE_NEGATIVE || $.current.token  == TRUE || $.current.token  == FALSE
 				|| $.current.token  == VAR1 || $.current.token  ==VAR2
 				){
-			if(!$.analize("NumericExpression")) return false;
+			
+			NumericExpression ne = (NumericExpression) $.get("NumericExpression");
+			NumericExpression ne2 = (NumericExpression) $.get("NumericExpression");
+			if(!ne.analize()) return false;
+			this.expr = ne.expr;
 			
 			switch($.current.token){
 				case EQUAL:
 					$.next();
-					if(!$.analize("NumericExpression")) return false;
+					if(!ne2.analize()) return false;
+					this.expr = new E_Equals(ne.expr, ne2.expr);
 					break;
 				case NOT_EQUAL:
 					$.next();
-					if(!$.analize("NumericExpression")) return false;
+					if(!ne2.analize()) return false;
+					this.expr = new E_NotEquals(ne.expr, ne2.expr);
 					break;
 				case LESS:
 					$.next();
-					if(!$.analize("NumericExpression")) return false;
+					if(!ne2.analize()) return false;
+					this.expr = new E_LessThan(ne.expr, ne2.expr);
 					break;
 				case GREATER:
 					$.next();
-					if(!$.analize("NumericExpression")) return false;
+					if(!ne2.analize()) return false;
+					this.expr = new E_GreaterThan(ne.expr, ne2.expr);
 					break;
 				case LET:
 					$.next();
-					if(!$.analize("NumericExpression")) return false;
+					if(!ne2.analize()) return false;
+					this.expr = new E_LessThanOrEqual(ne.expr, ne2.expr);
 					break;
 				case GET:
 					$.next();
-					if(!$.analize("NumericExpression")) return false;
+					if(!ne2.analize()) return false;
+					this.expr = new E_GreaterThanOrEqual(ne.expr, ne2.expr);
 					break;
 					
 			}

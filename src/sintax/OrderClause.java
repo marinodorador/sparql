@@ -21,11 +21,12 @@ public class OrderClause extends Production{
 					$.current.token == Token.LEFT_PARENTH || 
 					$.current.token == Token.VAR1 ||
 					$.current.token == Token.VAR2){
-				$.next();
-				if(!$.analize("OrderCondition")) return false;
-			}else{
-				return false;
-			}
+				OrderCondition orderCond = (OrderCondition)$.get("OrderCondition");
+				if(!orderCond.analize()) return false;
+				Query.query.addOrderBy(orderCond.sortCondition);
+				
+			}else return false;
+			
 		}while($.current.token == Token.ASC ||  
 				$.current.token == Token.DESC ||
 				$.current.token == Token.LEFT_PARENTH || 

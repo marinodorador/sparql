@@ -2,9 +2,12 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.query.SortCondition;
+
 import lexic.Token;
 
 public class OrderCondition extends Production{
+	public SortCondition sortCondition = null;
 	/**
 	 * @author Romina
 	 *
@@ -15,21 +18,34 @@ public class OrderCondition extends Production{
 	 * @throws IOException 
 	 */
 	public boolean process() throws IOException{
-		
 		switch($.current.token){
 
-		case ASC:
-		case DESC:
-		{
-			$.next();
-			return $.analize("BrackettedExpression");
+			case ASC:{
+				BrackettedExpression be = (BrackettedExpression) $.get("BrackettedExpression");
+				if(!be.analize()) return false;
+				sortCondition = new SortCondition(be.expr,com.hp.hpl.jena.query.Query.ORDER_ASCENDING);
+				$.next();
+			}
+			case DESC:{
+				BrackettedExpression be = (BrackettedExpression) $.get("BrackettedExpression");
+				if(!be.analize()) return false;
+				sortCondition = new SortCondition(be.expr,com.hp.hpl.jena.query.Query.ORDER_DESCENDING);
+				$.next();
+	
+			}
+			case LEFT_PARENTH:{
+				Constraint constraint = (Constraint) $.get("Constraint");
+				if(! constraint.analize()) return false;
+				sortCondition = new SortCondition(constraint.expr, com.hp.hpl.jena.query.Query.ORDER_DESCENDING);
+				
+			}
+			default:{
+				 Var v = (Var) $.get("Var");
+				 if(!v.analize()) return false;
+				 sortCondition = new SortCondition(v.node, com.hp.hpl.jena.query.Query.ORDER_DESCENDING);
+			}
 		}
-		case LEFT_PARENTH:
-			return $.analize("Constraint");
-			
-		default:
-			return $.analize("Var");
-		}
+		return true;
 	}
 
 	@Override

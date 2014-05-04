@@ -1,10 +1,14 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import com.hp.hpl.jena.graph.Node;
 
 import lexic.Token;
 
 public class ObjectList extends Production{
+	public ArrayList<Node> objects = new  ArrayList<Node>();
 	/**
 	 * @author Romina
 	 *
@@ -15,12 +19,18 @@ public class ObjectList extends Production{
 	 */
 	public boolean process() throws IOException{
 		
-		if ( $.analize("Object") )
+		sintax.Object o = (sintax.Object)$.get("Object");
+		
+		if ( o.analize() )
 		{
+			objects.add(o.node);
+			
+			o = (sintax.Object)$.get("Object");
 			while ( $.current.token == Token.COMMA )
 			{
 				$.next();
-				if ( ! $.analize("Object") )
+				if ( ! o.analize())
+					objects.add(o.node);
 					return false;
 			}
 			return true;

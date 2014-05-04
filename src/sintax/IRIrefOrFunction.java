@@ -2,6 +2,10 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.sparql.expr.E_Function;
+import com.hp.hpl.jena.sparql.expr.Expr;
+import com.hp.hpl.jena.sparql.expr.ExprList;
+
 import lexic.Token;
 
 /**
@@ -15,13 +19,21 @@ import lexic.Token;
 						&&, ||, COMMA,')'}
  */
 public class IRIrefOrFunction extends Production{
+	public Expr expr = null;
 	public boolean process() throws IOException{
 		if($.current.token == Token.IRI_REF || $.current.token == Token.PNAME_LN || $.current.token == Token.PNAME_NS){
-			if(!$.analize("IRIref")) return false;
+			
+			IRIref iref = (IRIref)$.get("IRIref");
+			if(!iref.analize()) return false;
 			
 			if($.current.token == Token.NIL || $.current.token == Token.LEFT_PARENTH){
-				if(!$.analize("ArgList")) return false;
+				ArgList al = (ArgList)$.get("ArgList");
+				if(!al.analize()) return false;
+				this.expr = new E_Function(iref.val,al.expr);
+			}else{
+				this.expr = new E_Function(iref.val, new ExprList());
 			}
+			
 			
 			if($.current.token != Token.MULT && $.current.token != Token.DIV && $.current.token != Token.PLUS
 					 && $.current.token != Token.SUB && $.current.token != Token.INTEGER_POSITIVE && $.current.token != Token.DECIMAL_POSITIVE

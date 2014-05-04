@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-
-import javax.swing.JOptionPane;
+import com.hp.hpl.jena.query.QueryExecution;
+import com.hp.hpl.jena.query.QueryExecutionFactory;
+import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.query.ResultSetFormatter;
 
 import lexic.Alex;
 
@@ -22,13 +24,21 @@ public class Main {
 				
 		if(analizer.analize() && MistakeLog.mistakesLog.isEmpty()){
 			{
-				JOptionPane.showMessageDialog(null, "La expresion es correcta.");
+				System.out.println("La expresion es correcta.");
+				
+				QueryExecution qe = QueryExecutionFactory.create(Query.query);
+				
+				ResultSet results = qe.execSelect() ;
+				//*Formateamos los resultados para que se tabulen solos
+				ResultSetFormatter.out(System.out, results, Query.query) ;
 			}
 		}else{
 			{
-				JOptionPane.showMessageDialog(null, "La expresion es incorrecta.\n\nLOG\n"+MistakeLog.report() );
+				System.out.println("La expresion es incorrecta.\n\nLOG\n"+MistakeLog.report() );
 			}
 		}
+		
+		
 		
 	}
 }

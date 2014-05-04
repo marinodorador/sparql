@@ -13,7 +13,8 @@ public class TriplesNode extends Production{
 	 * @throws IOException
 	 */
 	public boolean process() throws IOException{
-		return ( $.analize("Collection") );
+		throw new SemanticException("Acción no soportada");
+		//return ( $.analize("Collection") );
 	}
 
 	@Override

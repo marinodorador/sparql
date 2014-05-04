@@ -2,6 +2,10 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.sparql.expr.E_Add;
+import com.hp.hpl.jena.sparql.expr.E_Subtract;
+import com.hp.hpl.jena.sparql.expr.Expr;
+
 import lexic.Token;
 /**
  * AdditiveExpression ::=  MultiplicativeExpression ( '+' MultiplicativeExpression 
@@ -11,22 +15,33 @@ import lexic.Token;
  * 
  */
 public class AdditiveExpression extends Production{
-
+	Expr expr = null;
 	@Override
 	public boolean process() throws IOException {
-		if($.analize("MultiplicativeExpression")){
+		MultiplicativeExpression me = (MultiplicativeExpression)$.get("MultiplicativeExpression");
+		if(me.analize()){
+			this.expr = me.expr;
+			NumericLiteralPositive nlp = (NumericLiteralPositive)$.get("NumericLiteralPositive");
+			NumericLiteralNegative nln = (NumericLiteralNegative)$.get("NumericLiteralNegative");
 			while(true){
+				
 				if($.current.token == Token.PLUS){
 					$.next();
-					if(!$.analize("MultiplicativeExpression")){
-						return false;
-					}
+					MultiplicativeExpression me2 = (MultiplicativeExpression) $.get("MultiplicativeExpression");
+					if(!me2.analize()) return false;
+					this.expr = new E_Add(this.expr, me2.expr);
 				}else if($.current.token == Token.LESS){
 					$.next();
-					if(!$.analize("MultiplicativeExpression")){
-						return false;
-					}
-				}else if(!$.analize("NumericLiteralPositive") || $.analize("NumericLiteralNegative")){
+					MultiplicativeExpression me2 = (MultiplicativeExpression) $.get("MultiplicativeExpression");
+					if(!me2.analize()) return false;
+					this.expr = new E_Subtract(this.expr, me2.expr);
+				}else if(nlp.analize()) {
+					this.expr = nlp.expr;
+					break;
+				}else if(nln.analize()){
+					this.expr = nln.expr; 
+					break;
+				}else{
 					break;
 				}
 			}

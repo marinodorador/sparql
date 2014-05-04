@@ -2,6 +2,8 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.sparql.syntax.Element;
+
 import lexic.Token;
 import static lexic.Token.*;
 /*
@@ -9,12 +11,12 @@ import static lexic.Token.*;
  * WhereClause ::=   'WHERE'? GroupGraphPattern
  **/
 public class WhereClause extends Production{
-
+	public Element element = null;
 	public boolean process() throws IOException{
 		if($.current.token == Token.WHERE) $.next();		
-		
-		if(!$.analize("GroupGraphPattern")) return false;
-		
+		GroupGraphPattern ggp = (GroupGraphPattern)$.get("GroupGraphPattern");
+		if(!ggp.analize()) return false;
+		element = ggp.element;
 		return true;
 	}
 

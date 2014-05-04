@@ -1,10 +1,20 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import com.hp.hpl.jena.sparql.syntax.Element;
 
 import lexic.Token;
 
 public class SelectQuery extends Production{
+	public Element queryPattern;
+	public boolean distinct = false;
+	public boolean reduced = false;
+	public boolean queryResultStart = false;
+	public boolean isSelect = false;
+	public ArrayList<String> graphUris = new ArrayList<String>();
+	public ArrayList<String> namedGraphUris = new ArrayList<String>();
+	public ArrayList<String> resultVars = new ArrayList<String>();
 	/**
 	 * @author Romina
 	 *
@@ -20,33 +30,50 @@ public class SelectQuery extends Production{
 	public boolean process() throws IOException{
 		
 		// 'SELECT'
-		if ( $.current.token == Token.SELECT )
+		if ( $.current.token != Token.SELECT ) return false;
+			isSelect = true;
 			$.next();
-		else
-			return false;
 		
 		// ( 'DISTINCT' | 'REDUCED' )?
-		if ( $.current.token == Token.DISTINCT || $.current.token == Token.REDUCED )
+		if ( $.current.token == Token.DISTINCT){
+			distinct = true;
 			$.next();
+		}else if ($.current.token == Token.REDUCED ){
+			reduced = true;
+			$.next();
+		}
 		
+		Var var = (Var)$.get("Var");
 		// ( Var+ | '*' )
-		if ( $.current.token == Token.MULT )
+		if ( $.current.token == Token.MULT ){
+			queryResultStart = true;
 			$.next();
-		else if ( $.analize("Var") )
-			while ( $.analize("Var") ) {}
-		else
+		}else if ( var.analize() ){
+			resultVars.add(var.value);
+			while (var.analize()) {
+				resultVars.add(var.value);
+			}
+		}else
 			return false;
 		
 		// DatasetClause* WhereClause SolutionModifier
-		while ($.current.token == Token.FROM)
-			if ( ! $.analize("DatasetClause") )
-					return false;
+		while ($.current.token == Token.FROM){
+		   DatasetClause dsc = (DatasetClause) $.get("DatasetClause");
+
+			if ( ! dsc.analize() )return false;
+			if(!dsc.isNamed)
+				graphUris.add(dsc.uri);
+			else
+				namedGraphUris.add(dsc.uri);
+		}
+		WhereClause where = (WhereClause) $.get("WhereClause");
 		
-		if ( ! $.analize("WhereClause") )
-			return false;
+		if ( ! where.analize()) return false;
 		
-		if ( ! $.analize("SolutionModifier") )
-			return false;
+		queryPattern = where.element;
+		SolutionModifier sm = (SolutionModifier) $.get("SolutionModifier");
+		if ( ! sm.analize()) return false;
+		
 		
 		return true;
 	}

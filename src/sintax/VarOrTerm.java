@@ -2,9 +2,12 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.graph.Node;
+
 import lexic.Token;
 
 public class VarOrTerm extends Production{
+	public Node node;
 	/**
 	 * @author Romina
 	 *
@@ -13,7 +16,15 @@ public class VarOrTerm extends Production{
 	 * @throws IOException
 	 */
 	public boolean process() throws IOException{
-		return ( $.analize("Var") || $.analize("GraphTerm") );
+		Var var = (Var)$.get("Var");
+		GraphTerm graphTerm = (GraphTerm)$.get("GraphTerm");
+		if(var.analize()){
+			node =  com.hp.hpl.jena.sparql.core.Var.alloc(var.value);
+			return true;
+		}else if (graphTerm.analize()){
+			node = graphTerm.node;
+			return true;
+		}else return false;
 	}
 
 	@Override

@@ -3,6 +3,9 @@ import static lexic.Token.*;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.sparql.expr.E_LogicalOr;
+import com.hp.hpl.jena.sparql.expr.Expr;
+
 import lexic.Token;
 /***
  * 
@@ -21,6 +24,7 @@ import lexic.Token;
  *
  **/
 public class ConditionalOrExpression extends Production{
+	Expr expr = null;
 	public boolean process() throws IOException{
 		if($.current.token == SUB || $.current.token == NOT || $.current.token == PLUS 
 		||	$.current.token == INTEGER_POSITIVE || $.current.token == DECIMAL_POSITIVE 
@@ -37,9 +41,14 @@ public class ConditionalOrExpression extends Production{
 		||  $.current.token ==  INTEGER || $.current.token ==  DECIMAL || $.current.token ==  DOUBLE
 		||  $.current.token ==  DOUBLE || $.current.token ==  TRUE || $.current.token ==  FALSE 
 		||  $.current.token ==  VAR1 || $.current.token ==  VAR2){
+			ConditionalAndExpression cae = (ConditionalAndExpression)$.get("ConditionalAndExpression");
+			if(!cae.analize()) return false;
+			this.expr = cae.expr;
 			while($.current.token == OR){
 				$.next();
-				if(!$.analize("ConditionalAndExpression")) return false;
+				ConditionalAndExpression cae2 = (ConditionalAndExpression)$.get("ConditionalAndExpression");
+				if(!cae2.analize()) return false;
+				this.expr = new E_LogicalOr(this.expr, cae2.expr);
 			}
 			if($.current.token != RIGTH_PARENTH && $.current.token != COMMA) return false;
 		}else return false;

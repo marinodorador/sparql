@@ -2,6 +2,8 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.sparql.expr.Expr;
+
 import lexic.Token;
 
 /*
@@ -9,9 +11,12 @@ import lexic.Token;
 *	FIRST(Constraint) = {'('}
 */
 public class Constraint extends Production{
+	Expr expr = null;
 	public boolean process() throws IOException{
 		if($.current.token == Token.LEFT_PARENTH){
-			if(!$.analize("BrackettedExpression")) return false;
+			BrackettedExpression be = (BrackettedExpression)$.get("BrackettedExpression");
+			if(!be.analize()) return false;
+			expr = be.expr;
 		}else{
 			return false;
 		}

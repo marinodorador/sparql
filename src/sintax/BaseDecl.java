@@ -7,12 +7,15 @@ import lexic.Token;
  * BaseDecl ::=  'BASE' IRI_REF
  */
 public class BaseDecl extends Production{
+	public String baseUri;
 	public boolean process() throws IOException{
 		if($.current.token == Token.BASE){
 			$.next();
-			if($.analize("IRIref")) return true;
+			IRIref iriRef = (IRIref)$.get("IRIref");
+			if(!iriRef.analize()) return false;
+			baseUri  = iriRef.val;
 		}
-		return false;
+		return true;
 	}
 
 	@Override

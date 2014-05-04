@@ -2,6 +2,8 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.sparql.syntax.Element;
+
 import lexic.Token;
 import static lexic.Token.*;
 
@@ -12,11 +14,17 @@ import static lexic.Token.*;
  * 
  * */
 public class GraphPatternNotTriples extends Production{
+	public Element element = null;
 	public boolean process() throws IOException{
 		if($.current.token == Token.OPTIONAL){
-			if(!$.analize("OptionalGraphPattern")) return false;
+			OptionalGraphPattern ogp = (OptionalGraphPattern)$.get("OptionalGraphPattern");
+			if(!ogp.analize()) return false;
+			element = ogp.element;
 		}else if($.current.token == Token.LEFT_BRACE){
-			if(!$.analize("GroupOrUnionGraphPattern")) return false;
+			GroupOrUnionGraphPattern gugp = (GroupOrUnionGraphPattern)$.get("GroupOrUnionGraphPattern");
+			if(!gugp.analize()) return false;
+			element = gugp.element;
+			
 		}else{
 			return false;
 		}

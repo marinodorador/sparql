@@ -2,9 +2,12 @@ package sintax;
 
 import java.io.IOException;
 
+import com.hp.hpl.jena.sparql.expr.Expr;
+
 import lexic.Token;
 
 public class NumericExpression extends Production{
+	Expr expr = null;
 	/**
 	 * @author Romina
 	 *
@@ -15,7 +18,10 @@ public class NumericExpression extends Production{
 	 */
 	
 	public boolean process() throws IOException{
-		return $.analize("AdditiveExpression");
+		AdditiveExpression ae= (AdditiveExpression)$.get("AdditiveExpression");
+		boolean result = ae.analize();
+		expr = ae.expr;
+		return result;
 	}
 
 	@Override
