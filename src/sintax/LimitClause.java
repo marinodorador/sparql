@@ -5,6 +5,7 @@ import java.io.IOException;
 import lexic.Token;
 /*
  * LimitClause ::= 'LIMIT' INTEGER
+ * FIRST = 'LIMIT'
  **/
 public class LimitClause extends Production{
 

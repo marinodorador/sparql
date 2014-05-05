@@ -1,5 +1,7 @@
 package lexic;
 import java.io.File;
+
+
 public class LexerGenerator {
 	public static final String path ="SparqlFlex.flex";
 	

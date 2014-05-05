@@ -6,6 +6,7 @@ import java.io.IOException;
 import lexic.Token;
 /*
  * ArgList ::= ( NIL | '(' Expression ( ',' Expression )* ')' )
+ * FIRST = 'FROM'
  */
 public class DatasetClause extends Production{
 	public com.hp.hpl.jena.query.Query  query;

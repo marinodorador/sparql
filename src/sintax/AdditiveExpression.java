@@ -35,12 +35,14 @@ public class AdditiveExpression extends Production{
 					MultiplicativeExpression me2 = (MultiplicativeExpression) $.get("MultiplicativeExpression");
 					if(!me2.analize()) return false;
 					this.expr = new E_Subtract(this.expr, me2.expr);
-				}else if(nlp.analize()) {
-					this.expr = nlp.expr;
-					break;
-				}else if(nln.analize()){
-					this.expr = nln.expr; 
-					break;
+				}else if( $.current.token == Token.INTEGER_POSITIVE || $.current.token == Token.DECIMAL_POSITIVE || $.current.token == Token.DOUBLE_POSITIVE){
+					if(nlp.analize()){
+						this.expr = nlp.expr;
+					}else return false;
+				}else if($.current.token == Token.INTEGER_NEGATIVE || $.current.token == Token.DECIMAL_NEGATIVE || $.current.token == Token.DOUBLE_NEGATIVE){
+					if(nln.analize()){
+						this.expr = nln.expr; 
+					}else return false;
 				}else{
 					break;
 				}

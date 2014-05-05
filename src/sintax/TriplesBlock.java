@@ -8,10 +8,11 @@ import lexic.Token;
 import static lexic.Token.*;
 /*
  * TriplesBlock	 ::=  	TriplesSameSubject ( '.' TriplesBlock? )?
+
  **/
 public class TriplesBlock extends Production{
 	public ElementPathBlock element = new ElementPathBlock();
-	public boolean firsts = $.current.token == VAR1 || 
+	public boolean firsts = $.current.token == VAR1 || //firsts no significa primeros n.n
 			 $.current.token == VAR2 ||
 			 $.current.token == IRI_REF ||
 			 $.current.token == PNAME_LN ||
@@ -34,21 +35,23 @@ public class TriplesBlock extends Production{
 			$.current.token == NIL;
 	@Override
 	public boolean process() throws IOException {
-		TriplesSameSubject tss = (TriplesSameSubject)$.get("TriplesSameSubject");
-		
-		if(!tss.analize()) return false;
-		
-		for(int i=0;i<tss.triples.size();i++)
-			element.addTriple(tss.triples.get(i));
-		
-		if($.current.token == Token.PERIOD){
-			$.next();
-		
-			if(firsts){
-				if(!this.analize()) return false;
+
+		if(firsts){
+			TriplesSameSubject tss = (TriplesSameSubject)$.get("TriplesSameSubject");
+			boolean result = tss.analize();
+			if(result){
+				for(int i=0;i<tss.triples.size();i++)
+					element.addTriple(tss.triples.get(i));
+				if($.current.token == Token.PERIOD){
+					$.next();
+					return $.analize("TriplesBlock");
+				}
+				return true;
 			}
 		}
-		return true;
+
+		return false;	
+
 	}
 
 //	@Override

@@ -10,6 +10,12 @@ import com.hp.hpl.jena.sparql.expr.nodevalue.NodeValueInteger;
 
 import lexic.Token;
 
+/*
+ *  NumericLiteralNegative	  		::=  	INTEGER_NEGATIVE 
+										|	DECIMAL_NEGATIVE 
+										|	DOUBLE_NEGATIVE
+ */
+
 public class NumericLiteralNegative extends Production{
 	public String val = null;
 	public String type = null;

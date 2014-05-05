@@ -5,19 +5,30 @@ import java.io.IOException;
 import lexic.Token;
 /*
  * LimitOffsetClauses ::= ( LimitClause OffsetClause? | OffsetClause LimitClause? )
+ * FIRST: 'LIMIT', 'OFFSET'
  **/
 public class LimitOffsetClauses extends Production{
 
 	@Override
 	public boolean process() throws IOException {
-		if($.analize("LimitClause")){
-			if ($.analize("OffsetClause")){
+		if($.current.token == Token.LIMIT){ //SE REVISA EL FIRST 
+			if($.analize("LimitClause")){
+				if ($.current.token == Token.OFFSET){
+					return $.analize("OffsetClause");
+				}
 				return true;
+			}else{
+				return false;
 			}
-			return true;
-		}else if ($.analize("OffsetClause")){
-			if($.analize("LimitClause")) return true;
-			return true;
+		}else if($.current.token == Token.OFFSET){ //SE REVISA EL FIRST
+			if($.analize("OffsetClause")){
+				if ($.current.token == Token.LIMIT){
+					return $.analize("LimitClause");
+				}
+				return true;
+			}else{
+				return false;
+			}
 		}
 		return false;
 	}

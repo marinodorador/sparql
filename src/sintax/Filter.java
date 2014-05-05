@@ -11,6 +11,7 @@ import lexic.Token;
 
 /*
  * Filter ::= 'FILTER' Constraint
+ * FIRST = 'FILTER'
  */
 public class Filter extends Production{
 	ElementFilter node = null;
@@ -18,10 +19,12 @@ public class Filter extends Production{
 	public boolean process() throws IOException {
 		if($.current.token == Token.FILTER) { 
 			$.next();
-			Constraint c = (Constraint)$.get("Constraint");
-			boolean result = c.analize();
-			node = new ElementFilter(c.expr);
-			return result;
+			if($.current.token == Token.LEFT_BRACE){ //se revisa el first
+				Constraint c = (Constraint)$.get("Constraint");
+				boolean result = c.analize();
+				node = new ElementFilter(c.expr);
+				return result;
+			}
 		}
 		return false;
 	}
