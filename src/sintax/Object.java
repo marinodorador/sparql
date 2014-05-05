@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.graph.Node;
 
@@ -19,16 +20,20 @@ public class Object extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
+	public ArrayList<Token> FIRSTS() throws IOException {
 		return get("GraphNode").FIRSTS();
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct(new Token[][]{
-				new Token[]{ Token.COMMA},
-				get("ObjectList").FOLLOWS()
-				});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.COMMA );
+		
+		for ( Token t : get("ObjectList").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 
 }

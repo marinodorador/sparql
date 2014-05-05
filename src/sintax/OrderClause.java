@@ -1,9 +1,9 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import lexic.Token;
-import static lexic.Token.*;
 /*
  * OrderClause	::=   'ORDER' 'BY' OrderCondition+
  * 
@@ -40,13 +40,23 @@ public class OrderClause extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return new Token[]{Token.ORDER_BY};
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add(Token.ORDER_BY);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
-		return new Token[]{LIMIT,OFFSET,END};
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("LimitOffsetClauses").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("SolutionModifier").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

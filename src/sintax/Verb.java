@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.graph.NodeFactory;
@@ -36,18 +37,21 @@ public class Verb extends Production{
 		}
 		return true;
 	}
-
-	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return construct(new Token[][]{
-				new Token[]{ Token.A },
-				get("VarOrIRIref").FIRSTS(),
-				});
-	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
-		return $.get("ObjectList").FOLLOWS();
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.A );
+		
+		for ( Token t : get("VarOrIRIref").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
+	}
+	
+	@Override	
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		return $.get("ObjectList").FIRSTS();
 	}
 }

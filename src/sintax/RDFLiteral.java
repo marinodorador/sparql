@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.datatypes.BaseDatatype;
 import com.hp.hpl.jena.graph.Node;
@@ -58,12 +59,12 @@ public class RDFLiteral extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
+	public ArrayList<Token> FIRSTS() throws IOException {
 		return get("_String").FIRSTS();
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
+	public ArrayList<Token> FOLLOWS() throws IOException {
 		return get("PrimaryExpression").FOLLOWS();
 	}
 }

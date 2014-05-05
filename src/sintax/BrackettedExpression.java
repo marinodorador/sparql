@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.Expr;
 
@@ -26,15 +27,18 @@ public class BrackettedExpression extends Production{
 		$.next();
 		return true;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return new Token[]{ Token.LEFT_PARENTH };
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add(Token.LEFT_PARENTH);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
-		return $.get("PrimaryExpression").FOLLOWS();
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		return get("PrimaryExpression").FOLLOWS();
 	}
 }

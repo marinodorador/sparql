@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import lexic.Token;
 /*
@@ -18,13 +19,25 @@ public class BaseDecl extends Production{
 		return true;
 	}
 
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return new Token[]{ Token.BASE};
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add(Token.BASE);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return new Token[]{ Token.PREFIX, Token.SELECT};
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("PrefixDecl").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("Prologue").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

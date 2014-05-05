@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.datatypes.BaseDatatype;
 import com.hp.hpl.jena.graph.Node;
@@ -46,21 +47,27 @@ public class GraphTerm extends Production{
 		
 		return false;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return construct(new Token[][]{
-				get("IRIref").FIRSTS(),
-				get("RDFLiteral").FIRSTS(),
-				get("NumericLiteral").FIRSTS(),
-				get("BooleanLiteral").FIRSTS(),
-				new Token[] { Token.NIL }
-				});
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.NIL );
+		
+		for ( Token t : get("IRIref").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("RDFLiteral").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("NumericLiteral").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("BooleanLiteral").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		return get("VarOrTerm").FOLLOWS();
 	}
 }

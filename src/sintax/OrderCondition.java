@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.query.SortCondition;
 
@@ -49,16 +50,22 @@ public class OrderCondition extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return construct(new Token[][]{
-				new Token[]{ Token.ASC, Token.DESC },
-				get("Constraint").FIRSTS(),
-				get("Var").FIRSTS(),
-				});
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.ASC );
+		ans.add( Token.DESC );
+		
+		for ( Token t : get("Constraint").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("Var").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
+	public ArrayList<Token> FOLLOWS() throws IOException {
 		return get("OrderClause").FOLLOWS();
 	}
 }

@@ -2,6 +2,7 @@ package sintax;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.Expr;
 import com.hp.hpl.jena.sparql.expr.nodevalue.NodeValueDecimal;
@@ -50,19 +51,20 @@ public class NumericLiteralUnsigned extends Production{
 		}
 		return true;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return new Token[]{
-				Token.INTEGER,
-				Token.DECIMAL,
-				Token.DOUBLE
-		};
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.INTEGER );
+		ans.add( Token.DECIMAL );
+		ans.add( Token.DOUBLE );
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
-		return $.get("NumericLiteralUnsigned").FOLLOWS();
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		return $.get("NumericLiteral").FOLLOWS();
 	}
 }

@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import lexic.Token;
 
@@ -18,15 +19,20 @@ public class TriplesNode extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
+	public ArrayList<Token> FIRSTS() throws IOException {
 		return get("Collection").FIRSTS();
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct( new Token[][]{
-				get("GraphNode").FOLLOWS(),
-				new Token[]{ Token.VAR1, Token.VAR2, Token.IRI_REF, Token.PNAME_LN, Token.PNAME_NS, Token.A}
-		});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("PropertyList").FIRSTS() )
+			ans.add(t);
+		
+		for ( Token t : get("GraphNode").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

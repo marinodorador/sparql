@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.E_Function;
 import com.hp.hpl.jena.sparql.expr.Expr;
@@ -48,15 +49,14 @@ public class IRIrefOrFunction extends Production{
 		}
 		return true;
 	}
-
-	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return get("IRIref").FIRSTS();
-	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
+	public ArrayList<Token> FIRSTS() throws IOException {
+			return $.get("IRIref").FOLLOWS();
+		}
+		
+	@Override
+	public ArrayList<Token> FOLLOWS() throws IOException {
 		return $.get("PrimaryExpression").FOLLOWS();
 	}
 }

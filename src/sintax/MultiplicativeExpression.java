@@ -2,6 +2,7 @@ package sintax;
 
 import lexic.Token;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.E_Divide;
 import com.hp.hpl.jena.sparql.expr.E_Multiply;
@@ -75,25 +76,26 @@ public class MultiplicativeExpression extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
+	public ArrayList<Token> FIRSTS() throws IOException {
 		return get("UnaryExpression").FIRSTS();
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
-		return construct(new Token[][]{
-			new Token[]{
-				PLUS,
-				SUB,
-				INTEGER_POSITIVE,
-				DECIMAL_POSITIVE,
-				DOUBLE_POSITIVE,
-				INTEGER_NEGATIVE,
-				DECIMAL_NEGATIVE,
-				DOUBLE_NEGATIVE
-			},
-			$.get("AdditiveExpression").FOLLOWS()
-		});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.PLUS );
+		ans.add( Token.LESS );
+		
+		for ( Token t : get("NumericLiteral").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("AdditiveExpression").FOLLOWS() )
+			ans.add(t);
+		for ( Token t : get("NumericLiteralPositive").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("NumericLiteralNegative").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

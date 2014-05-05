@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.syntax.ElementPathBlock;	
 
@@ -50,18 +51,28 @@ public class TriplesBlock extends Production{
 		}
 		return true;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return get("TriplesSameSubject").FIRSTS();
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("TriplesSameSubject").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return new Token[]{ 
-				Token.OPTIONAL, 
-				Token.FILTER, 
-				Token.RIGHT_BRACE, 
-				Token.PERIOD};
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("GraphPatternNotTriples").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("Filter").FIRSTS() )
+			ans.add(t);
+		
+		ans.add( Token.RIGHT_BRACE );
+		
+		return ans;
 	}
 }

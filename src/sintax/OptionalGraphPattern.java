@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.syntax.ElementOptional;
 
@@ -34,14 +35,18 @@ public class OptionalGraphPattern extends Production{
 		
 		return false;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return new Token[]{ Token.OPTIONAL };
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add(Token.OPTIONAL);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
+	public ArrayList<Token> FOLLOWS() throws IOException {
 		return get("GraphPatternNotTriples").FOLLOWS();
 	}
 }

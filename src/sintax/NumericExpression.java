@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.Expr;
 
@@ -25,15 +26,24 @@ public class NumericExpression extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
+	public ArrayList<Token> FIRSTS() throws IOException {
 		return get("AdditiveExpression").FIRSTS();
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct(new Token[][]{
-				$.get("RelationalExpression").FOLLOWS(), 
-				new Token[]{Token.EQUAL,Token.NOT_EQUAL, Token.GREATER, Token.LESS, Token.GET, Token.LET}
-				});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.EQUAL );
+		ans.add( Token.NOT_EQUAL );
+		ans.add( Token.GREATER );
+		ans.add( Token.LESS );
+		ans.add( Token.GET );
+		ans.add( Token.LET );
+		
+		for ( Token t : get("RelationalExpression").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

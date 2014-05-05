@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.Expr;
 
@@ -37,21 +38,30 @@ public class NumericLiteral extends Production{
 		
 		return false;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return construct(new Token[][]{
-				get("NumericLiteralUnsigned").FIRSTS(),
-				get("NumericLiteralPositive").FIRSTS(),
-				get("NumericLiteralNegative").FIRSTS(),
-				});
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("NumericLiteralUnsigned").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("NumericLiteralPositive").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("NumericLiteralNegative").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct(new Token[][]{
-				get("PrimaryExpression").FOLLOWS(),
-				get("GraphTerm").FOLLOWS(),
-				});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("PrimaryExpression").FOLLOWS() )
+			ans.add(t);
+		for ( Token t : get("GraphTerm").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

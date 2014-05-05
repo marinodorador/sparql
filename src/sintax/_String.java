@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import lexic.Token;
 
@@ -31,20 +32,26 @@ public class _String extends Production{
 	}
 	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return new Token[]{
-				Token.STRING_LITERAL1,
-				Token.STRING_LITERAL2,
-				Token.STRING_LITERAL_LONG1,
-				Token.STRING_LITERAL_LONG2
-		};
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.STRING_LITERAL1 );
+		ans.add( Token.STRING_LITERAL2 );
+		ans.add( Token.STRING_LITERAL_LONG1 );
+		ans.add( Token.STRING_LITERAL_LONG2 );
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct(new Token[][]{
-				new Token[]{ Token.LANGTAG, Token.TYPE },
-				get("RDFLiteral").FOLLOWS(),
-				});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.LANGTAG );
+		ans.add( Token.TYPE );
+		
+		for ( Token t : get("RDFLiteral").FOLLOWS() )
+			ans.add(t);
+		return ans;
 	}
 }

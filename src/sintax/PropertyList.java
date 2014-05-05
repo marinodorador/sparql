@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import lexic.Token;
 
@@ -25,18 +26,21 @@ public class PropertyList extends Production{
 		
 		return true;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return construct(new Token[][]{
-				get("PropertyListNotEmpty").FIRSTS(),
-				this.FOLLOWS(),
-				});
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("PropertyListNotEmpty").FIRSTS() )
+			ans.add(t);
+		for ( Token t : this.FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
+	public ArrayList<Token> FOLLOWS() throws IOException {
 		return $.get("TriplesSameSubject").FOLLOWS();
 	}
 }

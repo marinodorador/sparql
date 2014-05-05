@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.Expr;
 import com.hp.hpl.jena.sparql.expr.nodevalue.NodeValueBoolean;
@@ -35,18 +36,26 @@ public class BooleanLiteral extends Production{
 		}
 		return true;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return new Token[]{
-				Token.TRUE,
-				Token.FALSE
-		};
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.TRUE );
+		ans.add( Token.FALSE );
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
-		return $.get("GraphTerm").FOLLOWS();
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+				
+		for ( Token t : get("GraphTerm").FOLLOWS() )
+			ans.add(t);
+		for ( Token t : get("PrimaryExpression").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

@@ -1,5 +1,7 @@
 package sintax; 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import static lexic.Token.*;
 import lexic.Token;
 
@@ -61,13 +63,16 @@ public class Query extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
+	public ArrayList<Token> FIRSTS() throws IOException {
 		return get("Prologue").FIRSTS();
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
-		return new Token[]{END};
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add(Token.END);
+		
+		return ans;
 	}
 }

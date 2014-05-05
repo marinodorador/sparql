@@ -1,11 +1,11 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.syntax.Element;
 
 import lexic.Token;
-import static lexic.Token.*;
 
 /*
  * GraphPatternNotTriples ::= OptionalGraphPattern | GroupOrUnionGraphPattern
@@ -30,19 +30,27 @@ public class GraphPatternNotTriples extends Production{
 		}
 		return true;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return get("OptionalGraphPattern").FIRSTS();
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("OptionalGraphPattern").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
 		
-		return construct(new Token[][]{
-				new Token[]{PERIOD, RIGHT_BRACE},
-				get("TriplesBlock").FOLLOWS()
-				});
+		ans.add( Token.PERIOD );
+		ans.add( Token.RIGHT_BRACE );
+		
+		for ( Token t : get("TriplesBlock").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

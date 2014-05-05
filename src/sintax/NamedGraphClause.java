@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import lexic.Token;
 
@@ -31,12 +32,21 @@ public class NamedGraphClause extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return new Token[]{ Token.NAMED };
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add(Token.NAMED);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return new Token[]{ Token.WHERE , Token.LEFT_BRACE };
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("DatasetClause").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

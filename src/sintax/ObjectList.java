@@ -40,15 +40,19 @@ public class ObjectList extends Production{
 	}
 	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
+	public ArrayList<Token> FIRSTS() throws IOException {
 		return get("Object").FIRSTS();
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct(new Token[][]{
-				get("PropertyListNotEmpty").FOLLOWS(),
-				new Token[]{Token.SEMI}
-				});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.SEMI );
+		
+		for ( Token t : get("PropertyListNotEmpty").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

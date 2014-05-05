@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import lexic.Token;
 /*
@@ -20,12 +21,12 @@ public class DefaultGraphClause extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
+	public ArrayList<Token> FIRSTS() throws IOException {
 		return get("SourceSelector").FIRSTS();
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
+	public ArrayList<Token> FOLLOWS() throws IOException {
 		return get("DatasetClause").FOLLOWS();
 	}
 }

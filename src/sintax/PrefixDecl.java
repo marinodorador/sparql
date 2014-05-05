@@ -1,9 +1,9 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import lexic.Token;
-import static lexic.Token.*;
 
 /*
  * PrefixDecl ::=  'PREFIX' PNAME_NS IRI_REF
@@ -29,13 +29,23 @@ public class PrefixDecl extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return new Token[]{PREFIX};
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add(Token.PREFIX);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
-		return new Token[]{SELECT};
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("Prologue").FOLLOWS() )
+			ans.add(t);
+		for ( Token t : get("PrefixDecl").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

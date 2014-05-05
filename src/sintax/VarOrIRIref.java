@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.graph.NodeFactory;
@@ -26,20 +27,21 @@ public class VarOrIRIref extends Production{
 		}else 
 			return false;
 	}
-
-	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return construct(new Token[][]{
-				get("Var").FIRSTS(),
-				get("IRIref").FIRSTS(),
-				});
-	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct(new Token[][]{
-				get("Verb").FOLLOWS()
-				});
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("Var").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("IRIref").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
+	}
+	
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		return get("Verb").FOLLOWS();
 	}
 
 }

@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.E_Regex;
 import com.hp.hpl.jena.sparql.expr.Expr;
@@ -39,15 +40,17 @@ public class RegexExpression extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return new Token[]{ Token.REGEX };
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add(Token.REGEX);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct(new Token[][]{
-				get("BuiltInCall").FOLLOWS()
-				});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		return get("BuiltInCall").FOLLOWS();
 	}
 
 }

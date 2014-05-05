@@ -20,7 +20,6 @@ public class TriplesSameSubject extends Production{
 	 */
 	public boolean process() throws IOException{
 		VarOrTerm varOrterm = (VarOrTerm)$.get("VarOrTerm" ) ;
-		TriplesNode triplesNode = (TriplesNode) $.get("TriplesNode" );
 		
 		if (varOrterm.analize()){
 			PropertyListNotEmpty plne = (PropertyListNotEmpty)$.get("PropertyListNotEmpty");
@@ -41,20 +40,28 @@ public class TriplesSameSubject extends Production{
 		
 		return false;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return construct(new Token[][]{
-				get("VarOrTerm").FIRSTS(),
-				get("TriplesNode").FIRSTS(),
-				});
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("VarOrTerm").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("TriplesNode").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct(new Token[][]{
-				get("TriplesBlock").FOLLOWS(),
-				new Token[]{Token.PERIOD}
-				});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.PERIOD );
+		
+		for ( Token t : get("TriplesBlock").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

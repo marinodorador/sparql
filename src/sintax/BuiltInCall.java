@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.E_Bound;
 import com.hp.hpl.jena.sparql.expr.E_Datatype;
@@ -208,21 +209,27 @@ public class BuiltInCall extends Production{
 		}
 	
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return construct(new Token[][]{
-				new Token[]{ 
-						Token.STR , Token.LANG , Token.LANGMATCHES , 
-						Token.DATATYPE , Token.BOUND , Token.SAMETERM ,
-						Token.ISIRI , Token.ISURI , Token.ISBLANK ,
-						Token.ISLITERAL},
-				get("RegexExpression").FIRSTS(),
-				});
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add(Token.STR);
+		ans.add(Token.LANG);
+		ans.add(Token.LANGMATCHES);
+		ans.add(Token.DATATYPE);
+		ans.add(Token.BOUND);
+		ans.add(Token.SAMETERM);
+		ans.add(Token.ISIRI);
+		ans.add(Token.ISURI);
+		ans.add(Token.ISBLANK);
+		ans.add(Token.ISLITERAL);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
+	public ArrayList<Token> FOLLOWS() throws IOException {
 		return get("PrimaryExpression").FOLLOWS();
 	}
 }

@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.graph.Node;
 
@@ -26,20 +27,28 @@ public class VarOrTerm extends Production{
 			return true;
 		}else return false;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return construct(new Token[][]{
-				get("Var").FIRSTS(),
-				get("GraphTerm").FIRSTS(),
-				});
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("Var").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("GraphTerm").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct(new Token[][]{
-				new Token[]{Token.VAR1, Token.VAR2, Token.IRI_REF, Token.PNAME_LN, Token.PNAME_NS, Token.A}/*Verb.first*/,
-				get("GraphNode").FOLLOWS(),
-				});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("PropertyListNotEmpty").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("GraphNode").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

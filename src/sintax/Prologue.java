@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.shared.impl.PrefixMappingImpl;
 
@@ -39,16 +40,26 @@ public class Prologue extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return construct(new Token[][]{
-				get("BaseDecl").FIRSTS(),
-				get("PrefixDecl").FIRSTS(),
-				this.FOLLOWS(),
-				});
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("BaseDecl").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("PrefixDecl").FIRSTS() )
+			ans.add(t);
+		for ( Token t : this.FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return new Token[]{ Token.SELECT };
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("SelectQuery").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

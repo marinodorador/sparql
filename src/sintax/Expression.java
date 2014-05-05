@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.Expr;
 
@@ -12,7 +13,6 @@ public class Expression extends Production{
 	Expr expr = null;
 	@Override
 	public boolean process() throws IOException {
-		// TODO Auto-generated method stub
 		ConditionalOrExpression coe= (ConditionalOrExpression)$.get("ConditionalOrExpression");
 		boolean result = coe.analize();
 		expr = coe.expr;
@@ -20,12 +20,17 @@ public class Expression extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
+	public ArrayList<Token> FIRSTS() throws IOException {
 		return get("ConditionalOrExpression").FIRSTS();
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return  new Token[]{ Token.RIGTH_PARENTH, Token.COMMA};
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.RIGTH_PARENTH );
+		ans.add( Token.COMMA );
+		
+		return ans;
 	}
 }

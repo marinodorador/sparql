@@ -2,6 +2,7 @@ package sintax;
 import static lexic.Token.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.E_Equals;
 import com.hp.hpl.jena.sparql.expr.E_GreaterThan;
@@ -99,13 +100,12 @@ public class RelationalExpression extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
+	public ArrayList<Token> FIRSTS() throws IOException {
 		return get("NumericExpression").FIRSTS();
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
+	public ArrayList<Token> FOLLOWS() throws IOException {
 		return $.get("ValueLogical").FOLLOWS();
 	}
 }

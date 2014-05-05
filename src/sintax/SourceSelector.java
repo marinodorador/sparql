@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import lexic.Token;
 /*
@@ -19,15 +20,13 @@ public class SourceSelector extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
+	public ArrayList<Token> FIRSTS() throws IOException {
 		return get("IRIref").FIRSTS();
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
+	public ArrayList<Token> FOLLOWS() throws IOException {
 		// TODO Auto-generated method stub
-		return construct(new Token[][]{
-				get("DatasetClause").FOLLOWS()
-				});
+		return get("DatasetClause").FOLLOWS();
 	}
 }

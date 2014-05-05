@@ -2,6 +2,7 @@ package sintax;
 import static lexic.Token.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.E_LogicalOr;
 import com.hp.hpl.jena.sparql.expr.Expr;
@@ -56,13 +57,12 @@ public class ConditionalOrExpression extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
+	public ArrayList<Token> FIRSTS() throws IOException {
 		return get("ConditionalAndExpression").FIRSTS();
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub	
+	public ArrayList<Token> FOLLOWS() throws IOException {
 		return $.get("Expression").FOLLOWS();
 	}
 }

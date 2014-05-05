@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import lexic.Token;
 
@@ -25,18 +26,19 @@ public class PrefixedName extends Production{
 		}
 		return true;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return new Token[]{
-				Token.PNAME_LN,
-				Token.PNAME_NS
-		};
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.PNAME_LN );
+		ans.add( Token.PNAME_NS );
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
-		return $.get("IRIref").FOLLOWS();
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		return get("IRIref").FOLLOWS();
 	}
 }

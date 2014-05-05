@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import lexic.Token;
 
@@ -29,16 +30,25 @@ public class SolutionModifier extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return construct(new Token[][]{
-				get("OrderClause").FIRSTS(),
-				get("LimitOffsetClauses").FIRSTS(),
-				this.FOLLOWS(),
-				});
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("OrderClause").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("LimitOffsetClauses").FIRSTS() )
+			ans.add(t);
+		for ( Token t : this.FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return new Token[]{Token.END};
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add(Token.END);
+		
+		return ans;
 	}
 }

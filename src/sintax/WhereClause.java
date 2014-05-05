@@ -1,11 +1,11 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.syntax.Element;
 
 import lexic.Token;
-import static lexic.Token.*;
 /*
  * @author Esteban
  * WhereClause ::=   'WHERE'? GroupGraphPattern
@@ -21,13 +21,21 @@ public class WhereClause extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return new Token[]{ Token.WHERE };
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add(Token.WHERE);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
-		return new Token[]{ORDER_BY, LIMIT, OFFSET, END};
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("SolutionModifier").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

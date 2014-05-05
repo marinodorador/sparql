@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import lexic.Token;
 /*
@@ -25,15 +26,24 @@ public class LimitClause extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return new Token[]{ Token.LIMIT };
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add(Token.LIMIT);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct(new Token[][]{
-				get("LimitOffsetClauses").FOLLOWS(), get("OffsetClause").FOLLOWS()
-				});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("OffsetClause").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("LimitOffsetClauses").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 
 }

@@ -12,7 +12,7 @@ public class MistakeLog {
 	
 	public static ArrayList<java.lang.String> mistakesLog= new ArrayList<java.lang.String>();
 	
-	public static boolean driveTo ( Token[]follows ) throws IOException
+	public static boolean driveTo ( ArrayList<Token>follows ) throws IOException
 	{
 		java.lang.String msg="";
 		
@@ -21,8 +21,8 @@ public class MistakeLog {
 		
 		while(true)
 		{
-			for ( int i=0 ; i<follows.length ; i++ )
-				if(follows[i] == $.current.token )
+			for ( Token FOLLOW : follows)
+				if(FOLLOW == $.current.token )
 				{
 					if(msg.isEmpty())
 						mistakesLog.add( "FOUND nothing" +message+"\n" );

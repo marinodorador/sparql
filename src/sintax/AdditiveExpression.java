@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.E_Add;
 import com.hp.hpl.jena.sparql.expr.E_Subtract;
@@ -51,15 +52,13 @@ public class AdditiveExpression extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
+	public ArrayList<Token> FIRSTS() throws IOException {
 		return get("MultiplicativeExpression").FIRSTS();
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct(new Token[][]{
-				$.get("NumericExpression").FOLLOWS()
-				});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		return get("NumericExpression").FOLLOWS();
 	}
 
 }

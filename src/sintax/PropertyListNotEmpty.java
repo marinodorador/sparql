@@ -47,17 +47,21 @@ public class PropertyListNotEmpty extends Production{
 		}
 		return false;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
+	public ArrayList<Token> FIRSTS() throws IOException {
 		return get("Verb").FIRSTS();
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct(new Token[][]{
-				get("TriplesSameSubject").FOLLOWS(),
-				get("PropertyList").FOLLOWS()
-				});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("TriplesSameSubject").FOLLOWS() )
+			ans.add(t);
+		for ( Token t : get("PropertyList").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

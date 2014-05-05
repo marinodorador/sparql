@@ -1,6 +1,7 @@
 package sintax;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.syntax.ElementUnion;
 
@@ -14,7 +15,6 @@ public class GroupOrUnionGraphPattern extends Production{
 	@Override
 	public boolean process() throws IOException {
 		GroupGraphPattern ggp = (GroupGraphPattern)$.get("GroupGraphPattern");
-		// TODO Auto-generated method stub
 		if(ggp.analize()){
 			element.addElement(ggp.element);
 			 
@@ -30,13 +30,12 @@ public class GroupOrUnionGraphPattern extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return null;
+	public ArrayList<Token> FIRSTS() throws IOException {
+		return get("GroupGraphPattern").FIRSTS();
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		return get("GroupGraphPattern").FOLLOWS();
 	}
 }

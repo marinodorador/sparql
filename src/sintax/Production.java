@@ -1,5 +1,6 @@
 package sintax;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import lexic.Token;
@@ -40,9 +41,22 @@ public abstract class Production{
 		
 		int trace= MistakeLog.mistakesLog.size();
 		Token current= $.current.token;
-				
-		ans= process();
 		
+		// 1 checks FIRSTS
+		
+		for ( Token FIRST : FIRSTS() )
+		{
+			System.out.println("FIRST ... "+FIRST);
+			if(current == FIRST)
+			{
+				//2 calls process, which is individually built in each instance
+				System.out.println("se encontro first");
+				ans= process();
+				break;
+			}
+		}
+		
+		//3 if process ended with error, advances to a FOLLOW
 		if ( ans == false )
 		{
 			if( current == $.current.token )
@@ -59,41 +73,8 @@ public abstract class Production{
 		return ans;
 	}
 	
-	/*
-	 * FIRSTS
-	 */
-	private static Token[] FIRSTS;
-	abstract Token[] initFIRSTS() throws IOException;
-	public Token[] FIRSTS()
-	{
-		try{
-			if( FIRSTS == null )
-				FIRSTS= initFIRSTS();
-		}catch(Exception ex){}
-		
-		if( FIRSTS == null )
-			FIRSTS= new Token[]{};
-		
-		return FIRSTS;
-	}
-	
-	/*
-	 * FOLLOWS
-	 */
-	private static Token[] FOLLOWS;
-	abstract Token[] initFOLLOWS() throws IOException;
-	public Token[] FOLLOWS()
-	{
-		try{
-			if( FOLLOWS == null )
-				FOLLOWS= initFOLLOWS();
-		}catch(Exception ex){}
-		
-		if( FOLLOWS == null )
-			FOLLOWS= new Token[]{};
-		
-		return FOLLOWS;
-	}
+	abstract ArrayList<Token> FIRSTS() throws IOException;
+	abstract ArrayList<Token> FOLLOWS() throws IOException;
 	
 	/*
 	 * AUXILIAR METHODS
@@ -102,7 +83,7 @@ public abstract class Production{
 	 * get
 	 * method returns a named production instance
 	 */
-	public static Production get(java.lang.String name) throws IOException{
+	public Production get(java.lang.String name) throws IOException{
 		Production p = null;
 		
 		try {
@@ -112,31 +93,5 @@ public abstract class Production{
 		}
 			
 		return p;
-	}
-	
-	/*
-	 * construct
-	 * method combines multiple arrays of tokens in a single one
-	 */
-	public static Token[] construct( Token[][] tokens )
-	{
-		int size=1;
-		
-		for ( int i=0 ; i<tokens.length; i++ )
-			size += tokens[i].length;
-		
-		Token[] ans= new Token[size];
-		
-		int index=0;
-		for ( int i=0 ; i<tokens.length; i++ )
-		{
-			for ( int ii=0 ; ii<tokens[i].length ; ii++ )
-			{
-				ans[index]=tokens[i][ii];
-				index++;
-			}
-		}
-		
-		return ans;
 	}
 }

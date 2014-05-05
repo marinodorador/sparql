@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.Expr;
 
@@ -46,24 +47,31 @@ public class PrimaryExpression extends Production{
 
 		return true;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return construct(new Token[][]{
-				get("BrackettedExpression").FIRSTS(),
-				get("BuiltInCall").FIRSTS(),
-				get("IRIrefOrFunction").FIRSTS(),
-				get("RDFLiteral").FIRSTS(),
-				get("NumericLiteral").FIRSTS(),
-				get("BooleanLiteral").FIRSTS(),
-				get("Var").FIRSTS(),
-				});
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("BrackettedExpression").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("BuiltInCall").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("IRIrefOrFunction").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("RDFLiteral").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("NumericLiteral").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("BooleanLiteral").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("Var").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct(new Token[][]{
-				get("UnaryExpression").FOLLOWS()
-				});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		return get("UnaryExpression").FOLLOWS();
 	}
 }

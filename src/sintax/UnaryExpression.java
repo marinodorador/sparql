@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.E_LogicalNot;
 import com.hp.hpl.jena.sparql.expr.E_UnaryMinus;
@@ -50,20 +51,31 @@ public class UnaryExpression extends Production{
 		
 		return result;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return construct(new Token[][]{
-				new Token[]{ Token.NOT , Token.PLUS , Token.SUB },
-				get("PrimaryExpression").FIRSTS(),
-				});
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.NOT );
+		ans.add( Token.PLUS );
+		ans.add( Token.SUB );
+		
+		for ( Token t : get("PrimaryExpression").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct(new Token[][]{
-				new Token[]{ Token.MULT , Token.DIV },
-				get("MultiplicativeExpression").FOLLOWS(),
-				});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.MULT );
+		ans.add( Token.DIV );
+		
+		for ( Token t : get("MultiplicativeExpression").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

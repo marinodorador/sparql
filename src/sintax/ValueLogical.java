@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.Expr;
 
@@ -20,16 +21,20 @@ public class ValueLogical extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
+	public ArrayList<Token> FIRSTS() throws IOException {
 		return get("RelationalExpression").FIRSTS();
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct(new Token[][]{
-				new Token[]{ Token.AND },
-				get("ConditionalAndExpression").FOLLOWS()
-				});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.AND );
+		
+		for ( Token t : get("ConditionalAndExpression").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 
 }

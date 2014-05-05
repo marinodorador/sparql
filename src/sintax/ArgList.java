@@ -1,6 +1,8 @@
 package sintax;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import com.hp.hpl.jena.sparql.expr.ExprList;
 
 import lexic.Token;
@@ -36,13 +38,18 @@ public class ArgList  extends Production {
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return null;
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.NIL );
+		ans.add( Token.LEFT_PARENTH );
+		
+		return ans;
 	}
 	
+	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
+	public ArrayList<Token> FOLLOWS() throws IOException {
 		return $.get("IRIrefOrFunction").FOLLOWS();
 	}
 

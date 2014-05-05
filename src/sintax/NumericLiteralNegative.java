@@ -2,6 +2,7 @@ package sintax;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.Expr;
 import com.hp.hpl.jena.sparql.expr.nodevalue.NodeValueDecimal;
@@ -36,22 +37,34 @@ public class NumericLiteralNegative extends Production{
 	}
 	return false;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return new Token[]{
-				Token.INTEGER_NEGATIVE,
-				Token.DECIMAL_NEGATIVE,
-				Token.DOUBLE_NEGATIVE
-		};
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.INTEGER_NEGATIVE );
+		ans.add( Token.DECIMAL_NEGATIVE );
+		ans.add( Token.DOUBLE_NEGATIVE );
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct(new Token[][]{
-				get("NumericLiteral").FOLLOWS(),
-				get("AdditiveExpression").FOLLOWS(),
-				new Token[]{ Token.PLUS, Token.LESS },
-				});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.PLUS );
+		ans.add( Token.LESS );
+		
+		for ( Token t : get("NumericLiteral").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("AdditiveExpression").FOLLOWS() )
+			ans.add(t);
+		for ( Token t : get("NumericLiteralPositive").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("NumericLiteralNegative").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

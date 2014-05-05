@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.graph.Node;
 
@@ -36,23 +37,28 @@ public class GraphNode extends Production{
 		}
 		return true;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return construct(new Token[][]{
-				get("VarOrTerm").FIRSTS(),
-				get("TriplesNode").FIRSTS(),
-				});
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("VarOrTerm").FIRSTS() )
+			ans.add(t);
+		for ( Token t : get("TriplesNode").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
-		return construct(
-			new Token[][]{
-				new Token[]{Token.RIGTH_PARENTH},
-				$.get("Object").FOLLOWS()
-			}
-		);
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add( Token.LEFT_PARENTH );
+		
+		for ( Token t : get("Object").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

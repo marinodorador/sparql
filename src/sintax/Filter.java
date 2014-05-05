@@ -1,9 +1,7 @@
 package sintax; 
 
-import static lexic.Token.PERIOD;
-import static lexic.Token.RIGHT_BRACE;
-
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.syntax.ElementFilter;
 
@@ -25,20 +23,27 @@ public class Filter extends Production{
 		}
 		return false;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return new Token[]{ Token.FILTER };
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add(Token.FILTER);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
 		
-		return construct(new Token[][]{
-				new Token[]{PERIOD, RIGHT_BRACE},
-				get("TriplesBlock").FOLLOWS()
-				});
+		ans.add( Token.PERIOD );
+		ans.add( Token.RIGHT_BRACE );
+		
+		for ( Token t : get("TriplesBlock").FIRSTS() )
+			ans.add(t);
+		
+		return ans;
 	}
 
 }

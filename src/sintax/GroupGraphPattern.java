@@ -1,6 +1,7 @@
 package sintax; 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.syntax.ElementGroup;
 
@@ -133,15 +134,23 @@ public class GroupGraphPattern extends Production{
 	}
 
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return new Token[]{ Token.LEFT_BRACE };
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add(Token.LEFT_BRACE);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		return construct(new Token[][]{
-				get("WhereClause").FOLLOWS(),
-				get("OptionalGraphPattern").FOLLOWS()
-				});
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		for ( Token t : get("WhereClause").FOLLOWS() )
+			ans.add(t);
+		for ( Token t : get("OptionalGraphPattern").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }

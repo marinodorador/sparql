@@ -1,7 +1,7 @@
 package sintax; 
 
-import static lexic.Token.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.sparql.expr.Expr;
@@ -35,28 +35,32 @@ public class Var extends Production{
 		}
 		return true;
 	}
-
+	
 	@Override
-	public Token[] initFIRSTS() throws IOException {
-		return new Token[]{ 
-				Token.VAR1 , 
-				Token.VAR2 
-				};
+	public ArrayList<Token> FIRSTS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
+		
+		ans.add(Token.VAR1);
+		ans.add(Token.VAR2);
+		
+		return ans;
 	}
 	
 	@Override
-	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
-		return construct(new Token[][]{
-				$.get("VarOrIRIref").FOLLOWS(),
-				$.get("VarOrTerm").FOLLOWS(),
-				$.get("OrderCondition").FOLLOWS(),
-				$.get("PrimaryExpression").FOLLOWS(),
-				new Token[]{FROM}
-		});
-		 
+	public ArrayList<Token> FOLLOWS() throws IOException {
+		ArrayList<Token> ans = new ArrayList<Token>();
 		
-		 
+		ans.add( Token.FROM );
 		
+		for ( Token t : get("VarOrIRIref").FOLLOWS() )
+			ans.add(t);
+		for ( Token t : get("VarOrTerm").FOLLOWS() )
+			ans.add(t);
+		for ( Token t : get("OrderCondition").FOLLOWS() )
+			ans.add(t);
+		for ( Token t : get("PrimaryExpression").FOLLOWS() )
+			ans.add(t);
+		
+		return ans;
 	}
 }
