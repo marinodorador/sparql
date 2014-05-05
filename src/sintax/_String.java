@@ -29,9 +29,14 @@ public class _String extends Production{
 		
 	return false;
 	}
-
+	
 	@Override
-	public Token[] FOLLOWS() throws IOException {
+	public Token[] initFIRSTS() throws IOException {
+		return null;
+	}
+	
+	@Override
+	public Token[] initFOLLOWS() throws IOException {
 		return construct(new Token[][]{
 				new Token[]{ Token.LANGTAG, Token.TYPE },
 				get("RDFLiteral").FOLLOWS(),

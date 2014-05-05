@@ -39,7 +39,12 @@ public class Prologue extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() {
+	public Token[] initFIRSTS() throws IOException {
+		return null;
+	}
+	
+	@Override
+	public Token[] initFOLLOWS() throws IOException {
 		return new Token[]{ Token.SELECT };
 	}
 }

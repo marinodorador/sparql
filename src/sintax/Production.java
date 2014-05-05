@@ -27,31 +27,32 @@ public abstract class Production{
 		return attrs.containsKey(key);
 	}
 	
+	/*
+	 * CLASE PRINCIPAL PARA EJECUTAR EL ANALISIS
+	 * 1. checks FIRSTS
+	 * 2. calls process, which is individually built in each instance
+	 * 3. if process ended with error, advances to a FOLLOW
+	 */
 	public boolean analize() throws IOException{
+		
 		System.out.println(this.getClass().getSimpleName());
 		boolean ans=false;
 		
 		int trace= MistakeLog.mistakesLog.size();
 		Token current= $.current.token;
+				
+		ans= process();
 		
-
-			ans= process();
+		if ( ans == false )
+		{
+			if( current == $.current.token )
+				return MistakeLog.spected(this.getClass().getSimpleName());
 			
-			if ( ans == false )
-			{
-				if( current == $.current.token )
-					return MistakeLog.spected(this.getClass().getSimpleName());
-					
-				
-				if( FOLLOWS == null )
-					FOLLOWS= FOLLOWS();
-				
-				if ( FOLLOWS != null )
-					ans = MistakeLog.driveTo(FOLLOWS);
-			}
-			
-			if ( MistakeLog.mistakesLog.size() != trace )
-				MistakeLog.reportParent(""+this.getClass().getSimpleName());
+			ans = MistakeLog.driveTo(FOLLOWS());
+		}
+		
+		if ( MistakeLog.mistakesLog.size() != trace )
+			MistakeLog.reportParent(""+this.getClass().getSimpleName());
 			
 		
 		
@@ -59,10 +60,40 @@ public abstract class Production{
 	}
 	
 	/*
+	 * FIRSTS
+	 */
+	private Token[] FIRSTS;
+	abstract Token[] initFIRSTS() throws IOException;
+	public Token[] FIRSTS()
+	{
+		try{
+			if( FIRSTS == null )
+				FIRSTS= initFIRSTS();
+		}catch(Exception ex){}
+		
+		if( FIRSTS == null )
+			FIRSTS= new Token[]{};
+		
+		return FIRSTS;
+	}
+	
+	/*
 	 * FOLLOWS
 	 */
 	private Token[] FOLLOWS;
-	public abstract Token[] FOLLOWS() throws IOException;
+	abstract Token[] initFOLLOWS() throws IOException;
+	public Token[] FOLLOWS()
+	{
+		try{
+			if( FOLLOWS == null )
+				FOLLOWS= initFOLLOWS();
+		}catch(Exception ex){}
+		
+		if( FOLLOWS == null )
+			FOLLOWS= new Token[]{};
+		
+		return FOLLOWS;
+	}
 	
 	/*
 	 * AUXILIAR METHODS

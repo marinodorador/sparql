@@ -38,8 +38,14 @@ public class ObjectList extends Production{
 		
 		return false;
 	}
+	
 	@Override
-	public Token[] FOLLOWS() throws IOException {
+	public Token[] initFIRSTS() throws IOException {
+		return null;
+	}
+	
+	@Override
+	public Token[] initFOLLOWS() throws IOException {
 		return construct(new Token[][]{
 				get("PropertyListNotEmpty").FOLLOWS(),
 				new Token[]{Token.SEMI}

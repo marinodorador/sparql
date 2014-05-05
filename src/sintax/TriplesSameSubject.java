@@ -32,7 +32,7 @@ public class TriplesSameSubject extends Production{
 			
 			return result;
 		}
-		/*else if(triplesNode.analize()){ //Acción no soportada
+		/*else if(triplesNode.analize()){ //Acciï¿½n no soportada
 			PropertyList propList = (PropertyList) $.get("PropertyList");
 			
 			boolean result = propList.analize();
@@ -43,7 +43,12 @@ public class TriplesSameSubject extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() throws IOException {
+	public Token[] initFIRSTS() throws IOException {
+		return null;
+	}
+	
+	@Override
+	public Token[] initFOLLOWS() throws IOException {
 		return construct(new Token[][]{
 				get("TriplesBlock").FOLLOWS(),
 				new Token[]{Token.PERIOD}

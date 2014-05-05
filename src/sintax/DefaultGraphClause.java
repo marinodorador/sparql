@@ -20,7 +20,12 @@ public class DefaultGraphClause extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() throws IOException {
+	public Token[] initFIRSTS() throws IOException {
+		return null;
+	}
+	
+	@Override
+	public Token[] initFOLLOWS() throws IOException {
 		// TODO Auto-generated method stub
 		
 		return $.get("DatasetClause").FOLLOWS();

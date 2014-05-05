@@ -25,7 +25,12 @@ public class NumericExpression extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() throws IOException {
+	public Token[] initFIRSTS() throws IOException {
+		return null;
+	}
+	
+	@Override
+	public Token[] initFOLLOWS() throws IOException {
 		return construct(new Token[][]{
 				$.get("RelationalExpression").FOLLOWS(), 
 				new Token[]{Token.EQUAL,Token.NOT_EQUAL, Token.GREATER, Token.LESS, Token.GET, Token.LET}

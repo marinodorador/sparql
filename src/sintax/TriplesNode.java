@@ -13,12 +13,17 @@ public class TriplesNode extends Production{
 	 * @throws IOException
 	 */
 	public boolean process() throws IOException{
-		throw new SemanticException("Acción no soportada");
+		throw new SemanticException("Acciï¿½n no soportada");
 		//return ( $.analize("Collection") );
 	}
 
 	@Override
-	public Token[] FOLLOWS() throws IOException {
+	public Token[] initFIRSTS() throws IOException {
+		return null;
+	}
+	
+	@Override
+	public Token[] initFOLLOWS() throws IOException {
 		return construct( new Token[][]{
 				get("GraphNode").FOLLOWS(),
 				new Token[]{ Token.VAR1, Token.VAR2, Token.IRI_REF, Token.PNAME_LN, Token.PNAME_NS, Token.A}

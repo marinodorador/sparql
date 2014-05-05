@@ -83,4 +83,11 @@ public class MistakeLog {
 		return false;
 	}
 	
+	public static void reset()
+	{
+		message="";
+		spected_position= null;
+		mistakesLog.clear();
+	}
+	
 }

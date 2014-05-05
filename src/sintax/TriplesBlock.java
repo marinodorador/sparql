@@ -51,11 +51,13 @@ public class TriplesBlock extends Production{
 		return true;
 	}
 
-//	@Override
-//	public Token[] FOLLOWS(){
-//		return new Token[]{ Token.OPTIONAL, Token.FILTER, Token.RIGHT_BRACE};
-//	}
-	public Token[] FOLLOWS() throws IOException {
+	@Override
+	public Token[] initFIRSTS() throws IOException {
+		return null;
+	}
+	
+	@Override
+	public Token[] initFOLLOWS() throws IOException {
 		return new Token[]{ 
 				Token.OPTIONAL, 
 				Token.FILTER, 

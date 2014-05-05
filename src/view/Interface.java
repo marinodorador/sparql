@@ -309,6 +309,7 @@ public class Interface extends JFrame{
 	
 	private String run_checking(InputStream inputStream) throws IOException
 	{
+		MistakeLog.reset();
 		Reader      reader      = new InputStreamReader(inputStream,"Cp1252");
 		$.alex = new Alex(reader);
 	       

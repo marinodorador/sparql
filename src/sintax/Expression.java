@@ -20,7 +20,12 @@ public class Expression extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() throws IOException {
+	public Token[] initFIRSTS() throws IOException {
+		return null;
+	}
+	
+	@Override
+	public Token[] initFOLLOWS() throws IOException {
 		return  new Token[]{ Token.RIGTH_PARENTH, Token.COMMA};
 	}
 }

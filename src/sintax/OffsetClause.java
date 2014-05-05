@@ -19,7 +19,12 @@ public class OffsetClause extends Production{
 	}
 
 	@Override
-	public Token[] FOLLOWS() throws IOException {
+	public Token[] initFIRSTS() throws IOException {
+		return null;
+	}
+	
+	@Override
+	public Token[] initFOLLOWS() throws IOException {
 		return construct(new Token[][]{
 				get("LimitOffsetClauses").FOLLOWS(), get("OffsetClause").FOLLOWS()
 				});

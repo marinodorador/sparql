@@ -39,9 +39,14 @@ public class IRIref extends Production{
 		}
 		return false;
 	}
+
+	@Override
+	public Token[] initFIRSTS() throws IOException {
+		return null;
+	}
 	
 	@Override
-	public Token[] FOLLOWS() throws IOException {
+	public Token[] initFOLLOWS() throws IOException {
 		return construct(new Token[][]{
 				new Token[]{ Token.NIL, Token.LEFT_PARENTH },
 				get("PrimaryExpression").FOLLOWS(),

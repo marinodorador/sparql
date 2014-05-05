@@ -9,4 +9,3 @@ WHERE {
     ?instance a ?subject;
         foaf:FormulaValue ?formula;
 	foaf:NumeroCasValue ?casValue;
-}
