@@ -39,7 +39,11 @@ public class NumericLiteralNegative extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return new Token[]{
+				Token.INTEGER_NEGATIVE,
+				Token.DECIMAL_NEGATIVE,
+				Token.DOUBLE_NEGATIVE
+		};
 	}
 	
 	@Override

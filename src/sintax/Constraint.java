@@ -25,7 +25,7 @@ public class Constraint extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return get("BrackettedExpression").FIRSTS();
 	}
 	
 	@Override

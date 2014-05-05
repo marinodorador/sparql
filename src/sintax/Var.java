@@ -38,7 +38,10 @@ public class Var extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return new Token[]{ 
+				Token.VAR1 , 
+				Token.VAR2 
+				};
 	}
 	
 	@Override

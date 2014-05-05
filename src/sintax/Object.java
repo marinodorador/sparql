@@ -20,7 +20,7 @@ public class Object extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return get("GraphNode").FIRSTS();
 	}
 	
 	@Override

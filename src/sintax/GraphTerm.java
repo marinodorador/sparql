@@ -49,7 +49,13 @@ public class GraphTerm extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return construct(new Token[][]{
+				get("IRIref").FIRSTS(),
+				get("RDFLiteral").FIRSTS(),
+				get("NumericLiteral").FIRSTS(),
+				get("BooleanLiteral").FIRSTS(),
+				new Token[] { Token.NIL }
+				});
 	}
 	
 	@Override

@@ -28,7 +28,10 @@ public class PropertyList extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return construct(new Token[][]{
+				get("PropertyListNotEmpty").FIRSTS(),
+				this.FOLLOWS(),
+				});
 	}
 	
 	@Override

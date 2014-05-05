@@ -21,7 +21,7 @@ public class ValueLogical extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return get("RelationalExpression").FIRSTS();
 	}
 	
 	@Override

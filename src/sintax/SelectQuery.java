@@ -80,7 +80,7 @@ public class SelectQuery extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return new Token[]{Token.SELECT};
 	}
 	
 	@Override

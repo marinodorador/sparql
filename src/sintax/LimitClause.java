@@ -26,7 +26,7 @@ public class LimitClause extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return new Token[]{ Token.LIMIT };
 	}
 	
 	@Override

@@ -53,7 +53,10 @@ public class UnaryExpression extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return construct(new Token[][]{
+				new Token[]{ Token.NOT , Token.PLUS , Token.SUB },
+				get("PrimaryExpression").FIRSTS(),
+				});
 	}
 	
 	@Override

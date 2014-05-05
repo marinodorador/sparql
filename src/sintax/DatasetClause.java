@@ -37,7 +37,7 @@ public class DatasetClause extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return new Token[]{Token.FROM};
 	}
 	
 	@Override

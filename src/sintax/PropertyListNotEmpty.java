@@ -50,7 +50,7 @@ public class PropertyListNotEmpty extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return get("Verb").FIRSTS();
 	}
 	
 	@Override

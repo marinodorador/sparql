@@ -53,7 +53,7 @@ public class TriplesBlock extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return get("TriplesSameSubject").FIRSTS();
 	}
 	
 	@Override

@@ -40,7 +40,11 @@ public class Prologue extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return construct(new Token[][]{
+				get("BaseDecl").FIRSTS(),
+				get("PrefixDecl").FIRSTS(),
+				this.FOLLOWS(),
+				});
 	}
 	
 	@Override

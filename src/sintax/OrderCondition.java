@@ -50,7 +50,11 @@ public class OrderCondition extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return construct(new Token[][]{
+				new Token[]{ Token.ASC, Token.DESC },
+				get("Constraint").FIRSTS(),
+				get("Var").FIRSTS(),
+				});
 	}
 	
 	@Override

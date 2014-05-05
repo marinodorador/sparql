@@ -134,7 +134,7 @@ public class GroupGraphPattern extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return new Token[]{ Token.LEFT_BRACE };
 	}
 	
 	@Override

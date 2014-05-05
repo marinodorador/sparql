@@ -32,7 +32,12 @@ public class _String extends Production{
 	
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return new Token[]{
+				Token.STRING_LITERAL1,
+				Token.STRING_LITERAL2,
+				Token.STRING_LITERAL_LONG1,
+				Token.STRING_LITERAL_LONG2
+		};
 	}
 	
 	@Override

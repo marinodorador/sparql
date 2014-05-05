@@ -41,7 +41,7 @@ public class ObjectList extends Production{
 	
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return get("Object").FIRSTS();
 	}
 	
 	@Override

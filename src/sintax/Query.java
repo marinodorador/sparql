@@ -62,7 +62,7 @@ public class Query extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return get("Prologue").FIRSTS();
 	}
 	
 	@Override

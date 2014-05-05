@@ -20,7 +20,7 @@ public class OffsetClause extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return new Token[]{ Token.OFFSET };
 	}
 	
 	@Override

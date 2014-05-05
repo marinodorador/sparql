@@ -30,7 +30,11 @@ public class SolutionModifier extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return construct(new Token[][]{
+				get("OrderClause").FIRSTS(),
+				get("LimitOffsetClauses").FIRSTS(),
+				this.FOLLOWS(),
+				});
 	}
 	
 	@Override

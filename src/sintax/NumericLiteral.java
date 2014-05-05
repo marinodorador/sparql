@@ -40,7 +40,11 @@ public class NumericLiteral extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return construct(new Token[][]{
+				get("NumericLiteralUnsigned").FIRSTS(),
+				get("NumericLiteralPositive").FIRSTS(),
+				get("NumericLiteralNegative").FIRSTS(),
+				});
 	}
 	
 	@Override

@@ -53,7 +53,11 @@ public class NumericLiteralUnsigned extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return new Token[]{
+				Token.INTEGER,
+				Token.DECIMAL,
+				Token.DOUBLE
+		};
 	}
 	
 	@Override

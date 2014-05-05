@@ -26,7 +26,7 @@ public class NumericExpression extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return get("AdditiveExpression").FIRSTS();
 	}
 	
 	@Override

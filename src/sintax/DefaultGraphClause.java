@@ -21,13 +21,11 @@ public class DefaultGraphClause extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return get("SourceSelector").FIRSTS();
 	}
 	
 	@Override
 	public Token[] initFOLLOWS() throws IOException {
-		// TODO Auto-generated method stub
-		
-		return $.get("DatasetClause").FOLLOWS();
+		return get("DatasetClause").FOLLOWS();
 	}
 }

@@ -29,7 +29,10 @@ public class VarOrIRIref extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return construct(new Token[][]{
+				get("Var").FIRSTS(),
+				get("IRIref").FIRSTS(),
+				});
 	}
 	
 	@Override

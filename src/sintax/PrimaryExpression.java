@@ -49,7 +49,15 @@ public class PrimaryExpression extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return construct(new Token[][]{
+				get("BrackettedExpression").FIRSTS(),
+				get("BuiltInCall").FIRSTS(),
+				get("IRIrefOrFunction").FIRSTS(),
+				get("RDFLiteral").FIRSTS(),
+				get("NumericLiteral").FIRSTS(),
+				get("BooleanLiteral").FIRSTS(),
+				get("Var").FIRSTS(),
+				});
 	}
 	
 	@Override

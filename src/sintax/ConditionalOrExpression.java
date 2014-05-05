@@ -57,7 +57,7 @@ public class ConditionalOrExpression extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return get("ConditionalAndExpression").FIRSTS();
 	}
 	
 	@Override

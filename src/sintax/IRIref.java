@@ -42,7 +42,10 @@ public class IRIref extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return construct(new Token[][]{
+				new Token[]{ Token.IRI_REF },
+				get("PrefixedName").FIRSTS(),
+				});
 	}
 	
 	@Override

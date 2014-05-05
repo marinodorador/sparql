@@ -41,7 +41,7 @@ public class OrderClause extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return new Token[]{Token.ORDER_BY};
 	}
 	
 	@Override

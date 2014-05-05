@@ -76,7 +76,7 @@ public class MultiplicativeExpression extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return get("UnaryExpression").FIRSTS();
 	}
 	
 	@Override

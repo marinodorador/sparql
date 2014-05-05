@@ -29,7 +29,7 @@ public class Collection extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return new Token[]{ Token.LEFT_PARENTH };
 	}
 	
 	@Override

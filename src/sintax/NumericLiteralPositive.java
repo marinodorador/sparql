@@ -51,7 +51,11 @@ public class NumericLiteralPositive extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return new Token[]{
+				Token.INTEGER_POSITIVE,
+				Token.DECIMAL_POSITIVE,
+				Token.DOUBLE_POSITIVE
+		};
 	}
 	
 	@Override

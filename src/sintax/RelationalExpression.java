@@ -100,7 +100,7 @@ public class RelationalExpression extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return get("NumericExpression").FIRSTS();
 	}
 	
 	@Override

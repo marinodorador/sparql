@@ -62,7 +62,7 @@ public abstract class Production{
 	/*
 	 * FIRSTS
 	 */
-	private Token[] FIRSTS;
+	private static Token[] FIRSTS;
 	abstract Token[] initFIRSTS() throws IOException;
 	public Token[] FIRSTS()
 	{
@@ -80,7 +80,7 @@ public abstract class Production{
 	/*
 	 * FOLLOWS
 	 */
-	private Token[] FOLLOWS;
+	private static Token[] FOLLOWS;
 	abstract Token[] initFOLLOWS() throws IOException;
 	public Token[] FOLLOWS()
 	{

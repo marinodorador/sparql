@@ -211,7 +211,14 @@ public class BuiltInCall extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return construct(new Token[][]{
+				new Token[]{ 
+						Token.STR , Token.LANG , Token.LANGMATCHES , 
+						Token.DATATYPE , Token.BOUND , Token.SAMETERM ,
+						Token.ISIRI , Token.ISURI , Token.ISBLANK ,
+						Token.ISLITERAL},
+				get("RegexExpression").FIRSTS(),
+				});
 	}
 	
 	@Override

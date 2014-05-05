@@ -21,7 +21,7 @@ public class Expression extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return get("ConditionalOrExpression").FIRSTS();
 	}
 	
 	@Override

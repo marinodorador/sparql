@@ -32,7 +32,7 @@ public class NamedGraphClause extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return new Token[]{ Token.NAMED };
 	}
 	
 	@Override

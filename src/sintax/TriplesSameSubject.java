@@ -44,7 +44,10 @@ public class TriplesSameSubject extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return construct(new Token[][]{
+				get("VarOrTerm").FIRSTS(),
+				get("TriplesNode").FIRSTS(),
+				});
 	}
 	
 	@Override

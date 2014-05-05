@@ -59,7 +59,7 @@ public class RDFLiteral extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return get("_String").FIRSTS();
 	}
 	
 	@Override

@@ -28,7 +28,10 @@ public class PrefixedName extends Production{
 
 	@Override
 	public Token[] initFIRSTS() throws IOException {
-		return null;
+		return new Token[]{
+				Token.PNAME_LN,
+				Token.PNAME_NS
+		};
 	}
 	
 	@Override
