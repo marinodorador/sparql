@@ -43,14 +43,11 @@ public abstract class Production{
 		Token current= $.current.token;
 		
 		// 1 checks FIRSTS
-		
 		for ( Token FIRST : FIRSTS() )
 		{
-			System.out.println("FIRST ... "+FIRST);
 			if(current == FIRST)
 			{
 				//2 calls process, which is individually built in each instance
-				System.out.println("se encontro first");
 				ans= process();
 				break;
 			}
