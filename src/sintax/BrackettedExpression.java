@@ -15,16 +15,24 @@ import lexic.Token;
  */
 public class BrackettedExpression extends Production{
 	Expr expr = null;
+	
 	public boolean process() throws IOException{
-		if($.current.token != Token.LEFT_PARENTH) return false;
+		
+		if($.current.token != Token.LEFT_PARENTH)
+			return false;
+		
 		$.next();
+		
 		Expression e = (Expression)$.get("Expression");
 		
-		if(!e.analize()) return false;
+		if(!e.analize())
+			return false;
+		
 		expr = e.expr;
 		
-		if($.current.token != Token.LEFT_PARENTH) return false;
+		if($.current.token != Token.RIGTH_PARENTH) return false;
 		$.next();
+		
 		return true;
 	}
 	

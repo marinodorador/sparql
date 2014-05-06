@@ -1,27 +1,42 @@
-package sintax; 
+package sintax;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.hp.hpl.jena.sparql.expr.E_LogicalOr;
 import com.hp.hpl.jena.sparql.expr.Expr;
 
 import lexic.Token;
 /*
- * Expression	  ::=  	ConditionalOrExpression
+ * Expression	  ::=  	ConditionalAndExpression ( '||' ConditionalAndExpression )*
  */
 public class Expression extends Production{
+	
 	Expr expr = null;
-	@Override
-	public boolean process() throws IOException {
-		ConditionalOrExpression coe= (ConditionalOrExpression)$.get("ConditionalOrExpression");
-		boolean result = coe.analize();
-		expr = coe.expr;
-		return result;
+	
+	public boolean process() throws IOException{
+		
+		ConditionalAndExpression cae = (ConditionalAndExpression)$.get("ConditionalAndExpression");
+		if(!cae.analize()) return false;
+		
+		this.expr = cae.expr;
+		
+		while($.current.token == Token.OR)
+		{
+			$.next();
+			ConditionalAndExpression cae2 = (ConditionalAndExpression)$.get("ConditionalAndExpression");
+			if(!cae2.analize()) return false;
+			this.expr = new E_LogicalOr(this.expr, cae2.expr);
+		}
+		
+//		if($.current.token != Token.RIGTH_PARENTH ) return false;
+		
+		return true;
 	}
 
 	@Override
 	public ArrayList<Token> FIRSTS() throws IOException {
-		return get("ConditionalOrExpression").FIRSTS();
+		return get("ConditionalAndExpression").FIRSTS();
 	}
 	
 	@Override

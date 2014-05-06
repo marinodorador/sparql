@@ -1,12 +1,14 @@
-PREFIX foaf:<http://localhost/ontologia_medicamentos.xml#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX foaf: <http://localhost/ontologia_medicamentos.xml#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
 
-SELECT *
-WHERE {
-    ?subject rdfs:subClassOf foaf:Sustancia .
-    ?instance a ?subject;
-        foaf:FormulaValue ?formula;
-	foaf:NumeroCasValue ?casValue;
+SELECT ?y ?z
+FROM <http://localhost/ontologia_medicamentos.xml> 
+WHERE 
+{
+   
+   owl:Thing ?y ?z
+
 }

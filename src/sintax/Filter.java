@@ -8,20 +8,22 @@ import com.hp.hpl.jena.sparql.syntax.ElementFilter;
 import lexic.Token;
 
 /*
- * Filter ::= 'FILTER' Constraint
+ * Filter ::= 'FILTER' BrackettedExpression
  */
 public class Filter extends Production{
 	ElementFilter node = null;
 	@Override
 	public boolean process() throws IOException {
+		boolean result=false;
+		
 		if($.current.token == Token.FILTER) { 
 			$.next();
-			Constraint c = (Constraint)$.get("Constraint");
-			boolean result = c.analize();
-			node = new ElementFilter(c.expr);
-			return result;
+			BrackettedExpression be = (BrackettedExpression)$.get("BrackettedExpression");
+			result = be.analize();
+			node = new ElementFilter(be.expr);
 		}
-		return false;
+		
+		return result;
 	}
 	
 	@Override

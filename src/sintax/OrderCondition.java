@@ -12,40 +12,30 @@ public class OrderCondition extends Production{
 	/**
 	 * @author Romina
 	 *
-	 * OrderCondition ::= ( ( 'ASC' | 'DESC' ) BrackettedExpression )| ( Constraint | Var )
+	 * OrderCondition ::= (( 'ASC' | 'DESC' )? BrackettedExpression ) | Var
 	 * 
-	 * FIRSTS = 'ASC' | 'DESC' | Constraint=> '(' | Var=> VAR1 | VAR2
+	 * FIRSTS = 'ASC' | 'DESC' | BrackettedExpression | Var
 	 * 
 	 * @throws IOException 
 	 */
 	public boolean process() throws IOException{
-		switch($.current.token){
-
-			case ASC:{
-				BrackettedExpression be = (BrackettedExpression) $.get("BrackettedExpression");
-				if(!be.analize()) return false;
-				sortCondition = new SortCondition(be.expr,com.hp.hpl.jena.query.Query.ORDER_ASCENDING);
-				$.next();
-			}
-			case DESC:{
-				BrackettedExpression be = (BrackettedExpression) $.get("BrackettedExpression");
-				if(!be.analize()) return false;
-				sortCondition = new SortCondition(be.expr,com.hp.hpl.jena.query.Query.ORDER_DESCENDING);
-				$.next();
-	
-			}
-			case LEFT_PARENTH:{
-				Constraint constraint = (Constraint) $.get("Constraint");
-				if(! constraint.analize()) return false;
-				sortCondition = new SortCondition(constraint.expr, com.hp.hpl.jena.query.Query.ORDER_DESCENDING);
-				
-			}
-			default:{
-				 Var v = (Var) $.get("Var");
-				 if(!v.analize()) return false;
-				 sortCondition = new SortCondition(v.node, com.hp.hpl.jena.query.Query.ORDER_DESCENDING);
-			}
+		
+		if( $.current.token == Token.ASC || $.current.token == Token.DESC )
+			$.next();
+		
+		if( $.current.token == Token.LEFT_PARENTH )
+		{
+			BrackettedExpression be = (BrackettedExpression) $.get("BrackettedExpression");
+			if(! be.analize()) return false;
+			sortCondition = new SortCondition(be.expr, com.hp.hpl.jena.query.Query.ORDER_DESCENDING);
 		}
+		else
+		{
+			 Var v = (Var) $.get("Var");
+			 if(!v.analize()) return false;
+			 sortCondition = new SortCondition(v.node, com.hp.hpl.jena.query.Query.ORDER_DESCENDING);
+		}
+		
 		return true;
 	}
 
@@ -56,7 +46,7 @@ public class OrderCondition extends Production{
 		ans.add( Token.ASC );
 		ans.add( Token.DESC );
 		
-		for ( Token t : get("Constraint").FIRSTS() )
+		for ( Token t : get("BrackettedExpression").FIRSTS() )
 			ans.add(t);
 		for ( Token t : get("Var").FIRSTS() )
 			ans.add(t);

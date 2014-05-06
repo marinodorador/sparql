@@ -15,8 +15,6 @@ public class UnaryExpression extends Production{
 	 * @author Romina
 	 *
 	 * UnaryExpression = ('!' | '+' | '-')? PrimaryExpression
-										
-	 * FIRSTS: { '!' | '+' | '-' | PrimaryExpression }
 	 * 
 	 * @throws IOException
 	 */

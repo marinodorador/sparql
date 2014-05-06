@@ -30,8 +30,17 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
+
+import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.ontology.OntModelSpec;
+import com.hp.hpl.jena.query.QueryExecution;
+import com.hp.hpl.jena.query.QueryExecutionFactory;
+import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.query.ResultSetFormatter;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 import lexic.Alex;
 import sintax.$;
@@ -147,6 +156,8 @@ public class Interface extends JFrame{
 	JLabel	 			document;
 	JTextPane			text;
 	JTextPane			outline;
+	JTextPane			results;
+	JTabbedPane 		tabs;
 	
 	private Component initRight()
 	{
@@ -154,7 +165,7 @@ public class Interface extends JFrame{
 		upperPane.setDividerSize(0);
 		upperPane.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		
-		JSplitPane hPane= new JSplitPane(JSplitPane.VERTICAL_SPLIT, upperPane,initOutline());
+		JSplitPane hPane= new JSplitPane(JSplitPane.VERTICAL_SPLIT, upperPane,initDown());
 		hPane.setDividerSize(5);
 		hPane.setDividerLocation(400);
 		hPane.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -186,7 +197,7 @@ public class Interface extends JFrame{
 		document.setBackground(Color.white);
 		document.setOpaque(true);
 		
-		JButton check_button= new JButton(" CHECK ");
+		JButton check_button= new JButton(" EXECUTE ");
 		check_button.setBackground(blue);
 		
 		JPanel pane_r= new JPanel(new FlowLayout(2));
@@ -231,12 +242,19 @@ public class Interface extends JFrame{
 		return scroll;
 	}
 	
-	private Component initOutline()
+	private Component initDown()
 	{
-		JLabel outline_label= new JLabel("Outline:");
-		outline_label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 16));
-		outline_label.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		tabs = new JTabbedPane();
+		tabs.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		
+		tabs.add(initOutline());
+		tabs.add(initResults());
+		
+		return tabs;
+	}
+	
+	private Component initOutline()
+	{		
 		outline= new JTextPane();
 		outline.setEditable(true);
 		JScrollPane scroll= new JScrollPane(outline);
@@ -244,12 +262,23 @@ public class Interface extends JFrame{
 		outline.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		outline.setEditable(false);
 		scroll.setBorder(null);
+		scroll.setName("Outline");
 		
-		JSplitPane pane= new JSplitPane(JSplitPane.VERTICAL_SPLIT, outline_label,scroll);
-		pane.setDividerSize(0);
-		pane.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		return scroll;
+	}
+	
+	private Component initResults()
+	{
+		results= new JTextPane();
+		results.setEditable(true);
+		JScrollPane scroll= new JScrollPane(results);
 		
-		return pane;
+		results.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		results.setEditable(false);
+		scroll.setBorder(null);
+		scroll.setName("Results");
+		
+		return scroll;
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////
@@ -316,10 +345,23 @@ public class Interface extends JFrame{
 	    $.next(); 	
 	       
 		Query analizer = new Query();
+		OntModel model = ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM_MICRO_RULE_INF);
 				
 		if(analizer.analize() && MistakeLog.mistakesLog.isEmpty())
-				return "ACCEPTED EXPRESSION =D";
+		{
+			QueryExecution qe = QueryExecutionFactory.create(Query.query, model);
+			ResultSet ans = qe.execSelect();
+			
+			results.setText(ResultSetFormatter.asText(ans));
+			tabs.setSelectedIndex(1);
+			
+			return "ACCEPTED EXPRESSION =D";
+		}
 		else
-				return "REJECTED EXPRESSION D=\n\nLOG\n"+MistakeLog.report();
+		{
+			results.setText("");
+			tabs.setSelectedIndex(0);
+			return "REJECTED EXPRESSION D=\n\nLOG\n"+MistakeLog.report();
+		}
 	}
 }

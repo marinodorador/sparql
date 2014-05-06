@@ -18,13 +18,14 @@ import lexic.Token;
 public class PrimaryExpression extends Production{
 	public Expr expr = null;
 	public boolean process() throws IOException{
-		BrackettedExpression bexpr = (BrackettedExpression) $.get("BrackettedExpression");
-		BuiltInCall bcall = (BuiltInCall)$.get("BuiltInCall");
-		IRIrefOrFunction iriRef = (IRIrefOrFunction)$.get("IRIrefOrFunction");
-		RDFLiteral rdfLit = (RDFLiteral)$.get("RDFLiteral");
-		NumericLiteral numLit = (NumericLiteral)$.get("NumericLiteral");
-		BooleanLiteral blit = (BooleanLiteral)$.get("BooleanLiteral");
-		Var var = (Var)$.get("Var");
+		
+		BrackettedExpression 	bexpr 	= (BrackettedExpression) $.get("BrackettedExpression");
+		BuiltInCall 			bcall 	= (BuiltInCall)$.get("BuiltInCall");
+		IRIrefOrFunction 		iriRef 	= (IRIrefOrFunction)$.get("IRIrefOrFunction");
+		RDFLiteral 				rdfLit 	= (RDFLiteral)$.get("RDFLiteral");
+		NumericLiteral 			numLit 	= (NumericLiteral)$.get("NumericLiteral");
+		BooleanLiteral 			blit 	= (BooleanLiteral)$.get("BooleanLiteral");
+		Var 					var 	= (Var)$.get("Var");
 		
 		if(bexpr.analize()){
 			this.expr = bexpr.expr;

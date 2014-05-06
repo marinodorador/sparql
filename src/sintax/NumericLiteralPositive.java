@@ -70,7 +70,7 @@ public class NumericLiteralPositive extends Production{
 		
 		for ( Token t : get("NumericLiteral").FIRSTS() )
 			ans.add(t);
-		for ( Token t : get("AdditiveExpression").FOLLOWS() )
+		for ( Token t : get("NumericExpression").FOLLOWS() )
 			ans.add(t);
 		for ( Token t : get("NumericLiteralPositive").FIRSTS() )
 			ans.add(t);

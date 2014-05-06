@@ -37,6 +37,8 @@ public class GraphPatternNotTriples extends Production{
 		
 		for ( Token t : get("OptionalGraphPattern").FIRSTS() )
 			ans.add(t);
+		for ( Token t : get("GroupOrUnionGraphPattern").FIRSTS() )
+			ans.add(t);
 		
 		return ans;
 	}

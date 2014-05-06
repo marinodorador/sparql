@@ -5,10 +5,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+
+import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.ResultSetFormatter;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 import lexic.Alex;
 
@@ -21,15 +25,15 @@ public class Main {
 	    $.next(); 	
 	       
 		Query analizer = new Query();
+		OntModel model = ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM_MICRO_RULE_INF);
 				
 		if(analizer.analize() && MistakeLog.mistakesLog.isEmpty()){
 			{
 				System.out.println("La expresion es correcta.");
 				
-				QueryExecution qe = QueryExecutionFactory.create(Query.query);
+				QueryExecution qe = QueryExecutionFactory.create(Query.query, model);
 				
-				ResultSet results = qe.execSelect() ;
-				//*Formateamos los resultados para que se tabulen solos
+				ResultSet results = qe.execSelect();
 				ResultSetFormatter.out(System.out, results, Query.query) ;
 			}
 		}else{

@@ -47,7 +47,7 @@ public class ConditionalAndExpression extends Production{
 		
 		ans.add( Token.OR );
 		
-		for ( Token t : get("ConditionalOrExpression").FOLLOWS() )
+		for ( Token t : get("Expression").FOLLOWS() )
 			ans.add(t);
 		
 		return ans;

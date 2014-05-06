@@ -98,6 +98,9 @@ public class GroupGraphPattern extends Production{
 			}
 
 			// '.'?
+			
+			System.out.println($.current.token);
+			
 			if ( $.current.token == Token.PERIOD )
 				$.next();
 
