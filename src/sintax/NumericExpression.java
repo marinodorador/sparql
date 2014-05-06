@@ -34,7 +34,7 @@ public class NumericExpression extends Production{
 			NumericLiteralPositive nlp = (NumericLiteralPositive)$.get("NumericLiteralPositive");
 			NumericLiteralNegative nln = (NumericLiteralNegative)$.get("NumericLiteralNegative");
 			while(true){
-				
+
 				if($.current.token == Token.PLUS){
 					$.next();
 					MultiplicativeExpression me2 = (MultiplicativeExpression) $.get("MultiplicativeExpression");

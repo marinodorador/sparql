@@ -18,24 +18,35 @@ public class OrderCondition extends Production{
 	 * 
 	 * @throws IOException 
 	 */
+	
 	public boolean process() throws IOException{
-		
-		if( $.current.token == Token.ASC || $.current.token == Token.DESC )
-			$.next();
-		
-		if( $.current.token == Token.LEFT_PARENTH )
-		{
-			BrackettedExpression be = (BrackettedExpression) $.get("BrackettedExpression");
-			if(! be.analize()) return false;
-			sortCondition = new SortCondition(be.expr, com.hp.hpl.jena.query.Query.ORDER_DESCENDING);
+		switch($.current.token){
+
+			case ASC:{
+				BrackettedExpression be = (BrackettedExpression) $.get("BrackettedExpression");
+				if(!be.analize()) return false;
+				sortCondition = new SortCondition(be.expr,com.hp.hpl.jena.query.Query.ORDER_ASCENDING);
+				$.next();
+			}
+			case DESC:{
+				BrackettedExpression be = (BrackettedExpression) $.get("BrackettedExpression");
+				if(!be.analize()) return false;
+				sortCondition = new SortCondition(be.expr,com.hp.hpl.jena.query.Query.ORDER_DESCENDING);
+				$.next();
+
+			}
+			case LEFT_PARENTH:{
+				BrackettedExpression constraint = (BrackettedExpression) $.get("BrackettedExpression");
+				if(! constraint.analize()) return false;
+				sortCondition = new SortCondition(constraint.expr, com.hp.hpl.jena.query.Query.ORDER_DESCENDING);
+
+			}
+			default:{
+				 Var v = (Var) $.get("Var");
+				 if(!v.analize()) return false;
+				 sortCondition = new SortCondition(v.node, com.hp.hpl.jena.query.Query.ORDER_DESCENDING);
+			}
 		}
-		else
-		{
-			 Var v = (Var) $.get("Var");
-			 if(!v.analize()) return false;
-			 sortCondition = new SortCondition(v.node, com.hp.hpl.jena.query.Query.ORDER_DESCENDING);
-		}
-		
 		return true;
 	}
 
