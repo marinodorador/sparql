@@ -1,8 +1,8 @@
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-SELECT ?name1  ?name2
+SELECT ?Nombre
 FROM <http://homepages.inf.ed.ac.uk/ewan/foaf.n3>
+FROM <http://www.ibiblio.org/hhalpin/foaf.rdf>
 WHERE { 
-      ?person1 foaf:knows ?person2 .
-      ?person1 foaf:name  ?name1 .
-      ?person2 foaf:name  ?name2 .
+      ?person1 foaf:name ?Nombre ;
       }
+OFFSET 0

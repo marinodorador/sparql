@@ -8,7 +8,7 @@ import static lexic.Token.*;
  * <a href="http://www.jflex.de/">JFlex</a> 1.5.0-SNAPSHOT
  * from the specification file <tt>SparqlFlex.flex</tt>
  */
-public class Alex {
+class Alex {
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;
@@ -992,7 +992,7 @@ public class Alex {
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  public Alex(java.io.Reader in) {
+  Alex(java.io.Reader in) {
     this.zzReader = in;
   }
 

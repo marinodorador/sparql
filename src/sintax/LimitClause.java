@@ -14,10 +14,14 @@ public class LimitClause extends Production{
 		
 		if($.current.token == Token.LIMIT){
 			$.next();
+			System.out.println($.current.token.name());
 			if($.current.token == Token.INTEGER) {
-				$.next();
+				System.out.println("HERE");
+				System.out.println($.current.lexeme);
 				Long limit = Long.parseLong($.current.lexeme);
 				Query.query.setLimit(limit);
+				$.next();
+				
 				return true;
 			}
 			
