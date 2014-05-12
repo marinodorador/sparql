@@ -25,13 +25,12 @@ public class Main {
 	    $.next(); 	
 	       
 		Query analizer = new Query();
-		OntModel model = ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM_MICRO_RULE_INF);
 				
 		if(analizer.analize() && MistakeLog.mistakesLog.isEmpty()){
 			{
 				System.out.println("La expresion es correcta.");
 				
-				QueryExecution qe = QueryExecutionFactory.create(Query.query, model);
+				QueryExecution qe = QueryExecutionFactory.create(Query.query);
 				
 				ResultSet results = qe.execSelect();
 				ResultSetFormatter.out(System.out, results, Query.query) ;
