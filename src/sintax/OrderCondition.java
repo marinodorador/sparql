@@ -38,13 +38,13 @@ public class OrderCondition extends Production{
 			case LEFT_PARENTH:{
 				BrackettedExpression constraint = (BrackettedExpression) $.get("BrackettedExpression");
 				if(! constraint.analize()) return false;
-				sortCondition = new SortCondition(constraint.expr, com.hp.hpl.jena.query.Query.ORDER_DESCENDING);
+				sortCondition = new SortCondition(constraint.expr, com.hp.hpl.jena.query.Query.ORDER_ASCENDING);
 
 			}
 			default:{
 				 Var v = (Var) $.get("Var");
 				 if(!v.analize()) return false;
-				 sortCondition = new SortCondition(v.node, com.hp.hpl.jena.query.Query.ORDER_DESCENDING);
+				 sortCondition = new SortCondition(v.node, com.hp.hpl.jena.query.Query.ORDER_ASCENDING);
 			}
 		}
 		return true;
