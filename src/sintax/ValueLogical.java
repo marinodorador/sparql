@@ -76,37 +76,49 @@ public class ValueLogical extends Production{
 			NumericExpression ne2 = (NumericExpression) $.get("NumericExpression");
 			if(!ne.analize()) return false;
 			this.expr = ne.expr;
-			
+			System.out.println(ne.expr.getVarName());
 			switch($.current.token){
 				case EQUAL:
 					$.next();
 					if(!ne2.analize()) return false;
+					System.out.println(ne2.expr.getVarName());
 					this.expr = new E_Equals(ne.expr, ne2.expr);
+					System.out.println("1"+expr.getVarName());
 					break;
 				case NOT_EQUAL:
 					$.next();
 					if(!ne2.analize()) return false;
+					System.out.println(ne2.expr.getVarName());
 					this.expr = new E_NotEquals(ne.expr, ne2.expr);
+					System.out.println("1"+expr.getVarName());
 					break;
 				case LESS:
 					$.next();
 					if(!ne2.analize()) return false;
+					System.out.println(ne2.expr.getVarName());
 					this.expr = new E_LessThan(ne.expr, ne2.expr);
+					System.out.println("1"+expr.getVarName());
 					break;
 				case GREATER:
 					$.next();
 					if(!ne2.analize()) return false;
+					System.out.println(ne2.expr.getVarName());
 					this.expr = new E_GreaterThan(ne.expr, ne2.expr);
+					System.out.println("1"+expr.getVarName());
 					break;
 				case LET:
 					$.next();
 					if(!ne2.analize()) return false;
+					System.out.println(ne2.expr.getVarName());
 					this.expr = new E_LessThanOrEqual(ne.expr, ne2.expr);
+					System.out.println("1"+expr.getVarName());
 					break;
 				case GET:
 					$.next();
 					if(!ne2.analize()) return false;
+					System.out.println(ne2.expr.getVarName());
 					this.expr = new E_GreaterThanOrEqual(ne.expr, ne2.expr);
+					System.out.println("1"+expr.getVarName());
 					break;
 					
 			}

@@ -20,6 +20,7 @@ public class Expression extends Production{
 		if(!cae.analize()) return false;
 		
 		this.expr = cae.expr;
+		System.out.println(expr.getVarName());
 		
 		while($.current.token == Token.OR)
 		{

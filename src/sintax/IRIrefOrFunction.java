@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.hp.hpl.jena.sparql.expr.E_Function;
+import com.hp.hpl.jena.sparql.expr.E_IRI;
 import com.hp.hpl.jena.sparql.expr.Expr;
 import com.hp.hpl.jena.sparql.expr.ExprList;
+import com.hp.hpl.jena.sparql.expr.NodeValue;
+import com.hp.hpl.jena.sparql.expr.nodevalue.NodeValueNode;
 
 import lexic.Token;
 
@@ -26,13 +29,14 @@ public class IRIrefOrFunction extends Production{
 			
 			IRIref iref = (IRIref)$.get("IRIref");
 			if(!iref.analize()) return false;
-			
+			System.out.println(iref.val);
 			if($.current.token == Token.NIL || $.current.token == Token.LEFT_PARENTH){
 				ArgList al = (ArgList)$.get("ArgList");
 				if(!al.analize()) return false;
 				this.expr = new E_Function(iref.val,al.expr);
+				
 			}else{
-				this.expr = new E_Function(iref.val, new ExprList());
+				System.out.println(expr.getVarName());
 			}
 			
 			

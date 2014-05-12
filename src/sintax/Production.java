@@ -63,7 +63,6 @@ public abstract class Production{
 		
 		if (!ans)
 		{
-			System.out.println(this.getClass().getSimpleName());
 			if( current == $.current.token )
 			{
 				

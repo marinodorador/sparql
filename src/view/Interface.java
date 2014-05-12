@@ -292,7 +292,7 @@ public class Interface extends JFrame{
 		 */
 		String path = document.getText();
 		File f = new File(path);
-		
+		 
 		if (path.contentEquals("query"))
 		{
 			int index=0;
@@ -345,7 +345,7 @@ public class Interface extends JFrame{
 	    $.next(); 	
 	       
 		Query analizer = new Query();
-		OntModel model = ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+		OntModel model = ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM);
 	    
 		
 		if(analizer.analize() && MistakeLog.mistakesLog.isEmpty())

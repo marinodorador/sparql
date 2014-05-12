@@ -13,5 +13,5 @@ WHERE {
 	?excipiente foaf:hasExcipienteFuncion foaf:Colorante
    }
    ?medicamento foaf:MedicamentoExcipientes ?excipiente
-
+   FILTER (?medicamento = <http://localhost/ontologia_medicamentos.xml#Moxtam>)
 }

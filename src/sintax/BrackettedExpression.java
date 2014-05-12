@@ -29,7 +29,7 @@ public class BrackettedExpression extends Production{
 			return false;
 		
 		expr = e.expr;
-		
+		System.out.println(expr.getVarName());
 		if($.current.token != Token.RIGTH_PARENTH) return false;
 		$.next();
 		

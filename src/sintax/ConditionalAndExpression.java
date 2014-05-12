@@ -23,7 +23,7 @@ public class ConditionalAndExpression extends Production{
 		
 		if ( !  vl.analize()) return false;
 		expr = vl.expr;
-		
+		System.out.println(expr);
 		while(true){
 			if ( $.current.token == Token.AND ){
 				$.next();

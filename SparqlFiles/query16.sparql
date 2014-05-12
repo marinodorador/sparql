@@ -1,5 +1,10 @@
-SELECT ?name
-FROM <http://www.w3.org/People/Berners-Lee/card>
+PREFIX foaf: <http://localhost/ontologia_medicamentos.xml#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?medicamento ?excipiente
+FROM <c:/users/federico/desktop/ontologia_medicamentos.xml>
 WHERE {
-    ?person foaf:name ?name 
-}
+                           ?excipiente rdf:type foaf:Excipiente; 
+}ORDER BY ?excipiente

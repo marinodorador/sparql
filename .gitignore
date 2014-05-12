@@ -4,3 +4,13 @@
 *.jar
 *.war
 *.ear
+*.sparql
+src/sintax/BrackettedExpression.java
+src/sintax/ConditionalAndExpression.java
+src/sintax/Expression.java
+src/sintax/Filter.java
+src/sintax/IRIrefOrFunction.java
+src/sintax/LimitClause.java
+src/sintax/Production.java
+src/sintax/ValueLogical.java
+src/view/Interface.java
