@@ -1,4 +1,4 @@
-package sintax; 
+	package sintax; 
 
 import lexic.Token;
 import java.io.IOException;

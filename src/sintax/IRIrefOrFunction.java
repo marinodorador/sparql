@@ -3,9 +3,12 @@ package sintax;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.hp.hpl.jena.graph.NodeFactory;
+import com.hp.hpl.jena.graph.Node_URI;
 import com.hp.hpl.jena.sparql.expr.E_Function;
 import com.hp.hpl.jena.sparql.expr.Expr;
 import com.hp.hpl.jena.sparql.expr.ExprList;
+import com.hp.hpl.jena.sparql.expr.nodevalue.NodeValueNode;
 
 import lexic.Token;
 
@@ -25,14 +28,14 @@ public class IRIrefOrFunction extends Production{
 		if($.current.token == Token.IRI_REF || $.current.token == Token.PNAME_LN || $.current.token == Token.PNAME_NS){
 			
 			IRIref iref = (IRIref)$.get("IRIref");
+			
 			if(!iref.analize()) return false;
 			
+			this.expr = new NodeValueNode(NodeFactory.createURI(iref.val));
 			if($.current.token == Token.NIL || $.current.token == Token.LEFT_PARENTH){
 				ArgList al = (ArgList)$.get("ArgList");
 				if(!al.analize()) return false;
 				this.expr = new E_Function(iref.val,al.expr);
-			}else{
-				this.expr = new E_Function(iref.val, new ExprList());
 			}
 			
 			
