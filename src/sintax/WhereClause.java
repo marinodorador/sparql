@@ -23,9 +23,11 @@ public class WhereClause extends Production{
 	@Override
 	public ArrayList<Token> FIRSTS() throws IOException {
 		ArrayList<Token> ans = new ArrayList<Token>();
-		
+		for ( Token t : get("GroupGraphPattern").FIRSTS() )
+			ans.add(t);
 		ans.add(Token.WHERE);
-		
+		for( Token t : get("GroupGraphPattern").FIRSTS() )
+			ans.add(t);
 		return ans;
 	}
 	

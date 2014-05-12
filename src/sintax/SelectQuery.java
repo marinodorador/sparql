@@ -56,10 +56,13 @@ public class SelectQuery extends Production{
 		}else
 			return false;
 		
+
+		
 		// DatasetClause* WhereClause SolutionModifier
 		while ($.current.token == Token.FROM){
 		   DatasetClause dsc = (DatasetClause) $.get("DatasetClause");
-
+		   
+		   
 			if ( ! dsc.analize() )return false;
 			if(!dsc.isNamed)
 				graphUris.add(dsc.uri);

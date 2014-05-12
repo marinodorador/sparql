@@ -29,8 +29,10 @@ public class OptionalGraphPattern extends Production{
 				boolean result = ggp.analize();
 				element = new ElementOptional(ggp.element);
 				return result;
-			}else
-				return MistakeLog.spected(" { ");
+			}else{
+				MistakeLog.spected.add(Token.LEFT_BRACE);
+				return false;
+			}
 		}
 		
 		return false;

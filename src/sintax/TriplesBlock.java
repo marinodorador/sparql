@@ -3,6 +3,7 @@ package sintax;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.hp.hpl.jena.sparql.syntax.ElementGroup;
 import com.hp.hpl.jena.sparql.syntax.ElementPathBlock;	
 
 import lexic.Token;
@@ -12,6 +13,8 @@ import static lexic.Token.*;
  **/
 public class TriplesBlock extends Production{
 	public ElementPathBlock element = new ElementPathBlock();
+	public ElementGroup element2 = new ElementGroup();
+	
 	public boolean firsts = $.current.token == VAR1 || 
 			 $.current.token == VAR2 ||
 			 $.current.token == IRI_REF ||
@@ -36,18 +39,17 @@ public class TriplesBlock extends Production{
 	@Override
 	public boolean process() throws IOException {
 		TriplesSameSubject tss = (TriplesSameSubject)$.get("TriplesSameSubject");
-		
-		if(!tss.analize()) return false;
-		
-		for(int i=0;i<tss.triples.size();i++)
-			element.addTriple(tss.triples.get(i));
-		
+		if(tss.analize())
+		{
+			for(int i=0;i<tss.triples.size();i++)
+				element.addTriple(tss.triples.get(i));
+		}else{
+			return false;
+		}
 		if($.current.token == Token.PERIOD){
 			$.next();
-		
-			if(firsts){
-				if(!this.analize()) return false;
-			}
+			TriplesBlock tb = (TriplesBlock)$.get("TriplesBlock"); 
+			if (tb.analize()) element2.addElement(tb.element);
 		}
 		return true;
 	}

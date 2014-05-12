@@ -38,6 +38,6 @@ public class ${
 	
 	public static void next() throws IOException{
 		$.current = $.alex.yylex();
-		System.out.println($.current);
+		//System.out.println($.current);
 	}
 }

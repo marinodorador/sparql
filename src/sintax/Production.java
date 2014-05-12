@@ -36,9 +36,10 @@ public abstract class Production{
 	 */
 	public boolean analize() throws IOException{
 		
-		System.out.println(this.getClass().getSimpleName());
+		//System.out.println(this.getClass().getSimpleName());
 		boolean ans=false;
-		
+		boolean ans1 = true;
+
 		int trace= MistakeLog.mistakesLog.size();
 		Token current= $.current.token;
 		
@@ -49,23 +50,48 @@ public abstract class Production{
 			{
 				//2 calls process, which is individually built in each instance
 				ans= process();
+				ans1 = ans;
 				break;
 			}
 		}
 		
-		//3 if process ended with error, advances to a FOLLOW
-		if ( ans == false )
+//		if (!ans1){
+//			System.out.println(this.getClass().getSimpleName());
+//			for ( Token FIRST : FIRSTS() )
+//				MistakeLog.spected.add(FIRST);
+//		}
+		
+		if (!ans)
 		{
+			System.out.println(this.getClass().getSimpleName());
 			if( current == $.current.token )
-				return MistakeLog.spected(this.getClass().getSimpleName());
-			
+			{
+				
+				return false;
+			}
+
 			ans = MistakeLog.driveTo(FOLLOWS());
 		}
 		
-		if ( MistakeLog.mistakesLog.size() != trace )
-			MistakeLog.reportParent(""+this.getClass().getSimpleName());
-			
+		//3 if process ended with error, advances to a FOLLOW
+//		if ( ans1 == false )
+//		{
+//			System.out.println(this.getClass().getSimpleName());
+//			
+//			if( current == $.current.token ){
+////				for(Token t: $.get(this.getClass().getSimpleName()).FOLLOWS()){
+////					MistakeLog.spected.add(t);
+////				}
+//				MistakeLog.spected.add($.current.token);
+//				return false;
+//			}
+//
+//			ans = MistakeLog.driveTo(FOLLOWS());
+//		}
 		
+		if ( MistakeLog.mistakesLog.size() != trace ){
+			MistakeLog.reportParent(""+this.getClass().getSimpleName());
+		}
 		
 		return ans;
 	}

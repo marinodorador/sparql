@@ -20,17 +20,21 @@ public class TriplesSameSubject extends Production{
 	 */
 	public boolean process() throws IOException{
 		VarOrTerm varOrterm = (VarOrTerm)$.get("VarOrTerm" ) ;
-		
+
 		if (varOrterm.analize()){
 			PropertyListNotEmpty plne = (PropertyListNotEmpty)$.get("PropertyListNotEmpty");
 			plne.subject  = varOrterm.node;
 			boolean result =  plne.analize();
-			
-			for(int i=0;i<plne.triples.size();i++)
-				triples.add(plne.triples.get(i));
-			
-			return result;
-		}
+
+			if(!result){
+				for(Token t: plne.FIRSTS()) MistakeLog.spected.add(t);
+				}
+				
+				for(int i=0;i<plne.triples.size();i++)
+					triples.add(plne.triples.get(i));
+
+				return result;
+			}
 		/*else if(triplesNode.analize()){ //Acci�n no soportada
 			PropertyList propList = (PropertyList) $.get("PropertyList");
 			
@@ -40,7 +44,7 @@ public class TriplesSameSubject extends Production{
 		
 		return false;
 	}
-	
+
 	@Override
 	public ArrayList<Token> FIRSTS() throws IOException {
 		ArrayList<Token> ans = new ArrayList<Token>();

@@ -31,109 +31,47 @@ public class GroupGraphPattern extends Production{
 	public boolean process() throws IOException{
 		
 		// '{'
-		if ( $.current.token != Token.LEFT_BRACE )
-			return false;
-		$.next();
-		
+		if ( $.current.token == Token.LEFT_BRACE ){
+			$.next();
+		}else{
+			MistakeLog.spected.add(Token.RIGHT_BRACE);
+			return  false;
+		}
+
 		// TriplesBlock?
-		if (
-				$.current.token == Token.VAR1 ||
-				$.current.token == Token.VAR2 ||
-				$.current.token == Token.IRI_REF || 
-				$.current.token == Token.PNAME_LN || 
-				$.current.token == Token.PNAME_NS || 
-				$.current.token == Token.STRING_LITERAL1 || 
-				$.current.token == Token.STRING_LITERAL2 || 
-				$.current.token == Token.STRING_LITERAL_LONG1 || 
-				$.current.token == Token.STRING_LITERAL_LONG2 || 
-				$.current.token == Token.INTEGER || 
-				$.current.token == Token.DECIMAL || 
-				$.current.token == Token.DOUBLE || 
-				$.current.token == Token.INTEGER_POSITIVE|| 
-				$.current.token == Token.DECIMAL_POSITIVE|| 
-				$.current.token == Token.DOUBLE_POSITIVE|| 
-				$.current.token == Token.INTEGER_NEGATIVE|| 
-				$.current.token == Token.DECIMAL_NEGATIVE|| 
-				$.current.token == Token.DOUBLE_NEGATIVE|| 
-				$.current.token == Token.TRUE|| 
-				$.current.token == Token.FALSE || 
-				$.current.token == Token.NIL)
-		{
-			TriplesBlock tb = (TriplesBlock)$.get("TriplesBlock"); 
-			if (!tb.analize()) return false;
+		TriplesBlock tb = (TriplesBlock)$.get("TriplesBlock"); 
+		if (tb.analize()){
 			element.addElement(tb.element);
+			element.addElement(tb.element2);
 		}
 		
-		// ( ( GraphPatternNotTriples | Filter ) '.'? TriplesBlock? )* '}'
-		while (true)
-		{
-			
-			// '}'
-			if ( $.current.token== Token.RIGHT_BRACE ){
-				$.next();
-				return true;
-			}else if ( $.current.token == Token.END )
-				return (MistakeLog.spected(" } "));
-
-			// ( GraphPatternNotTriples | Filter )
-			switch($.current.token){
-				case LEFT_BRACE:
-				case OPTIONAL:{
-					GraphPatternNotTriples gpnt  =(GraphPatternNotTriples) $.get("GraphPatternNotTriples");
-						if (!gpnt.analize() ) return false;
-						element.addElement(gpnt.element);
-						break;
-				}
-				
-					
-				case FILTER:
-				{
-					Filter f = (Filter) $.get("Filter");
-					if (! f.analize()) return false;
-					element.addElement(f.node);
-					break;
-				}
-				default:
-					return false;
-			}
-
-			// '.'?
-			
-			System.out.println($.current.token);
-			
-			if ( $.current.token == Token.PERIOD )
-				$.next();
-
-			// TriplesBlock?
-			if (
-					$.current.token == Token.VAR1 ||
-					$.current.token == Token.VAR2 ||
-					$.current.token == Token.IRI_REF || 
-					$.current.token == Token.PNAME_LN || 
-					$.current.token == Token.PNAME_NS || 
-					$.current.token == Token.STRING_LITERAL1 || 
-					$.current.token == Token.STRING_LITERAL2 || 
-					$.current.token == Token.STRING_LITERAL_LONG1 || 
-					$.current.token == Token.STRING_LITERAL_LONG2 || 
-					$.current.token == Token.INTEGER || 
-					$.current.token == Token.DECIMAL || 
-					$.current.token == Token.DOUBLE || 
-					$.current.token == Token.INTEGER_POSITIVE|| 
-					$.current.token == Token.DECIMAL_POSITIVE|| 
-					$.current.token == Token.DOUBLE_POSITIVE|| 
-					$.current.token == Token.INTEGER_NEGATIVE|| 
-					$.current.token == Token.DECIMAL_NEGATIVE|| 
-					$.current.token == Token.DOUBLE_NEGATIVE|| 
-					$.current.token == Token.TRUE|| 
-					$.current.token == Token.FALSE || 
-					$.current.token == Token.NIL){
-					TriplesBlock tb2 = (TriplesBlock) $.get("TriplesBlock");
-						if ( ! tb2.analize()) return false;
-						element.addElement(tb2.element);
-			}
-			
-		}
+		// ( ( GraphPatternNotTriples | Filter ) '.'? TriplesBlock? )*
 		
+		do{
+			GraphPatternNotTriples gpnt  =(GraphPatternNotTriples) $.get("GraphPatternNotTriples");
+			Filter f = (Filter) $.get("Filter");
+			
+			if (gpnt.analize() ) element.addElement(gpnt.element);  //gpnt
+			else if (f.analize()) element.addElement(f.node);  //filter
+			else break;
+			
+			//.?
+			if ( $.current.token == Token.PERIOD ) $.next();
+			//tb?
+			TriplesBlock tb2 = (TriplesBlock) $.get("TriplesBlock");
+			if (tb2.analize())  element.addElement(tb2.element);
+			
+		}while(true);
+		
+		// '}'
+		if ( $.current.token== Token.RIGHT_BRACE ){
+			$.next();
+			return true;
+		}else {
+			MistakeLog.spected.add(Token.RIGHT_BRACE);
+			return false;
+		}
+
 	}
 
 	@Override

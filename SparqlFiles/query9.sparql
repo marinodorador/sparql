@@ -1,5 +1,12 @@
-PREFIX foaf:  <http://xmlns.com/foaf/0.1/>
-SELECT ?name
-WHERE {
-    ?person foaf:name ?name .
-}
+PREFIX : <http://inf.ed.ac.uk/ont#> 
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?cafe ?x 
+FROM <http://www.inf.ed.ac.uk/teaching/courses/masws/Coding/build/html/_downloads/knows.n3>
+FROM <http://www.inf.ed.ac.uk/teaching/courses/masws/Coding/build/html/_downloads/cafes.n3>
+WHERE 
+    {
+      ?cafe :lovedBy ?x .
+      {
+       ?x foaf:knows ?y .
+      }
+    }

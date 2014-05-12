@@ -346,22 +346,27 @@ public class Interface extends JFrame{
 	       
 		Query analizer = new Query();
 		OntModel model = ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM_MICRO_RULE_INF);
-				
+	    
+		
 		if(analizer.analize() && MistakeLog.mistakesLog.isEmpty())
 		{
+			for(String source: Query.query.getGraphURIs()){
+		    	System.out.println(source);
+		    	model.read(source);
+		    }
 			QueryExecution qe = QueryExecutionFactory.create(Query.query, model);
 			ResultSet ans = qe.execSelect();
 			
 			results.setText(ResultSetFormatter.asText(ans));
 			tabs.setSelectedIndex(1);
 			
-			return "ACCEPTED EXPRESSION =D";
+			return "La expresión es correcta";
 		}
 		else
 		{
 			results.setText("");
 			tabs.setSelectedIndex(0);
-			return "REJECTED EXPRESSION D=\n\nLOG\n"+MistakeLog.report();
+			return "Ha ocurrido una excepción: \n"+MistakeLog.report();
 		}
 	}
 }

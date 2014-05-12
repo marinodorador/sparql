@@ -20,8 +20,7 @@ public class Query extends Production{
 			Prologue p =  (Prologue)$.get("Prologue");
 			SelectQuery sq =(SelectQuery)$.get("SelectQuery");
 			
-			if(!p.analize()) return false;
-				query = new com.hp.hpl.jena.query.Query(p.prologue);
+			if(p.analize()) query = new com.hp.hpl.jena.query.Query(p.prologue);
 			
 			if(query == null){
 				query = new com.hp.hpl.jena.query.Query();
