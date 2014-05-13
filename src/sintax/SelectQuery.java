@@ -2,6 +2,7 @@ package sintax;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 import com.hp.hpl.jena.sparql.syntax.Element;
 
 import lexic.Token;
@@ -30,7 +31,10 @@ public class SelectQuery extends Production{
 	public boolean process() throws IOException{
 		
 		// 'SELECT'
-		if ( $.current.token != Token.SELECT ) return false;
+		if ( $.current.token != Token.SELECT ){
+			MistakeLog.spected.add(Token.SELECT);
+			return false;
+		}
 			isSelect = true;
 			$.next();
 		
@@ -53,8 +57,13 @@ public class SelectQuery extends Production{
 			while (var.analize()) {
 				resultVars.add(var.value);
 			}
-		}else
+		}else{
+			MistakeLog.spected.add(Token.NIL);
+			MistakeLog.spected.add(Token.VAR1);
+			MistakeLog.spected.add(Token.VAR2);
 			return false;
+		}
+			
 		
 
 		
@@ -63,7 +72,7 @@ public class SelectQuery extends Production{
 		   DatasetClause dsc = (DatasetClause) $.get("DatasetClause");
 		   
 		   
-			if ( ! dsc.analize() )return false;
+			if ( ! dsc.analize1() )return false;
 			if(!dsc.isNamed)
 				graphUris.add(dsc.uri);
 			else
@@ -71,11 +80,11 @@ public class SelectQuery extends Production{
 		}
 		WhereClause where = (WhereClause) $.get("WhereClause");
 		
-		if ( ! where.analize()) return false;
+		if ( ! where.analize1()) return false;
 		
 		queryPattern = where.element;
 		SolutionModifier sm = (SolutionModifier) $.get("SolutionModifier");
-		if ( ! sm.analize()) return false;
+		if ( ! sm.analize1()) return false;
 		
 		
 		return true;

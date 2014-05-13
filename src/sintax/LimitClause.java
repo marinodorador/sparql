@@ -23,6 +23,7 @@ public class LimitClause extends Production{
 			}
 			
 		}
+		MistakeLog.spected.add(Token.INTEGER);
 		return false;
 	}
 

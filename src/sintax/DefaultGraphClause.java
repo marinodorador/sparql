@@ -15,6 +15,7 @@ public class DefaultGraphClause extends Production{
 			if(!ss.analize()) return false;
 			uri = ss.uri;
 		} else {
+			MistakeLog.spected.add(Token.IRI_REF);
 			return false;
 		}
 		return true;

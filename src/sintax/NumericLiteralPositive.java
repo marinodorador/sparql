@@ -26,27 +26,32 @@ public class NumericLiteralPositive extends Production{
 		
 		switch($.current.token){
 		case INTEGER_POSITIVE:{
+			$.next();
 			this.val = $.current.lexeme;
 			type = "http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#dt-integer";
 			this.expr = new NodeValueInteger(Long.parseLong(val));
-			$.next();
+			
 			return true;
 		}
 		case DECIMAL_POSITIVE:{
+			$.next();
 			this.val = $.current.lexeme;
 			type = "http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#dt-decimal";
 			this.expr = new NodeValueDecimal(new BigDecimal(val));
-			$.next();
+			
 			return true;
 		}
 		case DOUBLE_POSITIVE:
+			$.next();
 			this.val = $.current.lexeme;
 			type = "http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#dt-double";
 			this.expr = new NodeValueDouble(Double.parseDouble(val));
-			$.next();
+			
 			return true;
 		}
-		
+		MistakeLog.spected.add(Token.DECIMAL_POSITIVE);
+		MistakeLog.spected.add(Token.DOUBLE_POSITIVE);
+		MistakeLog.spected.add(Token.INTEGER_POSITIVE);
 		return false;
 	}
 

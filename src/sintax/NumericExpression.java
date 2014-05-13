@@ -38,12 +38,12 @@ public class NumericExpression extends Production{
 				if($.current.token == Token.PLUS){
 					$.next();
 					MultiplicativeExpression me2 = (MultiplicativeExpression) $.get("MultiplicativeExpression");
-					if(!me2.analize()) return false;
+					if(!me2.analize1()) return false;
 					this.expr = new E_Add(this.expr, me2.expr);
-				}else if($.current.token == Token.LESS){
+				}else if($.current.token == Token.SUB){
 					$.next();
 					MultiplicativeExpression me2 = (MultiplicativeExpression) $.get("MultiplicativeExpression");
-					if(!me2.analize()) return false;
+					if(!me2.analize1()) return false;
 					this.expr = new E_Subtract(this.expr, me2.expr);
 				}else if(nlp.analize()) {
 					this.expr = nlp.expr;

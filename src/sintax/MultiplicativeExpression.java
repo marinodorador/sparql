@@ -24,7 +24,7 @@ public class MultiplicativeExpression extends Production{
 		
 		UnaryExpression ue = (UnaryExpression)$.get("UnaryExpression");
 		
-		if(!ue.analize()) return false;
+		if(!ue.analize1()) return false;
 		
 		this.expr = ue.expr;
 		while($.current.token  == MULT || $.current.token  == DIV){
@@ -32,13 +32,13 @@ public class MultiplicativeExpression extends Production{
 				case MULT:{
 					$.next();
 					UnaryExpression ue2 = (UnaryExpression)$.get("UnaryExpression");
-					if(!ue2.analize()) return false;
+					if(!ue2.analize1()) return false;
 					this.expr = new E_Multiply(this.expr, ue2.expr);
 					break;
 				}case DIV:{
 					$.next();
 					UnaryExpression ue2 = (UnaryExpression)$.get("UnaryExpression");
-					if(!ue2.analize()) return false;
+					if(!ue2.analize1()) return false;
 					this.expr = new E_Divide(this.expr, ue2.expr);
 					break;
 				}

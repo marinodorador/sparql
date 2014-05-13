@@ -26,7 +26,7 @@ public class Query extends Production{
 				query = new com.hp.hpl.jena.query.Query();
 			}
 	
-			if(!sq.analize()) return false;
+			if(!sq.analize1()) return false;
 			
 			
 			

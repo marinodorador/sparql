@@ -31,14 +31,14 @@ public class IRIrefOrFunction extends Production{
 
 			IRIref iref = (IRIref)$.get("IRIref");
 
-			if(!iref.analize()) return false;
+			if(!iref.analize1()) return false;
 
 
 			this.expr = new NodeValueNode(NodeFactory.createURI(iref.val));
 
 			if($.current.token == Token.NIL || $.current.token == Token.LEFT_PARENTH){
 				ArgList al = (ArgList)$.get("ArgList");
-				if(!al.analize()) return false;
+				if(!al.analize1()) return false;
 				this.expr = new E_Function(iref.val,al.expr);
 			}
 

@@ -25,7 +25,7 @@ public class Verb extends Production{
 			case PNAME_LN:
 			case PNAME_NS:
 				VarOrIRIref varOrIriRef = (VarOrIRIref)$.get("VarOrIRIref");
-				if(!varOrIriRef.analize()) return false;
+				if(!varOrIriRef.analize1()) return false;
 					node = varOrIriRef.node;
 				break;
 			case A:

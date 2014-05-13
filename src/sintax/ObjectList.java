@@ -29,7 +29,7 @@ public class ObjectList extends Production{
 			while ( $.current.token == Token.COMMA )
 			{
 				$.next();
-				if ( ! o.analize())
+				if ( ! o.analize1())
 					objects.add(o.node);
 					return false;
 			}

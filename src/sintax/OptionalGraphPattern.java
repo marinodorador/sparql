@@ -26,7 +26,7 @@ public class OptionalGraphPattern extends Production{
 			
 			if ( $.current.token == Token.LEFT_BRACE ){
 				GroupGraphPattern ggp = (GroupGraphPattern) $.get("GroupGraphPattern");
-				boolean result = ggp.analize();
+				boolean result = ggp.analize1();
 				element = new ElementOptional(ggp.element);
 				return result;
 			}else{

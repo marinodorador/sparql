@@ -15,7 +15,7 @@ public class WhereClause extends Production{
 	public boolean process() throws IOException{
 		if($.current.token == Token.WHERE) $.next();		
 		GroupGraphPattern ggp = (GroupGraphPattern)$.get("GroupGraphPattern");
-		if(!ggp.analize()) return false;
+		if(!ggp.analize1()) return false;
 		element = ggp.element;
 		return true;
 	}

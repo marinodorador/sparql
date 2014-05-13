@@ -22,7 +22,10 @@ public class PrefixedName extends Production{
 		case PNAME_NS:
 			$.next();
 			break;
-		default: return false;
+		default:
+			MistakeLog.spected.add(Token.PNAME_LN);
+			MistakeLog.spected.add(Token.PNAME_NS);
+			return false;
 		}
 		return true;
 	}

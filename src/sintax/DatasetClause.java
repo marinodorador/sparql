@@ -3,7 +3,6 @@ package sintax;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 import lexic.Token;
 /*
  * ArgList ::= ( NIL | '(' Expression ( ',' Expression )* ')' )
@@ -32,7 +31,7 @@ public class DatasetClause extends Production{
 			}
 				
 		}
-		
+		MistakeLog.spected.add(Token.FROM);
 		return false;
 	}
 

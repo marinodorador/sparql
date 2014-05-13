@@ -10,9 +10,15 @@ import lexic.Token;
 public class OffsetClause extends Production{
 
 	public boolean process() throws IOException{
-		if($.current.token != Token.OFFSET) return false;
+		if($.current.token != Token.OFFSET){
+			MistakeLog.spected.add(Token.OFFSET);
+			return false;
+		}
 			$.next();
-		if($.current.token != Token.INTEGER) return false;
+		if($.current.token != Token.INTEGER){
+			MistakeLog.spected.add(Token.INTEGER);
+			return false;
+		}
 			Long offset = Long.parseLong($.current.lexeme);
 			Query.query.setOffset(offset);
 			$.next();

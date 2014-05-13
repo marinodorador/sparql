@@ -22,7 +22,7 @@ public class OrderClause extends Production{
 					$.current.token == Token.VAR1 ||
 					$.current.token == Token.VAR2){
 				OrderCondition orderCond = (OrderCondition)$.get("OrderCondition");
-				if(!orderCond.analize()) return false;
+				if(!orderCond.analize1()) return false;
 				Query.query.addOrderBy(orderCond.sortCondition);
 			}else return false;
 

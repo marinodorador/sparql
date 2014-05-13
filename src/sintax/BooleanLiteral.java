@@ -23,16 +23,19 @@ public class BooleanLiteral extends Production{
 	public boolean process() throws IOException{
 		switch($.current.token){
 			case TRUE:
+				$.next();		
 				val = "true";
-				expr = new NodeValueBoolean(true);
-				$.next();			
+				expr = new NodeValueBoolean(true);	
 				break;
 			case FALSE:
+				$.next();
 				val = "false";
 				expr = new NodeValueBoolean(false);
-				$.next();
 				break;
-			default: return false;
+			default:
+				MistakeLog.spected.add(Token.TRUE);
+				MistakeLog.spected.add(Token.FALSE);
+				return false;
 		}
 		return true;
 	}

@@ -51,91 +51,133 @@ public class BuiltInCall extends Production{
 
 			case STR:{
 				$.next(); 
-				if ( $.current.token != Token.LEFT_PARENTH ) return false;
+				if ( $.current.token != Token.LEFT_PARENTH ){
+					MistakeLog.spected.add(Token.LEFT_PARENTH);
+					return false;
+				}
 				$.next();
 				
-				if ( !  e.analize() ) return false;
+				if ( !  e.analize1() ) return false;
 				expr = new E_Str(e.expr);
 
-				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
+				if ( $.current.token != Token.RIGTH_PARENTH ){
+					MistakeLog.spected.add(Token.RIGTH_PARENTH);
+					return false;
+				}
 				$.next();
 			    //System.out.println(expr.toString());
 				return true;
 			}
 			case LANG:{
 				$.next(); 
-				if ( $.current.token != Token.LEFT_PARENTH ) return false;
+				if ( $.current.token != Token.LEFT_PARENTH ){
+					MistakeLog.spected.add(Token.LEFT_PARENTH);
+					return false;
+				}
 				$.next();
 				
-				if ( ! e.analize() ) return false;
+				if ( ! e.analize1() ) return false;
 				expr = new E_Lang(e.expr);
 		
-				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
+				if ( $.current.token != Token.RIGTH_PARENTH ){
+					MistakeLog.spected.add(Token.RIGTH_PARENTH);
+					return false;
+				}
 				$.next();
 			    //System.out.println(expr.toString());
 				return true;
 			}
 			case DATATYPE:{
 				$.next(); 
-				if ( $.current.token != Token.LEFT_PARENTH ) return false;
+				if ( $.current.token != Token.LEFT_PARENTH ){
+					MistakeLog.spected.add(Token.LEFT_PARENTH);
+					return false;
+				}
 				$.next();
 				
 				if ( ! e.analize() ) return false;
 				expr = new E_Datatype(e.expr);
 			
-				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
+				if ( $.current.token != Token.RIGTH_PARENTH ){
+					MistakeLog.spected.add(Token.RIGTH_PARENTH);
+					return false;
+				}
 				$.next();
 			    System.out.println(expr.toString());
 				return true;
 			}
 			case ISIRI:{
 				$.next(); 
-				if ( $.current.token != Token.LEFT_PARENTH ) return false;
+				if ( $.current.token != Token.LEFT_PARENTH ){
+					MistakeLog.spected.add(Token.LEFT_PARENTH);
+					return false;
+				}
 				$.next();
 				
 				if ( ! e.analize() ) return false;
 				expr = new E_IsIRI(e.expr);
 			
-				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
+				if ( $.current.token != Token.RIGTH_PARENTH ){
+					MistakeLog.spected.add(Token.RIGTH_PARENTH);
+					return false;
+				}
 				$.next();
 			    //System.out.println(expr.toString());
 				return true;
 			}
 			case ISURI:{
 				$.next(); 
-				if ( $.current.token != Token.LEFT_PARENTH ) return false;
+				if ( $.current.token != Token.LEFT_PARENTH ){
+					MistakeLog.spected.add(Token.LEFT_PARENTH);
+					return false;
+				}
 				$.next();
 				
 				if ( ! e.analize() ) return false;
 				expr = new E_IsURI(e.expr);
 			    System.out.println(expr.toString());
-				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
+			    if ( $.current.token != Token.RIGTH_PARENTH ){
+					MistakeLog.spected.add(Token.RIGTH_PARENTH);
+					return false;
+				}
 				$.next();
 			    //System.out.println(expr.toString());
 				return true;
 			}
 			case ISBLANK:{
 				$.next(); 
-				if ( $.current.token != Token.LEFT_PARENTH ) return false;
+				if ( $.current.token != Token.LEFT_PARENTH ){
+					MistakeLog.spected.add(Token.LEFT_PARENTH);
+					return false;
+				}
 				$.next();
 				
 				if ( ! e.analize() ) return false;
 				expr = new E_IsBlank(e.expr);
 			
-				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
+				if ( $.current.token != Token.RIGTH_PARENTH ){
+					MistakeLog.spected.add(Token.RIGTH_PARENTH);
+					return false;
+				}
 				$.next();
 			    //System.out.println(expr.toString());
 				return true;
 			}
 			case ISLITERAL:{
 				$.next(); 
-				if ( $.current.token != Token.LEFT_PARENTH ) return false;
+				if ( $.current.token != Token.LEFT_PARENTH ){
+					MistakeLog.spected.add(Token.LEFT_PARENTH);
+					return false;
+				}
 				$.next();
 				
 				if ( ! e.analize() ) return false;
 				expr = new E_IsLiteral(e.expr);
 			
-				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
+				if ( $.current.token != Token.RIGTH_PARENTH ){
+					MistakeLog.spected.add(Token.RIGTH_PARENTH);
+					return false;
+				}
 				$.next();
 			    //System.out.println(expr.toString());
 				return true;
@@ -143,32 +185,47 @@ public class BuiltInCall extends Production{
 			
 			case LANGMATCHES:{
 				$.next(); 
-				if ( $.current.token != Token.LEFT_PARENTH ) return false;
+				if ( $.current.token != Token.LEFT_PARENTH ){
+					MistakeLog.spected.add(Token.LEFT_PARENTH);
+					return false;
+				}
 				$.next();
 				
 				if ( ! e.analize() ) return false;
 			
 				
-				if ( $.current.token != Token.COMMA ) return false;
+				if ( $.current.token != Token.COMMA ){
+					MistakeLog.spected.add(Token.COMMA);
+					return false;
+				}
 				$.next();
 				Expression e2 = (Expression)$.get("Expression");
 				if ( ! e2.analize() ) return false;
 				
 				expr = new E_LangMatches(e.expr,e2.expr);
 				
-				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
+				if ( $.current.token != Token.RIGTH_PARENTH ){
+					MistakeLog.spected.add(Token.RIGTH_PARENTH);
+					return false;
+				}
 				$.next();
 			    //System.out.println(expr.toString());
 				return true;
 			}
 			case SAMETERM:{
 				$.next(); 
-				if ( $.current.token != Token.LEFT_PARENTH ) return false;
+				if ( $.current.token != Token.LEFT_PARENTH ){
+					MistakeLog.spected.add(Token.LEFT_PARENTH);
+					return false;
+				}
 				$.next();
 					
 				if ( ! e.analize() ) return false;
 				
-				if ( $.current.token != Token.COMMA ) return false;
+				if ( $.current.token != Token.COMMA ){
+					MistakeLog.spected.add(Token.COMMA);
+					return false;
+				}
 				$.next();
 				
 				Expression e2 = (Expression)$.get("Expression");
@@ -177,7 +234,10 @@ public class BuiltInCall extends Production{
 				
 				expr = new E_SameTerm(e.expr, e2.expr);
 		
-				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
+				if ( $.current.token != Token.RIGTH_PARENTH ){
+					MistakeLog.spected.add(Token.RIGTH_PARENTH);
+					return false;
+				}
 				$.next();
 
 			    //System.out.println(expr.toString());
@@ -186,7 +246,10 @@ public class BuiltInCall extends Production{
 				
 			case BOUND:{
 				$.next(); 
-				if ( $.current.token != Token.LEFT_PARENTH ) return false;
+				if ( $.current.token != Token.LEFT_PARENTH ){
+					MistakeLog.spected.add(Token.LEFT_PARENTH);
+					return false;
+				}
 				
 				$.next(); 
 				
@@ -195,7 +258,10 @@ public class BuiltInCall extends Production{
 				this.expr = new E_Bound(v.expr);
 	
 				
-				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
+				if ( $.current.token != Token.RIGTH_PARENTH ){
+					MistakeLog.spected.add(Token.RIGTH_PARENTH);
+					return false;
+				}
 				$.next();
 				
 			    //System.out.println(expr.toString());

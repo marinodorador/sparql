@@ -21,17 +21,22 @@ public class ArgList  extends Production {
 			case LEFT_PARENTH:
 				$.next();
 				Expression e = (Expression)$.get("Expression");
-				if(!e.analize()) return false;
+				if(!e.analize1()) return false;
 				expr.add(e.expr);
 				while($.current.token == Token.COMMA){
 					$.next();
 					Expression e2 = (Expression)$.get("Expression");
-					if(!e2.analize()) return false;
+					if(!e2.analize1()) return false;
 					expr.add(e2.expr);
 				}
 				
-				if($.current.token != Token.RIGTH_PARENTH) return false;
-				$.next();
+				if($.current.token == Token.RIGTH_PARENTH){
+					$.next();
+				}
+				else{
+					MistakeLog.spected.add(Token.RIGTH_PARENTH);
+					return  false;
+				}
 				break;
 		}
 		return true;

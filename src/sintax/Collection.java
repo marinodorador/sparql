@@ -21,10 +21,12 @@ public class Collection extends Production{
 					$.next();
 					return true;
 				}else{
+					MistakeLog.spected.add(Token.RIGTH_PARENTH);
 					return false;
 				}
 			}
 		}
+		MistakeLog.spected.add(Token.LEFT_PARENTH);
 		return false;
 	}
 	

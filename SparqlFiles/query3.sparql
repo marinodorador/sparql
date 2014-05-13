@@ -29,4 +29,4 @@ WHERE
                     ?PrincipioActivo =  <http://localhost/ontologia_medicamentos.xml#Amoxacilina>)
 } 
 ORDER BY ?vidaMedia
-LIMIT 4
+LIMIT 2

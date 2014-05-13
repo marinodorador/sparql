@@ -18,17 +18,22 @@ public class BrackettedExpression extends Production{
 	
 	public boolean process() throws IOException{
 		
-		if($.current.token != Token.LEFT_PARENTH)
+		if($.current.token != Token.LEFT_PARENTH){
+			MistakeLog.spected.add(Token.LEFT_PARENTH);
 			return false;
+		}
 		
 		$.next();
 		Expression e = (Expression)$.get("Expression");
 		
-		if(!e.analize())
+		if(!e.analize1())
 			return false;
 		
 		expr = e.expr;
-		if($.current.token != Token.RIGTH_PARENTH) return false;
+		if($.current.token != Token.RIGTH_PARENTH){
+			MistakeLog.spected.add(Token.RIGTH_PARENTH);
+			return false;
+		}
 		$.next();
 		
 		return true;

@@ -68,32 +68,32 @@ public class ValueLogical extends Production{
 			switch($.current.token){
 				case EQUAL:
 					$.next();
-					if(!ne2.analize()) return false;
+					if(!ne2.analize1()) return false;
 					this.expr = new E_Equals(ne.expr, ne2.expr);
 					break;
 				case NOT_EQUAL:
 					$.next();
-					if(!ne2.analize()) return false;
+					if(!ne2.analize1()) return false;
 					this.expr = new E_NotEquals(ne.expr, ne2.expr);
 					break;
 				case LESS:
 					$.next();
-					if(!ne2.analize()) return false;
+					if(!ne2.analize1()) return false;
 					this.expr = new E_LessThan(ne.expr, ne2.expr);
 					break;
 				case GREATER:
 					$.next();
-					if(!ne2.analize()) return false;
+					if(!ne2.analize1()) return false;
 					this.expr = new E_GreaterThan(ne.expr, ne2.expr);
 					break;
 				case LET:
 					$.next();
-					if(!ne2.analize()) return false;
+					if(!ne2.analize1()) return false;
 					this.expr = new E_LessThanOrEqual(ne.expr, ne2.expr);
 					break;
 				case GET:
 					$.next();
-					if(!ne2.analize()) return false;
+					if(!ne2.analize1()) return false;
 					this.expr = new E_GreaterThanOrEqual(ne.expr, ne2.expr);
 					break;
 					

@@ -31,6 +31,8 @@ public class Var extends Production{
 				$.next();
 				break;
 			default:
+				MistakeLog.spected.add(Token.VAR1);
+				MistakeLog.spected.add(Token.VAR2);
 				return false;
 		}
 		return true;

@@ -13,7 +13,7 @@ public class BaseDecl extends Production{
 		if($.current.token == Token.BASE){
 			$.next();
 			IRIref iriRef = (IRIref)$.get("IRIref");
-			if(!iriRef.analize()) return false;
+			if(!iriRef.analize1()) return false;
 			baseUri  = iriRef.val;
 		}
 		return true;

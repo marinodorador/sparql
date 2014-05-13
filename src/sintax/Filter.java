@@ -21,6 +21,8 @@ public class Filter extends Production{
 			BrackettedExpression be = (BrackettedExpression)$.get("BrackettedExpression");
 			result = be.analize();
 			node = new ElementFilter(be.expr);
+		}else{
+			MistakeLog.spected.add(Token.FILTER);
 		}
 		
 		return result;

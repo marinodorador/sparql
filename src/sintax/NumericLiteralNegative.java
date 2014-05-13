@@ -17,24 +17,30 @@ public class NumericLiteralNegative extends Production{
 	public Expr expr = null;
 	public boolean process() throws IOException{
 	if($.current.token == Token.INTEGER_NEGATIVE){
+		
 		val = $.current.lexeme;
 		type = "http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#dt-integer";
 		this.expr = new NodeValueInteger(Long.parseLong(val));
 		$.next();
 		return true;
 	}else if($.current.token == Token.DECIMAL_NEGATIVE){
+		
 		val = $.current.lexeme;
 		type = "http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#dt-decimal";
 		this.expr = new NodeValueDecimal(new BigDecimal(val));
 		$.next();
 		return true;
 	}else if($.current.token == Token.DOUBLE_NEGATIVE){
+		
 		val = $.current.lexeme;
 		type = "http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#dt-double";
 		this.expr = new NodeValueDouble(Double.parseDouble(val));
 		$.next();
 		return true;
 	}
+	MistakeLog.spected.add(Token.INTEGER_NEGATIVE);
+	MistakeLog.spected.add(Token.DECIMAL_NEGATIVE);
+	MistakeLog.spected.add(Token.DOUBLE_NEGATIVE);
 	return false;
 	}
 	

@@ -26,6 +26,7 @@ public class NumericLiteralUnsigned extends Production{
 	public boolean process() throws IOException{
 		switch($.current.token){
 			case INTEGER:{
+				
 				val = $.current.lexeme;
 				type = "http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#dt-integer";
 				this.expr = new NodeValueInteger(Long.parseLong(val));
@@ -47,7 +48,12 @@ public class NumericLiteralUnsigned extends Production{
 				$.next();
 				break;
 			}
-			default: return false;
+			default:{
+				MistakeLog.spected.add(Token.DOUBLE);
+				MistakeLog.spected.add(Token.INTEGER);
+				MistakeLog.spected.add(Token.DECIMAL);
+				return false;
+			}
 		}
 		return true;
 	}

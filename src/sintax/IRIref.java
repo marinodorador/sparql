@@ -38,6 +38,9 @@ public class IRIref extends Production{
 
 			val = auxIri;
 		}
+		MistakeLog.spected.add(Token.IRI_REF);
+		MistakeLog.spected.add(Token.PNAME_LN);
+		MistakeLog.spected.add(Token.PNAME_NS);
 		return false;
 	}
 	

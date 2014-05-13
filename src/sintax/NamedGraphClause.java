@@ -23,11 +23,11 @@ public class NamedGraphClause extends Production{
 		{
 			$.next();
 			SourceSelector ss =(SourceSelector) $.get("SourceSelector");
-			boolean result = ss.analize();
+			boolean result = ss.analize1();
 			uri = ss.uri;
 			return result;
 		}
-		
+		MistakeLog.spected.add(Token.NAMED);
 		return false;
 	}
 

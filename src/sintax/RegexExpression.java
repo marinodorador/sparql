@@ -17,18 +17,27 @@ public class RegexExpression extends Production{
 		Expression e1 = (Expression)$.get("Expression");
 		Expression e2 = (Expression)$.get("Expression");
 		Expression e3 = (Expression)$.get("Expression");
-		if($.current.token != Token.REGEX) return false;
+		if($.current.token != Token.REGEX){
+			MistakeLog.spected.add(Token.REGEX);
+			return false;
+		}
 	    $.next();
-	    if($.current.token != Token.LEFT_PARENTH) return false;
+	    if($.current.token != Token.LEFT_PARENTH){
+	    	MistakeLog.spected.add(Token.LEFT_PARENTH);
+	    	return false;
+	    }
 	    $.next();
 		if(!e1.analize()) return false;
-		if($.current.token != Token.COMMA) return false;
+		if($.current.token != Token.COMMA){
+			MistakeLog.spected.add(Token.COMMA);
+			return false;
+		}
 		$.next();
-		if(!e2.analize()) return false;
+		if(!e2.analize1()) return false;
 		
 		if($.current.token == Token.COMMA){
 			$.next();
-			if(!e3.analize())return false;
+			if(!e3.analize1())return false;
 			expr = new E_Regex(e1.expr, e2.expr, e3.expr);
 			
 		

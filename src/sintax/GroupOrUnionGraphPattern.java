@@ -21,7 +21,7 @@ public class GroupOrUnionGraphPattern extends Production{
 			while($.current.token == Token.UNION){
 				$.next();
 				ggp = (GroupGraphPattern)$.get("GroupGraphPattern");
-				if(!ggp.analize()) return false;
+				if(!ggp.analize1()) return false;
 				element.addElement(ggp.element);
 			}
 			return true;

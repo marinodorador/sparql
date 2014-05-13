@@ -27,14 +27,14 @@ public class RDFLiteral extends Production{
 	public boolean process() throws IOException{
 		_String s = (_String) $.get("_String");
 		
-		if(!s.analize()) return false;
+		if(!s.analize1()) return false;
 		
 		this.expr = new NodeValueString(s.val);
 		switch($.current.token){
 			case TYPE:{
 				
 				IRIref iriRef = (IRIref) $.get("IRIref");
-				if(!iriRef.analize()) return false;
+				if(!iriRef.analize1()) return false;
 				
 				this.node = NodeFactory.createLiteral(s.val, new BaseDatatype(iriRef.val));
 				this.expr = new NodeValueString(

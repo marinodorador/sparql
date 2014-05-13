@@ -24,14 +24,14 @@ public class Prologue extends Production{
 		
 		if ( $.current.token == Token.BASE ){
 			BaseDecl base = (BaseDecl)$.get("BaseDecl");
-			if ( ! base.analize()) return false;
+			if ( ! base.analize1()) return false;
 			prologue.setBaseURI(base.baseUri);
 		}
 		
 		while ( $.current.token == Token.PREFIX )
 		{
 			PrefixDecl prefixDecl = (PrefixDecl) $.get("PrefixDecl");
-			if ( ! prefixDecl.analize() )return false;
+			if ( ! prefixDecl.analize1() )return false;
 			PrefixMappingImpl pm = (PrefixMappingImpl)prologue.getPrefixMapping();
 			pm.setNsPrefix(prefixDecl.prefix, prefixDecl.uri);
 		}

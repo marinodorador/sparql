@@ -94,6 +94,66 @@ public abstract class Production{
 		return ans;
 	}
 	
+public boolean analize1() throws IOException{
+		
+		//System.out.println(this.getClass().getSimpleName());
+		boolean ans=false;
+		boolean ans1 = false;
+
+		int trace= MistakeLog.mistakesLog.size();
+		Token current= $.current.token;
+		
+		// 1 checks FIRSTS
+		for ( Token FIRST : FIRSTS() )
+		{
+			if(current == FIRST)
+			{
+				//2 calls process, which is individually built in each instance
+				ans= process();
+				ans1 = true;
+				break;
+			}
+		}
+		
+		if (!ans1){
+			System.out.println(this.getClass().getSimpleName());
+			for ( Token FIRST : FIRSTS() )
+				MistakeLog.spected.add(FIRST);
+		}
+	
+		if (!ans)
+		{
+			if( current == $.current.token )
+			{
+				return false;
+			}
+
+			ans = MistakeLog.driveTo(FOLLOWS());
+		}
+		
+		//3 if process ended with error, advances to a FOLLOW
+//		if ( ans1 == false )
+//		{
+//			System.out.println(this.getClass().getSimpleName());
+//			
+//			if( current == $.current.token ){
+////				for(Token t: $.get(this.getClass().getSimpleName()).FOLLOWS()){
+////					MistakeLog.spected.add(t);
+////				}
+//				MistakeLog.spected.add($.current.token);
+//				return false;
+//			}
+//
+//			ans = MistakeLog.driveTo(FOLLOWS());
+//		}
+		
+		if ( MistakeLog.mistakesLog.size() != trace ){
+			MistakeLog.reportParent(""+this.getClass().getSimpleName());
+		}
+		
+		return true;
+	}
+	
 	abstract ArrayList<Token> FIRSTS() throws IOException;
 	abstract ArrayList<Token> FOLLOWS() throws IOException;
 	
