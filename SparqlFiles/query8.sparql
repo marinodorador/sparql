@@ -1,8 +1,10 @@
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-SELECT ?Nombre
+SELECT 
+DISTINCT ?Nombre
 FROM <http://homepages.inf.ed.ac.uk/ewan/foaf.n3>
 FROM <http://www.ibiblio.org/hhalpin/foaf.rdf>
 WHERE { 
       ?person1 foaf:name ?Nombre ;
       }
-OFFSET 0
+ORDER BY ?Nombre
+OFFSET 2

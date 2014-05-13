@@ -114,7 +114,7 @@ TYPE  					= "^^"
 	"LANG"			{return new Symbol(Token.LANG);}
 	"BASE" 		    {return new Symbol(Token.BASE);}
 	"FROM" 		    {return new Symbol(Token.FROM);}
-	"DESC"			{return new Symbol(Token.ASC);}
+	"DESC"			{return new Symbol(Token.DESC);}
 	"true"		    {return new Symbol(Token.TRUE);}
 	"STR"		    {return new Symbol(Token.STR);}
 	"ASC"			{return new Symbol(Token.ASC);}

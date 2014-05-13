@@ -33,6 +33,7 @@ public class PrimaryExpression extends Production{
 			this.expr = bcall.expr;
 		}else if(iriRef.analize()){
 			this.expr = iriRef.expr;
+			System.out.println("iriofun:"+ expr.toString());
 		}else if(rdfLit.analize()){
 			this.expr = rdfLit.expr;
 		}else if(numLit.analize()){

@@ -42,6 +42,7 @@ public class UnaryExpression extends Production{
 			default:
 				result = pe.analize();
 				this.expr = pe.expr;
+				System.out.println("unary"+expr.toString());
 		}
 		
 		

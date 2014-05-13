@@ -9,10 +9,7 @@ import com.hp.hpl.jena.sparql.expr.E_Function;
 import com.hp.hpl.jena.sparql.expr.E_IRI;
 import com.hp.hpl.jena.sparql.expr.Expr;
 import com.hp.hpl.jena.sparql.expr.ExprList;
-<<<<<<< HEAD
 import com.hp.hpl.jena.sparql.expr.NodeValue;
-=======
->>>>>>> 97ef7fc6a250d0c0492be22513268d22d4397cd5
 import com.hp.hpl.jena.sparql.expr.nodevalue.NodeValueNode;
 
 import lexic.Token;
@@ -24,35 +21,28 @@ import lexic.Token;
  * 	FIRST(IRIrefOrFunction) = {IRI_REF, PNAME_LN, PNAME_NS}
  * 	FIRST(ArgList?) = {NIL, '(' }
  * 	FOLLOW(ArgList?) = {*, /,+,-INTEGER_POSITIVE,DECIMAL_POSITIVE,DOUBLE_POSITIVE,INTEGER_NEGATIVE
-						,DECIMAL_NEGATIVE, DOUBLE_NEGATIVE, =, !=, <, > , <=, >=,
-						&&, ||, COMMA,')'}
+ *						,DECIMAL_NEGATIVE, DOUBLE_NEGATIVE, =, !=, <, > , <=, >=,
+ *						&&, ||, COMMA,')'}
  */
 public class IRIrefOrFunction extends Production{
 	public Expr expr = null;
 	public boolean process() throws IOException{
 		if($.current.token == Token.IRI_REF || $.current.token == Token.PNAME_LN || $.current.token == Token.PNAME_NS){
-			
+
 			IRIref iref = (IRIref)$.get("IRIref");
-			
+
 			if(!iref.analize()) return false;
-<<<<<<< HEAD
-			System.out.println(iref.val);
-=======
-			
+
+
 			this.expr = new NodeValueNode(NodeFactory.createURI(iref.val));
->>>>>>> 97ef7fc6a250d0c0492be22513268d22d4397cd5
+
 			if($.current.token == Token.NIL || $.current.token == Token.LEFT_PARENTH){
 				ArgList al = (ArgList)$.get("ArgList");
 				if(!al.analize()) return false;
 				this.expr = new E_Function(iref.val,al.expr);
-<<<<<<< HEAD
-				
-			}else{
-				System.out.println(expr.getVarName());
-=======
->>>>>>> 97ef7fc6a250d0c0492be22513268d22d4397cd5
 			}
-			
+
+			System.out.println("iri:"+ expr.toString());
 			
 			if($.current.token != Token.MULT && $.current.token != Token.DIV && $.current.token != Token.PLUS
 					 && $.current.token != Token.SUB && $.current.token != Token.INTEGER_POSITIVE && $.current.token != Token.DECIMAL_POSITIVE
@@ -61,18 +51,18 @@ public class IRIrefOrFunction extends Production{
 					 && $.current.token != Token.GET && $.current.token != Token.AND && $.current.token != Token.OR
 					 && $.current.token != Token.COMMA && $.current.token != Token.RIGTH_PARENTH
 					) return false;
-		
+
 		}else{
 			return false;
 		}
 		return true;
 	}
-	
+
 	@Override
 	public ArrayList<Token> FIRSTS() throws IOException {
 			return $.get("IRIref").FOLLOWS();
 		}
-		
+
 	@Override
 	public ArrayList<Token> FOLLOWS() throws IOException {
 		return $.get("PrimaryExpression").FOLLOWS();

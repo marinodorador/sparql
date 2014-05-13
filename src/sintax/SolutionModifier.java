@@ -17,12 +17,11 @@ public class SolutionModifier extends Production{
 	 */
 	public boolean process() throws IOException{
 		
-		switch($.current.token){
-
-		case ORDER_BY:
-			return $.analize("OrderClause");
-		case LIMIT:
-		case OFFSET:
+		if($.current.token == Token.ORDER_BY){
+			$.analize("OrderClause");
+		}
+		
+		if($.current.token == Token.LIMIT || $.current.token == Token.OFFSET){
 			return $.analize("LimitOffsetClauses");
 		}
 		

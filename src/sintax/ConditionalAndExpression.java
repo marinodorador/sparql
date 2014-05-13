@@ -23,13 +23,15 @@ public class ConditionalAndExpression extends Production{
 		
 		if ( !  vl.analize()) return false;
 		expr = vl.expr;
-		System.out.println(expr);
+		System.out.println("1"+expr.toString());
 		while(true){
 			if ( $.current.token == Token.AND ){
 				$.next();
 				ValueLogical vl2 = (ValueLogical)$.get("ValueLogical");
 				if ( ! vl2.analize()) return false;
+				System.out.println("2"+vl2.expr.toString());
 				this.expr = new E_LogicalAnd(this.expr, vl2.expr);
+				System.out.println("3"+expr.toString());
 			}else break;
 		}
 		

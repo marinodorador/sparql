@@ -2,16 +2,30 @@ PREFIX foaf: <http://localhost/ontologia_medicamentos.xml#>
 PREFIX owl:<http://www.w3.org/2002/07/owl#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX swrc: <http://swrc.ontoware.org/ontology#>
+PREFIX swrc-ext: <http://www.cs.vu.nl/~mcaklein/onto/swrc_ext/2005/05#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX ical: <http://www.w3.org/2002/12/cal/ical#>
+PREFIX swc: <http://data.semanticweb.org/ns/swc/ontology#>
 
 SELECT ?medicamento ?excipiente
 FROM <c:/users/federico/desktop/ontologia_medicamentos.xml>
-WHERE {
+WHERE 
+{
    {
-	?excipiente rdf:type foaf:Excipiente; 
-	foaf:hasExcipienteFuncion foaf:Lubricante
-   } UNION {
-	?excipiente foaf:hasExcipienteFuncion foaf:Colorante
+         ?excipiente rdf:type foaf:Excipiente; 
+         foaf:hasExcipienteFuncion foaf:Lubricante
+   } 
+UNION 
+  {
+          ?medicamento foaf:MedicamentoExcipientes ?excipiente
    }
-   ?medicamento foaf:MedicamentoExcipientes ?excipiente
-   FILTER (?medicamento = <http://localhost/ontologia_medicamentos.xml#Moxtam>)
+    FILTER (
+                    ?medicamento = <http://localhost/ontologia_medicamentos.xml#Moxtam> 
+                    || ?excipente = <http://localhost/ontologia_medicamentos.xml#Fructuosa>
+                   )             
 }
+ORDER BY ASC (?excipiente)
+LIMIT 2

@@ -15,6 +15,7 @@ public class OrderClause extends Production{
 	public boolean process() throws IOException{
 		if($.current.token != Token.ORDER_BY) return false;
 		$.next();
+		System.out.println($.current.token.toString());
 		do{
 			if( $.current.token == Token.ASC ||  
 					$.current.token == Token.DESC ||
@@ -24,17 +25,13 @@ public class OrderClause extends Production{
 				OrderCondition orderCond = (OrderCondition)$.get("OrderCondition");
 				if(!orderCond.analize()) return false;
 				Query.query.addOrderBy(orderCond.sortCondition);
-				
 			}else return false;
-			
+
 		}while($.current.token == Token.ASC ||  
 				$.current.token == Token.DESC ||
 				$.current.token == Token.LEFT_PARENTH || 
 				$.current.token == Token.VAR1 ||
 				$.current.token == Token.VAR2);
-		
-		if($.current.token != Token.LIMIT && $.current.token != Token.OFFSET && $.current.token != Token.END)
-			return false;
 	
 		return true;
 	}

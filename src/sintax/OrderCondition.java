@@ -20,31 +20,35 @@ public class OrderCondition extends Production{
 	 */
 	
 	public boolean process() throws IOException{
+		
 		switch($.current.token){
-
 			case ASC:{
+				$.next();
 				BrackettedExpression be = (BrackettedExpression) $.get("BrackettedExpression");
 				if(!be.analize()) return false;
+				System.out.println("ASC");
 				sortCondition = new SortCondition(be.expr,com.hp.hpl.jena.query.Query.ORDER_ASCENDING);
-				$.next();
+				break;
 			}
 			case DESC:{
+				$.next();
 				BrackettedExpression be = (BrackettedExpression) $.get("BrackettedExpression");
 				if(!be.analize()) return false;
 				sortCondition = new SortCondition(be.expr,com.hp.hpl.jena.query.Query.ORDER_DESCENDING);
-				$.next();
-
+				System.out.println("DESC");
+				break;
 			}
 			case LEFT_PARENTH:{
 				BrackettedExpression constraint = (BrackettedExpression) $.get("BrackettedExpression");
 				if(! constraint.analize()) return false;
 				sortCondition = new SortCondition(constraint.expr, com.hp.hpl.jena.query.Query.ORDER_ASCENDING);
-
+				break;
 			}
 			default:{
 				 Var v = (Var) $.get("Var");
 				 if(!v.analize()) return false;
 				 sortCondition = new SortCondition(v.node, com.hp.hpl.jena.query.Query.ORDER_ASCENDING);
+				 break;
 			}
 		}
 		return true;

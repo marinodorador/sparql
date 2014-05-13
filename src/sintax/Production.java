@@ -65,7 +65,6 @@ public abstract class Production{
 		{
 			if( current == $.current.token )
 			{
-				
 				return false;
 			}
 
