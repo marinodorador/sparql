@@ -15,27 +15,6 @@ public class TriplesBlock extends Production{
 	public ElementPathBlock element = new ElementPathBlock();
 	public ElementGroup element2 = new ElementGroup();
 	
-	public boolean firsts = $.current.token == VAR1 || 
-			 $.current.token == VAR2 ||
-			 $.current.token == IRI_REF ||
-			 $.current.token == PNAME_LN ||
-			 $.current.token ==PNAME_NS ||
-			 $.current.token ==STRING_LITERAL1 ||
-			$.current.token ==STRING_LITERAL2 ||
-			$.current.token ==STRING_LITERAL_LONG1 ||
-			$.current.token ==STRING_LITERAL_LONG2 ||
-			$.current.token ==INTEGER ||
-			$.current.token ==DECIMAL ||
-			$.current.token ==DOUBLE ||
-			$.current.token ==INTEGER_POSITIVE ||
-			$.current.token == DECIMAL_POSITIVE ||
-			$.current.token == DOUBLE_POSITIVE ||
-			$.current.token == INTEGER_NEGATIVE ||
-			$.current.token == DECIMAL_NEGATIVE ||
-			$.current.token == DOUBLE_NEGATIVE ||
-			$.current.token == TRUE ||
-			$.current.token == FALSE ||
-			$.current.token == NIL;
 	@Override
 	public boolean process() throws IOException {
 		TriplesSameSubject tss = (TriplesSameSubject)$.get("TriplesSameSubject");

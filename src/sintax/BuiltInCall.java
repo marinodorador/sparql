@@ -11,9 +11,11 @@ import com.hp.hpl.jena.sparql.expr.E_IsLiteral;
 import com.hp.hpl.jena.sparql.expr.E_IsURI;
 import com.hp.hpl.jena.sparql.expr.E_Lang;
 import com.hp.hpl.jena.sparql.expr.E_LangMatches;
+import com.hp.hpl.jena.sparql.expr.E_Regex;
 import com.hp.hpl.jena.sparql.expr.E_SameTerm;
 import com.hp.hpl.jena.sparql.expr.E_Str;
 import com.hp.hpl.jena.sparql.expr.Expr;
+import com.hp.hpl.jena.sparql.expr.ExprAggregator;
 
 import lexic.Token;
 
@@ -57,7 +59,7 @@ public class BuiltInCall extends Production{
 
 				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
 				$.next();
-		
+			    //System.out.println(expr.toString());
 				return true;
 			}
 			case LANG:{
@@ -70,7 +72,7 @@ public class BuiltInCall extends Production{
 		
 				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
 				$.next();
-		
+			    //System.out.println(expr.toString());
 				return true;
 			}
 			case DATATYPE:{
@@ -83,7 +85,7 @@ public class BuiltInCall extends Production{
 			
 				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
 				$.next();
-		
+			    System.out.println(expr.toString());
 				return true;
 			}
 			case ISIRI:{
@@ -96,7 +98,7 @@ public class BuiltInCall extends Production{
 			
 				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
 				$.next();
-		
+			    //System.out.println(expr.toString());
 				return true;
 			}
 			case ISURI:{
@@ -106,10 +108,10 @@ public class BuiltInCall extends Production{
 				
 				if ( ! e.analize() ) return false;
 				expr = new E_IsURI(e.expr);
-			
+			    System.out.println(expr.toString());
 				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
 				$.next();
-		
+			    //System.out.println(expr.toString());
 				return true;
 			}
 			case ISBLANK:{
@@ -122,7 +124,7 @@ public class BuiltInCall extends Production{
 			
 				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
 				$.next();
-		
+			    //System.out.println(expr.toString());
 				return true;
 			}
 			case ISLITERAL:{
@@ -135,7 +137,7 @@ public class BuiltInCall extends Production{
 			
 				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
 				$.next();
-		
+			    //System.out.println(expr.toString());
 				return true;
 			}
 			
@@ -156,7 +158,7 @@ public class BuiltInCall extends Production{
 				
 				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
 				$.next();
-		
+			    //System.out.println(expr.toString());
 				return true;
 			}
 			case SAMETERM:{
@@ -178,7 +180,7 @@ public class BuiltInCall extends Production{
 				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
 				$.next();
 
-				
+			    //System.out.println(expr.toString());
 				return true;
 			}
 				
@@ -196,7 +198,7 @@ public class BuiltInCall extends Production{
 				if ( $.current.token != Token.RIGTH_PARENTH ) return false;
 				$.next();
 				
-				
+			    //System.out.println(expr.toString());
 				return true;
 			}
 			default:{
@@ -224,7 +226,7 @@ public class BuiltInCall extends Production{
 		ans.add(Token.ISURI);
 		ans.add(Token.ISBLANK);
 		ans.add(Token.ISLITERAL);
-		
+		ans.add(Token.REGEX);
 		return ans;
 	}
 	

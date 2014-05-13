@@ -22,9 +22,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -44,6 +46,7 @@ import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.sparql.function.library.e;
 
 import lexic.Alex;
 import sintax.$;
@@ -161,6 +164,7 @@ public class Interface extends JFrame{
 	JTextPane			outline;
 	JScrollPane			results;
 	JTabbedPane 		tabs;
+	JCheckBox 			check_box;
 	
 	private Component initRight()
 	{
@@ -200,10 +204,14 @@ public class Interface extends JFrame{
 		document.setBackground(Color.white);
 		document.setOpaque(true);
 		
+		check_box = new JCheckBox("Reduced Mode");
+		check_box.setBackground(blue);
+		
 		JButton check_button= new JButton(" EXECUTE ");
 		check_button.setBackground(blue);
 		
 		JPanel pane_r= new JPanel(new FlowLayout(2));
+		pane_r.add(check_box);
 		pane_r.add(check_button);
 		pane_r.setBackground(blue);
 		
@@ -319,7 +327,7 @@ public class Interface extends JFrame{
 		
 		try{
 			outline.setText(run_checking(new FileInputStream(f)));
-		}catch(Exception ex){outline.setText("An error has ocurred while checking ;(\n\n"+ex.getMessage());}
+		}catch(Exception ex){outline.setText("Error de ejecución\n"+ex.getMessage());}
 		
 		/*
 		 * closure
@@ -377,16 +385,26 @@ public class Interface extends JFrame{
 		while(ans.hasNext())
 		{
 			QuerySolution qs= ans.next();				
-			
+			Iterator<String> itr = qs.varNames();
 			Object[] col = new Object[cols.length];
 			for(int i=0; i<cols.length; i++)
 			{
 				try
 				{
-					String s= qs.getResource((String)cols[i]).toString();
-					int index= s.lastIndexOf('#');
-					if(index>0)
-						s= s.substring(index+1);
+					String s = qs.get(itr.next()).toString();
+					if(check_box.isSelected())
+					{//simplify output
+						int index;
+						if(s.contains("^^")){
+							index = s.indexOf("^");
+							s = s.substring(0, index);
+						}else{
+							index= s.lastIndexOf('#');
+							if(index>0)
+							s= s.substring(index+1);
+						}
+						
+					}
 					col[i]= s;
 				}
 				catch(Exception ex)

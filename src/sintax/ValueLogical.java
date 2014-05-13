@@ -60,73 +60,47 @@ public class ValueLogical extends Production{
 	Expr expr = null;
 	@Override
 	public boolean process() throws IOException{
-		if($.current.token  == SUB  || $.current.token  == NOT || $.current.token  == PLUS
-				|| $.current.token  == LEFT_PARENTH|| $.current.token  == STR|| $.current.token  == LANG
-				|| $.current.token  == LANGMATCHES|| $.current.token  == DATATYPE|| $.current.token  == BOUND
-				|| $.current.token  == SAMETERM|| $.current.token  == ISIRI|| $.current.token  == ISURI
-				|| $.current.token  == STRING_LITERAL1|| $.current.token  == STRING_LITERAL2 || $.current.token  == STRING_LITERAL_LONG1
-				|| $.current.token  == STRING_LITERAL_LONG2|| $.current.token  == INTEGER|| $.current.token  == DECIMAL
-				|| $.current.token  == DOUBLE || $.current.token  == INTEGER_POSITIVE || $.current.token  == DECIMAL_POSITIVE
-				|| $.current.token  == DOUBLE_POSITIVE || $.current.token  == INTEGER_NEGATIVE || $.current.token  == DECIMAL_NEGATIVE
-				|| $.current.token  == DOUBLE_NEGATIVE || $.current.token  == TRUE || $.current.token  == FALSE
-				|| $.current.token  == VAR1 || $.current.token  ==VAR2
-				){
 			
 			NumericExpression ne = (NumericExpression) $.get("NumericExpression");
 			NumericExpression ne2 = (NumericExpression) $.get("NumericExpression");
 			if(!ne.analize()) return false;
 			this.expr = ne.expr;
-			System.out.println("v1:"+ne.expr.toString());
 			switch($.current.token){
 				case EQUAL:
 					$.next();
 					if(!ne2.analize()) return false;
-					System.out.println("v2"+ne2.expr.toString());
 					this.expr = new E_Equals(ne.expr, ne2.expr);
-					System.out.println("="+expr.toString());
 					break;
 				case NOT_EQUAL:
 					$.next();
 					if(!ne2.analize()) return false;
-					System.out.println("v2"+ne2.expr.toString());
 					this.expr = new E_NotEquals(ne.expr, ne2.expr);
-					System.out.println("!="+expr.toString());
 					break;
 				case LESS:
 					$.next();
 					if(!ne2.analize()) return false;
-					System.out.println("v2"+ne2.expr.toString());
 					this.expr = new E_LessThan(ne.expr, ne2.expr);
-					System.out.println("<"+expr.toString());
 					break;
 				case GREATER:
 					$.next();
 					if(!ne2.analize()) return false;
-					System.out.println("v2"+ne2.expr.toString());
 					this.expr = new E_GreaterThan(ne.expr, ne2.expr);
-					System.out.println(">"+expr.toString());
 					break;
 				case LET:
 					$.next();
 					if(!ne2.analize()) return false;
-					System.out.println("v2"+ne2.expr.toString());
 					this.expr = new E_LessThanOrEqual(ne.expr, ne2.expr);
-					System.out.println("<="+expr.toString());
 					break;
 				case GET:
 					$.next();
 					if(!ne2.analize()) return false;
-					System.out.println("v2"+ne2.expr.toString());
 					this.expr = new E_GreaterThanOrEqual(ne.expr, ne2.expr);
-					System.out.println(">="+expr.toString());
 					break;
 					
 			}
 			
 			if($.current.token != OR && $.current.token != AND  && $.current.token != COMMA && $.current.token != RIGTH_PARENTH  )
 				return false;
-			
-		}
 		return true;
 	}
 	

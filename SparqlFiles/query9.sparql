@@ -23,9 +23,10 @@ UNION
           ?medicamento foaf:MedicamentoExcipientes ?excipiente
    }
     FILTER (
-                    ?medicamento = <http://localhost/ontologia_medicamentos.xml#Moxtam> 
-                    || ?excipente = <http://localhost/ontologia_medicamentos.xml#Fructuosa>
+                     ?medicamento = <http://localhost/ontologia_medicamentos.xml#Moxtam> 
+                    &&
+                    ?excipiente = <http://localhost/ontologia_medicamentos.xml#Fructuosa>
                    )             
 }
 ORDER BY ASC (?excipiente)
-LIMIT 2
+LIMIT 10

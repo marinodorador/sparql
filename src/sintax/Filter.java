@@ -20,7 +20,6 @@ public class Filter extends Production{
 			$.next();
 			BrackettedExpression be = (BrackettedExpression)$.get("BrackettedExpression");
 			result = be.analize();
-			System.out.println(be.expr.getVarName());
 			node = new ElementFilter(be.expr);
 		}
 		

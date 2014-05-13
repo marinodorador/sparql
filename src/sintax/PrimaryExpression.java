@@ -26,7 +26,6 @@ public class PrimaryExpression extends Production{
 		NumericLiteral 			numLit 	= (NumericLiteral)$.get("NumericLiteral");
 		BooleanLiteral 			blit 	= (BooleanLiteral)$.get("BooleanLiteral");
 		Var 					var 	= (Var)$.get("Var");
-		
 		if(bexpr.analize()){
 			this.expr = bexpr.expr;
 		}else if(bcall.analize()){

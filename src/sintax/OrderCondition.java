@@ -26,7 +26,6 @@ public class OrderCondition extends Production{
 				$.next();
 				BrackettedExpression be = (BrackettedExpression) $.get("BrackettedExpression");
 				if(!be.analize()) return false;
-				System.out.println("ASC");
 				sortCondition = new SortCondition(be.expr,com.hp.hpl.jena.query.Query.ORDER_ASCENDING);
 				break;
 			}
@@ -35,7 +34,6 @@ public class OrderCondition extends Production{
 				BrackettedExpression be = (BrackettedExpression) $.get("BrackettedExpression");
 				if(!be.analize()) return false;
 				sortCondition = new SortCondition(be.expr,com.hp.hpl.jena.query.Query.ORDER_DESCENDING);
-				System.out.println("DESC");
 				break;
 			}
 			case LEFT_PARENTH:{

@@ -27,7 +27,6 @@ public class MultiplicativeExpression extends Production{
 		if(!ue.analize()) return false;
 		
 		this.expr = ue.expr;
-		
 		while($.current.token  == MULT || $.current.token  == DIV){
 			switch($.current.token ){
 				case MULT:{

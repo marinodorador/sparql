@@ -14,5 +14,3 @@ src/sintax/LimitClause.java
 src/sintax/Production.java
 src/sintax/ValueLogical.java
 src/view/Interface.java
-.classpath
-src/sintax/IRIrefOrFunction.java

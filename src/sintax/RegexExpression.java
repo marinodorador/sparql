@@ -30,6 +30,7 @@ public class RegexExpression extends Production{
 			$.next();
 			if(!e3.analize())return false;
 			expr = new E_Regex(e1.expr, e2.expr, e3.expr);
+			
 		
 		}else{
 			expr = new E_Regex(e1.expr, e2.expr,null);

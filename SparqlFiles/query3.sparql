@@ -2,10 +2,31 @@ PREFIX foaf: <http://localhost/ontologia_medicamentos.xml#>
 PREFIX owl:<http://www.w3.org/2002/07/owl#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX swrc: <http://swrc.ontoware.org/ontology#>
+PREFIX swrc-ext: <http://www.cs.vu.nl/~mcaklein/onto/swrc_ext/2005/05#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX ical: <http://www.w3.org/2002/12/cal/ical#>
+PREFIX swc: <http://data.semanticweb.org/ns/swc/ontology#>
 
-SELECT ?x ?num
-FROM <http://localhost/ontologia_medicamentos.xml> 
-WHERE {
-   ?x rdf:type foaf:Excipiente .
-   ?x foaf:NumeroCasValue ?num
-}
+SELECT * 
+ FROM <c:/users/federico/desktop/ontologia_medicamentos.xml>
+WHERE 
+{
+  ?medicamento a foaf:Medicamento;
+    foaf:hasVidaMedia ?vidaMedia;
+    foaf:MedicamentoPrincipiosActivos ?PrincipioActivo;
+    foaf:hasNombre ?Nombre;
+    foaf:hasContenido ?Contenido;
+    foaf:hasLaboratorio ?Laboratorio;
+    foaf:hasFechaCaducidad ?Caducidad;
+    FILTER (?vidaMedia > 60 *2/ 2)
+    FILTER  (DATATYPE ( ?Nombre )  = <http://www.w3.org/2001/XMLSchema#string> ) 
+    FILTER (?vidaMedia <= 240)
+    FILTER (
+                     ?medicamento = <http://localhost/ontologia_medicamentos.xml#Moxtam> &&
+                    ?PrincipioActivo =  <http://localhost/ontologia_medicamentos.xml#Amoxacilina>)
+} 
+ORDER BY ?vidaMedia
+LIMIT 4

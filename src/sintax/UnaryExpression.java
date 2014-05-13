@@ -20,14 +20,12 @@ public class UnaryExpression extends Production{
 	 */
 	public boolean process() throws IOException{
 		PrimaryExpression pe = (PrimaryExpression)$.get("PrimaryExpression");
-		
 		boolean result = false;
-		
 		switch($.current.token ){
 			case NOT:
 				$.next();
 				result = pe.analize();
-				this.expr = new E_LogicalNot(pe.expr);
+				this.expr = new E_LogicalNot(pe.expr);;
 			break;
 			case PLUS:
 				$.next();
@@ -42,12 +40,9 @@ public class UnaryExpression extends Production{
 			default:
 				result = pe.analize();
 				this.expr = pe.expr;
-				System.out.println("unary"+expr.toString());
+				break;
 		}
-		
-		
-		
-		
+
 		return result;
 	}
 	

@@ -15,7 +15,6 @@ public class OrderClause extends Production{
 	public boolean process() throws IOException{
 		if($.current.token != Token.ORDER_BY) return false;
 		$.next();
-		System.out.println($.current.token.toString());
 		do{
 			if( $.current.token == Token.ASC ||  
 					$.current.token == Token.DESC ||

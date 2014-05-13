@@ -22,14 +22,12 @@ public class BrackettedExpression extends Production{
 			return false;
 		
 		$.next();
-		System.out.println("Holi");
 		Expression e = (Expression)$.get("Expression");
 		
 		if(!e.analize())
 			return false;
 		
 		expr = e.expr;
-		System.out.println(expr.getVarName());
 		if($.current.token != Token.RIGTH_PARENTH) return false;
 		$.next();
 		
