@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.hp.hpl.jena.graph.NodeFactory;
-import com.hp.hpl.jena.graph.Node_URI;
 import com.hp.hpl.jena.sparql.expr.E_Function;
-import com.hp.hpl.jena.sparql.expr.E_IRI;
 import com.hp.hpl.jena.sparql.expr.Expr;
+<<<<<<< HEAD
 import com.hp.hpl.jena.sparql.expr.ExprList;
 import com.hp.hpl.jena.sparql.expr.NodeValue;
+=======
+>>>>>>> a457f086c182de5ce7bfd71f02b1e84ed8b99618
 import com.hp.hpl.jena.sparql.expr.nodevalue.NodeValueNode;
 
 import lexic.Token;
@@ -32,14 +33,25 @@ public class IRIrefOrFunction extends Production{
 			IRIref iref = (IRIref)$.get("IRIref");
 
 			if(!iref.analize()) return false;
+<<<<<<< HEAD
 
 
 			this.expr = new NodeValueNode(NodeFactory.createURI(iref.val));
 
+=======
+			
+			this.expr = new NodeValueNode(NodeFactory.createURI(iref.val));
+>>>>>>> a457f086c182de5ce7bfd71f02b1e84ed8b99618
 			if($.current.token == Token.NIL || $.current.token == Token.LEFT_PARENTH){
 				ArgList al = (ArgList)$.get("ArgList");
 				if(!al.analize()) return false;
 				this.expr = new E_Function(iref.val,al.expr);
+<<<<<<< HEAD
+=======
+				
+			}else{
+				System.out.println(expr.getVarName());
+>>>>>>> a457f086c182de5ce7bfd71f02b1e84ed8b99618
 			}
 
 			System.out.println("iri:"+ expr.toString());

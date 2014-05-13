@@ -38,7 +38,6 @@ public abstract class Production{
 		
 		//System.out.println(this.getClass().getSimpleName());
 		boolean ans=false;
-		boolean ans1 = true;
 
 		int trace= MistakeLog.mistakesLog.size();
 		Token current= $.current.token;
@@ -50,7 +49,6 @@ public abstract class Production{
 			{
 				//2 calls process, which is individually built in each instance
 				ans= process();
-				ans1 = ans;
 				break;
 			}
 		}

@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -31,15 +32,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
+import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.query.ResultSetFormatter;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 import lexic.Alex;
@@ -156,7 +159,7 @@ public class Interface extends JFrame{
 	JLabel	 			document;
 	JTextPane			text;
 	JTextPane			outline;
-	JTextPane			results;
+	JScrollPane			results;
 	JTabbedPane 		tabs;
 	
 	private Component initRight()
@@ -269,16 +272,12 @@ public class Interface extends JFrame{
 	
 	private Component initResults()
 	{
-		results= new JTextPane();
-		results.setEditable(true);
-		JScrollPane scroll= new JScrollPane(results);
+		results= new JScrollPane(new JPanel());
 		
 		results.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-		results.setEditable(false);
-		scroll.setBorder(null);
-		scroll.setName("Results");
+		results.setName("Results");
 		
-		return scroll;
+		return results;
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////
@@ -356,17 +355,58 @@ public class Interface extends JFrame{
 		    }
 			QueryExecution qe = QueryExecutionFactory.create(Query.query, model);
 			ResultSet ans = qe.execSelect();
+						
+			results.setViewportView(toTable(ans));
 			
-			results.setText(ResultSetFormatter.asText(ans));
 			tabs.setSelectedIndex(1);
 			
-			return "La expresión es correcta";
+			return "La expresion es correcta";
 		}
 		else
 		{
-			results.setText("");
 			tabs.setSelectedIndex(0);
-			return "Ha ocurrido una excepción: \n"+MistakeLog.report();
+			return "Ha ocurrido una excepcion: \n"+MistakeLog.report();
 		}
+	}
+	
+	private JTable toTable(ResultSet ans)
+	{
+		Object[] cols = ans.getResultVars().toArray();
+		ArrayList<Object[]> dataList = new ArrayList<Object[]>();
+		
+		while(ans.hasNext())
+		{
+			QuerySolution qs= ans.next();				
+			
+			Object[] col = new Object[cols.length];
+			for(int i=0; i<cols.length; i++)
+			{
+				try
+				{
+					String s= qs.getResource((String)cols[i]).toString();
+					int index= s.lastIndexOf('#');
+					if(index>0)
+						s= s.substring(index+1);
+					col[i]= s;
+				}
+				catch(Exception ex)
+				{
+					col[i]="";
+				}
+			}
+					
+			
+			dataList.add(col);
+			
+		}
+		
+		Object[][] data = new Object[dataList.size()][cols.length];
+		for ( int i=0 ; i<dataList.size() ; i++)
+			data[i]=dataList.get(i);
+			
+        
+		JTable table = new JTable(new DefaultTableModel(data,cols));
+		
+		return table;
 	}
 }
