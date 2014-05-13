@@ -22,7 +22,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -36,10 +35,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
 
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
@@ -47,9 +43,7 @@ import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.query.ResultSetFormatter;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.sparql.core.Var;
 
 import lexic.Alex;
 import sintax.$;
@@ -361,43 +355,8 @@ public class Interface extends JFrame{
 		    }
 			QueryExecution qe = QueryExecutionFactory.create(Query.query, model);
 			ResultSet ans = qe.execSelect();
-			
-			/*
-			 * 
-			 */
-			Object[] cols = ans.getResultVars().toArray();
-			ArrayList<Object[]> dataList = new ArrayList<Object[]>();
-			
-			while(ans.hasNext())
-			{
-				QuerySolution qs= ans.next();				
-				
-				Object[] col = new Object[cols.length];
-				for(int i=0; i<cols.length; i++)
-				{
-					try
-					{
-						col[i]=qs.getResource((String)cols[i]);
-					}
-					catch(Exception ex)
-					{
-						col[i]="";
-					}
-				}
 						
-				
-				dataList.add(col);
-				
-			}
-			
-			Object[][] data = new Object[dataList.size()][cols.length];
-			for ( int i=0 ; i<dataList.size() ; i++)
-				data[i]=dataList.get(i);
-				
-	        
-			JTable table = new JTable(new DefaultTableModel(data,cols));
-			
-			results.setViewportView(table);
+			results.setViewportView(toTable(ans));
 			
 			tabs.setSelectedIndex(1);
 			
@@ -408,5 +367,46 @@ public class Interface extends JFrame{
 			tabs.setSelectedIndex(0);
 			return "Ha ocurrido una excepcion: \n"+MistakeLog.report();
 		}
+	}
+	
+	private JTable toTable(ResultSet ans)
+	{
+		Object[] cols = ans.getResultVars().toArray();
+		ArrayList<Object[]> dataList = new ArrayList<Object[]>();
+		
+		while(ans.hasNext())
+		{
+			QuerySolution qs= ans.next();				
+			
+			Object[] col = new Object[cols.length];
+			for(int i=0; i<cols.length; i++)
+			{
+				try
+				{
+					String s= qs.getResource((String)cols[i]).toString();
+					int index= s.lastIndexOf('#');
+					if(index>0)
+						s= s.substring(index+1);
+					col[i]= s;
+				}
+				catch(Exception ex)
+				{
+					col[i]="";
+				}
+			}
+					
+			
+			dataList.add(col);
+			
+		}
+		
+		Object[][] data = new Object[dataList.size()][cols.length];
+		for ( int i=0 ; i<dataList.size() ; i++)
+			data[i]=dataList.get(i);
+			
+        
+		JTable table = new JTable(new DefaultTableModel(data,cols));
+		
+		return table;
 	}
 }
